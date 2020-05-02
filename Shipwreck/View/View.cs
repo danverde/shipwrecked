@@ -31,6 +31,7 @@ namespace Shipwreck.View
                 {
                     return;
                 }
+                done = DoAction(value);
             } while (!done);
         }
 

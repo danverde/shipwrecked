@@ -7,11 +7,10 @@ namespace Shipwreck.View
     class LauncherView : View
     {
         public LauncherView()
-            :base("Press Enter to start") // C#'s version of super()
         {
             DisplayBanner();
-            // MainMenuView mainMenuView = new MainMenuView();
-            // mainMenuView.Display();
+            MainMenuView mainMenuView = new MainMenuView();
+            mainMenuView.Display();
         }
 
         private void DisplayBanner()
@@ -29,11 +28,10 @@ namespace Shipwreck.View
             Console.WriteLine(banner);
         }
 
-        // TODO not working as expected
-        // override means it's implementing an abstract method defined in a parent class
-        public override bool DoAction(string input)
+        // only needed to satisfy the interface...
+        public override bool DoAction(string value)
         {
-            return true;
+            return false;
         }
     }
 }

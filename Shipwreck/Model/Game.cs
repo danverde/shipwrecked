@@ -6,6 +6,12 @@ namespace Shipwreck.Model
 {
     class Game
     {
-        private Character currentCharacter = null;
+        public Player Player { get; private set; }
+
+        public Game(Player player)
+        {
+            Player = player;
+        }
+
     }
 }

@@ -4,14 +4,12 @@ using System.Text;
 
 namespace Shipwreck.Model
 {
-    class Character
+    class Player : Character
     {
-        public string Name { get; set; }
-        private int Health;
 
-
-        public Character()
+        public Player(string name)
         {
+            Name = name;
         }
     }
 }

@@ -4,9 +4,9 @@ using System;
 
 namespace Shipwreck
 {
-    class Program
+    class Shipwreck
     {
-        private Game currentGame = null;
+        public static Game currentGame;
         static void Main(string[] args)
         {
             LauncherView launcherView = new LauncherView();
