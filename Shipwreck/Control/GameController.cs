@@ -11,7 +11,6 @@ namespace Shipwreck.Control
         {
             Player player = new Player(characterName);
             Shipwreck.currentGame = new Game(player);
-
         }
     }
 }

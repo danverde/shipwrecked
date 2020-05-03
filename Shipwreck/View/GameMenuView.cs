@@ -1,4 +1,5 @@
-﻿using Shipwreck.Model;
+﻿using Shipwreck.Control;
+using Shipwreck.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -38,12 +39,17 @@ namespace Shipwreck.View
             Player player = Shipwreck.currentGame.Player;
             Console.WriteLine("\nCharacter Stats:"
                 + $"\nName:{player.Name}"
+                + $"\nHealth:{player.Health}"
                 + "\n------------------");
+
+            Console.WriteLine("Press any key to continue");
+            Console.ReadKey();
         }
 
         private void OpenHelpView()
         {
-            throw new NotImplementedException();
+            HelpMenuView helpMenuView = new HelpMenuView();
+            helpMenuView.Display();
         }
     }
 }

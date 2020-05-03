@@ -70,7 +70,8 @@ namespace Shipwreck.View
 
         private void OpenHelpView()
         {
-            throw new NotImplementedException();
+            HelpMenuView helpMenuView = new HelpMenuView();
+            helpMenuView.Display();
         }
     }
 }
