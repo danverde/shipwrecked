@@ -14,6 +14,7 @@ namespace Shipwreck.View
                   + "\n| Game Menu"
                   + "\n----------------------------------"
                   + "\nC - View Character"
+                  + "\nS - Starve to death"
                   + "\nX - End it all (Exit Game)"
                   + "\nH - Help Menu"
                   + "\n----------------------------------")
@@ -27,6 +28,9 @@ namespace Shipwreck.View
                 case "C":
                     ShowPlayerStats();
                     break;
+                case "S":
+                    StarveToDeath();
+                    break;
                 case "H":
                     OpenHelpView();
                     break;
@@ -36,7 +40,7 @@ namespace Shipwreck.View
 
         private void ShowPlayerStats()
         {
-            Player player = Shipwreck.currentGame.Player;
+            Player player = Shipwreck.CurrentGame.Player;
             Console.WriteLine("Character Stats:");
             Console.WriteLine($"Name: {player.Name}");
             Console.WriteLine($"Heath: {player.Health}");
@@ -49,6 +53,14 @@ namespace Shipwreck.View
             Console.ReadKey();
             // Console.SetCursorPosition(0, Console.CursorTop - 1);
             // Console.Write(new string(' ', Console.WindowWidth));
+        }
+
+        private void StarveToDeath()
+        {
+            while (Shipwreck.CurrentGame != null)
+            {
+                GameController.AdvanceDay();
+            }
         }
 
         private void OpenHelpView()

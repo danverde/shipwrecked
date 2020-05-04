@@ -7,10 +7,10 @@ namespace Shipwreck.Model
     class Player : Character
     {
         public int Hunger { get; set; }
-        public Player(string name)
+        public Player(string name, int hunger = 0)
             :base(name)
         {
-            Hunger = 0;
+            Hunger = hunger;
         }
 
         // maybe add an eat method? or does that break the MVC approach...?

@@ -6,10 +6,10 @@ namespace Shipwreck.Model
 {
     class Weapon : Item
     {
-        private int AttackPower { get; }
+        public int AttackPower { get; }
 
-        public Weapon(string itemType, int attackPower = 1)
-            :base(itemType)
+        public Weapon(string name, int attackPower = 1)
+            :base(name)
         {
             AttackPower = attackPower;
         }

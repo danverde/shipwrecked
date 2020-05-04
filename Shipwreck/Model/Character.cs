@@ -11,6 +11,7 @@ namespace Shipwreck.Model
         public int Health { get; set; }
         public int Attack { get; set; }
         public int Defense { get; private set; }
+        public bool IsAlive { get; private set; }
         
         public Inventory Inventory { get; }
         // private Location Location { get; }
@@ -24,6 +25,11 @@ namespace Shipwreck.Model
             Defense = defense;
 
             Inventory = new Inventory();
+        }
+
+        public void KillCharacter()
+        {
+            IsAlive = false;
         }
     }
 }

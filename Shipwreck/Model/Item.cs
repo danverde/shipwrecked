@@ -6,13 +6,14 @@ namespace Shipwreck.Model
 {
     class Item
     {
-        public string ItemType { get; protected set; }
-        // private int Quantity { get; } // Pretty sure the inventory should handle this...
+        public string Name { get; protected set; }
+        public int Quantity { get; set; } // Inventory should handle quantity
         // private bool Droppable { get; set; }
 
-        public Item(string itemType)
+        public Item(string name, int quantity = 1)
         {
-            ItemType = itemType;
+            Name = name;
+            Quantity = quantity;
         }
     }
 }

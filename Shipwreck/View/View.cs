@@ -6,7 +6,7 @@ namespace Shipwreck.View
 {
     abstract class View : IView
     {
-
+        private bool AllowEmpty;
         protected string displayMessage;
 
         // so that you don't have to pass a message to the constructor of a view
@@ -15,9 +15,10 @@ namespace Shipwreck.View
 
         }
 
-        public View(string message)
+        public View(string message, bool allowEmpty = false)
         {
             displayMessage = message;
+            AllowEmpty = allowEmpty;
         }
 
         // public override void Display()?
@@ -48,7 +49,7 @@ namespace Shipwreck.View
                 value = Console.ReadLine();
                 value = value.Trim();
 
-                if (value.Length < 1)
+                if (value.Length < 1 && !AllowEmpty)
                 {
                     Console.WriteLine("\nInvalid value. Entry cannot be blank");
                     continue;
