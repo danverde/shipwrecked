@@ -16,7 +16,6 @@ namespace Shipwreck.View
             GameController.CreateNewGame(value);
             GameMenuView gameMenuView = new GameMenuView();
             gameMenuView.Display();
-            // not sure how to pass the name to the controller....
             return true;
         }
     }

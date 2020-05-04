@@ -37,13 +37,18 @@ namespace Shipwreck.View
         private void ShowPlayerStats()
         {
             Player player = Shipwreck.currentGame.Player;
-            Console.WriteLine("\nCharacter Stats:"
-                + $"\nName:{player.Name}"
-                + $"\nHealth:{player.Health}"
-                + "\n------------------");
+            Console.WriteLine("Character Stats:");
+            Console.WriteLine($"Name: {player.Name}");
+            Console.WriteLine($"Heath: {player.Health}");
+            Console.WriteLine($"Hunger: {player.Hunger}");
+            Console.WriteLine($"Attack: {player.Attack}");
+            Console.WriteLine($"Defense: {player.Defense}");
+            Console.WriteLine("-------------------------");
 
             Console.WriteLine("Press any key to continue");
             Console.ReadKey();
+            // Console.SetCursorPosition(0, Console.CursorTop - 1);
+            // Console.Write(new string(' ', Console.WindowWidth));
         }
 
         private void OpenHelpView()

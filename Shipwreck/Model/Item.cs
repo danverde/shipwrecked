@@ -6,8 +6,13 @@ namespace Shipwreck.Model
 {
     class Item
     {
-        private string ItemType { get; }
-        private int Quantity { get; }
-        private bool Droppable { get; set; }
+        public string ItemType { get; protected set; }
+        // private int Quantity { get; } // Pretty sure the inventory should handle this...
+        // private bool Droppable { get; set; }
+
+        public Item(string itemType)
+        {
+            ItemType = itemType;
+        }
     }
 }
