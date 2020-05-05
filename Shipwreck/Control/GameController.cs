@@ -29,8 +29,10 @@ namespace Shipwreck.Control
             
         }
 
-        private static void EndGame()
+        public static void EndGame()
         {
+            Shipwreck.CurrentGame = null;
+
             GameOverView gameOverView = new GameOverView();
             gameOverView.Display();
         }
