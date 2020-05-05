@@ -8,8 +8,8 @@ namespace Shipwreck.Model
     {
         public int HealingPower { get; }
 
-        public Food(string itemType, int healingPower)
-            :base(itemType)
+        public Food(string itemType, string description, int healingPower)
+            :base(itemType, description)
         {
             HealingPower = healingPower;
         }

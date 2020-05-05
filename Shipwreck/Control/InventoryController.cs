@@ -9,9 +9,10 @@ namespace Shipwreck.Control
     {
         public static void AddDefaultItemsToInventory(Inventory inventory)
         {
-            Weapon fists = new Weapon("Fists", 1);
-            Food fish = new Food("Fish", 3);
-            inventory.ActiveWeapon = fists;
+            Weapon fists = new Weapon("Fists", "Fists of Fury", 1);
+            Food fish = new Food("Fish", "Fresh fish", 3);
+            inventory.AddItem(fists);
+            inventory.ActiveWeapon = fists; // how do I make it so that the active weapon references an item in the inventory?
             inventory.AddItem(fish);
 
         }

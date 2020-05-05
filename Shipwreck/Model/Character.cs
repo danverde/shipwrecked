@@ -9,8 +9,8 @@ namespace Shipwreck.Model
         public string Name { get; set; }
         public int MaxHealth { get; set; }
         public int Health { get; set; }
-        public int Attack { get; set; }
-        public int Defense { get; private set; }
+        public int BaseAttack { get; set; }
+        public int BaseDefense { get; private set; }
         public bool IsAlive { get; private set; }
         
         public Inventory Inventory { get; }
@@ -21,8 +21,8 @@ namespace Shipwreck.Model
             Name = name;
             Health = health;
             MaxHealth = maxHealth;
-            Attack = attack;
-            Defense = defense;
+            BaseAttack = attack;
+            BaseDefense = defense;
 
             Inventory = new Inventory();
         }

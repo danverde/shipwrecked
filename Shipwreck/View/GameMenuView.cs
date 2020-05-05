@@ -14,6 +14,7 @@ namespace Shipwreck.View
                   + "\n| Game Menu"
                   + "\n----------------------------------"
                   + "\n C - View Character"
+                  + "\n I - View Inventory"
                   + "\n W - Wait for rescue"
                   + "\n H - Help Menu"
                   + "\n X - End it all (Exit Game)"
@@ -29,9 +30,11 @@ namespace Shipwreck.View
                 case "C":
                     ShowPlayerStats();
                     break;
+                case "I":
+                    ShowInventory();
+                    break;
                 case "W":
-                    WaitItOut();
-                    done = true;
+                    done = WaitItOut();
                     break;
                 case "H":
                     OpenHelpView();
@@ -43,12 +46,14 @@ namespace Shipwreck.View
         private void ShowPlayerStats()
         {
             Player player = Shipwreck.CurrentGame.Player;
-            Console.WriteLine("Character Stats:");
-            Console.WriteLine($"Name: {player.Name}");
-            Console.WriteLine($"Heath: {player.Health}");
-            Console.WriteLine($"Hunger: {player.Hunger}");
-            Console.WriteLine($"Attack: {player.Attack}");
-            Console.WriteLine($"Defense: {player.Defense}");
+            // int playerAttack = // TODO where should this come from?
+
+            Console.WriteLine("\n-------------------------\n Character Stats:");
+            Console.WriteLine($" Name: {player.Name}");
+            Console.WriteLine($" Heath: {player.Health}");
+            Console.WriteLine($" Hunger: {player.Hunger}");
+            Console.WriteLine($" Attack: {player.BaseAttack}");
+            Console.WriteLine($" Defense: {player.BaseDefense}");
             Console.WriteLine("-------------------------");
 
             Console.WriteLine("Press any key to continue");
@@ -57,13 +62,41 @@ namespace Shipwreck.View
             // Console.Write(new string(' ', Console.WindowWidth));
         }
 
-        private void WaitItOut()
+        private void ShowInventory()
         {
-            // I think this is looping even when it should be done
-            while (Shipwreck.CurrentGame != null)
+            StringBuilder line;
+            Inventory inventory = Shipwreck.CurrentGame.Player.Inventory;
+
+            Console.WriteLine("\n-------------------------\n Inventory:\n-------------------------");
+            Console.WriteLine($" Active Weapon: {inventory.ActiveWeapon.Name} +{inventory.ActiveWeapon.AttackPower}");
+            Console.WriteLine($" Active Armor: ");
+
+            line = new StringBuilder("                                              ");
+            line.Insert(1, "ITEM");
+            line.Insert(16, "QTY");
+            line.Insert(20, "DESC");
+            Console.WriteLine(line);
+
+            foreach (Item item in inventory.Items)
             {
-                GameController.AdvanceDay();
+                line = new StringBuilder("                                              ");
+                line.Insert(1, item.Name);
+                line.Insert(16, item.Quantity);
+                line.Insert(20, item.Description);
+                Console.WriteLine(line);
             }
+            Console.WriteLine("-------------------------");
+
+            Console.WriteLine("Press any key to continue");
+            Console.ReadKey();
+        }
+
+        private bool WaitItOut()
+        {
+            WaitView waitView = new WaitView();
+            waitView.Display();
+
+            return Shipwreck.CurrentGame == null ? true: false;
         }
 
         private void OpenHelpView()

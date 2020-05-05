@@ -18,9 +18,16 @@ namespace Shipwreck.Control
             Shipwreck.NewDayView.Display();
         }
 
-        public static void AdvanceDay()
+        public static void Wait(int numDays)
         {
+            for (int i = 0; i < numDays && Shipwreck.CurrentGame != null; i++)
+            {
+                AdvanceDay();
+            }
+        }
 
+        private static void AdvanceDay()
+        {
             Shipwreck.CurrentGame.IncrementDay();
             Shipwreck.NewDayView.Display();
 
@@ -29,7 +36,6 @@ namespace Shipwreck.Control
             {
                 EndGame();
             }
-            
         }
 
         private static void EndGame()

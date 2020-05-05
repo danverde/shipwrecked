@@ -10,7 +10,7 @@ namespace Shipwreck.Control
 
         public static int Attack(Character defendingCharacter, Character attackingCharacter)
         {
-            int damageAmount = attackingCharacter.Attack + attackingCharacter.Inventory.ActiveWeapon.AttackPower - defendingCharacter.Defense;
+            int damageAmount = attackingCharacter.BaseAttack + attackingCharacter.Inventory.ActiveWeapon.AttackPower - defendingCharacter.BaseDefense;
             if (damageAmount <= 0)
             {
                 damageAmount = 0;
