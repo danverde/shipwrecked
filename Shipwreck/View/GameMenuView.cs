@@ -23,6 +23,7 @@ namespace Shipwreck.View
         public override bool DoAction(string value)
         {
             value = value.ToUpper();
+            bool done = false;
             switch(value)
             {
                 case "C":
@@ -30,12 +31,13 @@ namespace Shipwreck.View
                     break;
                 case "S":
                     StarveToDeath();
+                    done = true;
                     break;
                 case "H":
                     OpenHelpView();
                     break;
             }
-            return false;
+            return done;
         }
 
         private void ShowPlayerStats()
@@ -57,6 +59,7 @@ namespace Shipwreck.View
 
         private void StarveToDeath()
         {
+            // I think this is looping even when it should be done
             while (Shipwreck.CurrentGame != null)
             {
                 GameController.AdvanceDay();

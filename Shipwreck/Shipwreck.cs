@@ -7,8 +7,8 @@ namespace Shipwreck
     class Shipwreck
     {
         public static Game CurrentGame;
-        // public static MainMenuView MainMenuView;
-        // public static GameMenuView GameMenuView;
+        public static MainMenuView MainMenuView;
+        public static GameMenuView GameMenuView;
         static void Main(string[] args)
         {
            InitilizeViews();
@@ -29,8 +29,8 @@ namespace Shipwreck
 
         private static void InitilizeViews()
         {
-            // MainMenuView = new MainMenuView();
-            // GameMenuView = new GameMenuView(); // OR I could just make all my views static... I don't see any reason for them not to be.....
+            MainMenuView = new MainMenuView();
+            GameMenuView = new GameMenuView(); // OR I could just make all my views static... I don't see any reason for them not to be.....
         }
     }
 }

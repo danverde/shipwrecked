@@ -28,12 +28,13 @@ namespace Shipwreck.View
             do
             {
                 string value = GetInput();
+                // this lets you close out of the game without actually closing anything. Does that matter?
                 if (value.ToUpper() == "X")
                 {
                     return;
                 }
                 done = DoAction(value);
-            } while (!done);
+            } while (done == false);
         }
 
         // public override string GetInput()?

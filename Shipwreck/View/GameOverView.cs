@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shipwreck.Control;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -11,10 +12,13 @@ namespace Shipwreck.View
         {}
         public override bool DoAction(string value)
         {
-            // is this going to create memory leaks?
+            // GameController.EndGame();
+            // this ought to be part of game control
             Shipwreck.CurrentGame = null;
-            MainMenuView mainMenuView = new MainMenuView();
-            mainMenuView.Display();
+
+            // how to kick out of the current view loops?
+            // Shipwreck.GameMenuView.Close();
+            // Shipwreck.MainMenuView.Display();
             return true;
         }
     }
