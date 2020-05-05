@@ -15,12 +15,15 @@ namespace Shipwreck.Control
             InventoryController.AddDefaultItemsToInventory(player.Inventory);
 
             Shipwreck.CurrentGame = new Game(player);
+            Shipwreck.NewDayView.Display();
         }
 
         public static void AdvanceDay()
         {
-            
+
             Shipwreck.CurrentGame.IncrementDay();
+            Shipwreck.NewDayView.Display();
+
             Shipwreck.CurrentGame.Player.Hunger += 3; // this probably ought to be a value somewhere
             if (Shipwreck.CurrentGame.Player.Hunger > 20) // also ought to be a value somewhere...
             {
@@ -29,7 +32,7 @@ namespace Shipwreck.Control
             
         }
 
-        public static void EndGame()
+        private static void EndGame()
         {
             Shipwreck.CurrentGame = null;
 

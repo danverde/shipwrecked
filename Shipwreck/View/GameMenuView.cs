@@ -13,10 +13,10 @@ namespace Shipwreck.View
                   + "\n----------------------------------"
                   + "\n| Game Menu"
                   + "\n----------------------------------"
-                  + "\nC - View Character"
-                  + "\nS - Starve to death"
-                  + "\nX - End it all (Exit Game)"
-                  + "\nH - Help Menu"
+                  + "\n C - View Character"
+                  + "\n W - Wait for rescue"
+                  + "\n H - Help Menu"
+                  + "\n X - End it all (Exit Game)"
                   + "\n----------------------------------")
         { }
 
@@ -29,8 +29,8 @@ namespace Shipwreck.View
                 case "C":
                     ShowPlayerStats();
                     break;
-                case "S":
-                    StarveToDeath();
+                case "W":
+                    WaitItOut();
                     done = true;
                     break;
                 case "H":
@@ -57,7 +57,7 @@ namespace Shipwreck.View
             // Console.Write(new string(' ', Console.WindowWidth));
         }
 
-        private void StarveToDeath()
+        private void WaitItOut()
         {
             // I think this is looping even when it should be done
             while (Shipwreck.CurrentGame != null)
