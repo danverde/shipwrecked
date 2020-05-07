@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 
+// TODO read this. Use it
+// https://scottlilly.com/how-to-build-stackable-inventory-for-a-game-in-c/
+
 namespace Shipwreck.Model
 {
     class Inventory
@@ -10,25 +13,23 @@ namespace Shipwreck.Model
         // public Character Character { get; }
         public Weapon ActiveWeapon { get; set; }
         public Armor ActiveArmor { get; set; }
-        public List<Item> Items { get; private set; }
+        public List<InventoryRecord> Items { get; private set; }
 
-        // I want to save the full item, not just the item type...
-        // public Dictionary<string, int> Items { get; private set; }
 
         public Inventory ()
         {
-            Items = new List<Item>();
+            Items = new List<InventoryRecord>();
         }
 
         public void AddItem(Item newItem)
         {
-            Item matchingItem = Items.Find(x => x.Name.Equals(newItem.Name));
-            if (matchingItem == null)
+            InventoryRecord inventoryRecord = Items.Find(x => x.InventoryItem.Name.Equals(newItem.Name));
+            if (inventoryRecord == null)
             {
-                Items.Add(newItem);
+                Items.Add(new InventoryRecord(newItem, 1));
             } else
             {
-                ++matchingItem.Quantity;
+                ++inventoryRecord.Quantity;
             }
         }
 
@@ -37,22 +38,21 @@ namespace Shipwreck.Model
             bool dropped;
             if (item.Droppable)
             {
-                // do crap 
-                Item inventoryItem = Items.Find(x => x.Name.Equals(item.Name));
-                if (inventoryItem.Quantity > 1)
+                InventoryRecord inventoryRecord = Items.Find(x => x.InventoryItem.Name.Equals(item.Name));
+                if (inventoryRecord.Quantity > 1)
                 {
-                    --inventoryItem.Quantity;
+                    --inventoryRecord.Quantity;
                 } 
                 else
                 {
-                    Items.Remove(inventoryItem);
+                    Items.Remove(inventoryRecord);
 
                     // remove active item if necessary
-                    if (ActiveArmor == inventoryItem)
+                    if (ActiveArmor.Name == inventoryRecord.InventoryItem.Name)
                     {
                         ActiveArmor = null;
                     }
-                    else if (ActiveWeapon == inventoryItem)
+                    else if (ActiveWeapon.Name == inventoryRecord.InventoryItem.Name)
                     {
                         ActiveWeapon = null;
                     }

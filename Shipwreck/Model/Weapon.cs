@@ -8,8 +8,8 @@ namespace Shipwreck.Model
     {
         public int AttackPower { get; }
 
-        public Weapon(string name, string description, int attackPower, int quantity = 1, bool droppable = true)
-            :base(name, description, quantity, droppable)
+        public Weapon(string name, string description, int attackPower, bool droppable = true)
+            :base(name, description, droppable)
         {
             AttackPower = attackPower;
         }

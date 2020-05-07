@@ -73,12 +73,12 @@ namespace Shipwreck.View
             line.Insert(20, "DESC");
             Console.WriteLine(line);
 
-            foreach (Item item in inventory.Items)
+            foreach (InventoryRecord itemRecord in inventory.Items)
             {
                 line = new StringBuilder("                                              ");
-                line.Insert(1, item.Name);
-                line.Insert(16, item.Quantity);
-                line.Insert(20, item.Description);
+                line.Insert(1, itemRecord.InventoryItem.Name);
+                line.Insert(16, itemRecord.Quantity);
+                line.Insert(20, itemRecord.InventoryItem.Description);
                 Console.WriteLine(line);
             }
             Console.WriteLine("-------------------------");
