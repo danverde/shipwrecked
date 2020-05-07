@@ -104,33 +104,65 @@ namespace Shipwreck.View
 
         private void SetActiveWeaponOrArmor()
         {
-            throw new NotImplementedException();
+            Inventory inventory = Shipwreck.CurrentGame?.Player.Inventory;
+            Item itemToEquip = GetInventoryItem("Which item would you like to equip?");
+            if (itemToEquip != null)
+            {
+                if (itemToEquip.GetType() == typeof(Weapon))
+                {
+                    inventory.ActiveWeapon = (Weapon)itemToEquip;
+                }
+                else if (itemToEquip.GetType() == typeof(Armor))
+                {
+                    inventory.ActiveArmor = (Armor)itemToEquip;
+                }
+                Console.WriteLine($"Your {itemToEquip.Name} has been equipped");
+            }
+            else
+            {
+                Console.WriteLine($"That is not an item that exists in your inventory");
+            }
+
+            Console.WriteLine("Press any key to continue");
+            Console.ReadKey();
         }
 
         private void DropItem()
         {
-            Inventory inventory = Shipwreck.CurrentGame.Player.Inventory;
-            Console.WriteLine("Which item would you like to drop?");
-            string itemName = Console.ReadLine();
-
-            Item itemToDrop = InventoryController.IsValidInventoryItem(inventory, itemName);
+            Inventory inventory = Shipwreck.CurrentGame?.Player.Inventory;
+            Item itemToDrop = GetInventoryItem("Which item would you like to drop?");
             if (itemToDrop != null)
             {
                 bool dropped = inventory.DropItem(itemToDrop);
                 if (dropped)
                 {
-                    Console.WriteLine($"You dropped your {itemName}");
+                    Console.WriteLine($"You dropped your {itemToDrop.Name}");
                 }
                 else
                 {
-                    Console.WriteLine($"You can't drop your ${itemName}");
+                    Console.WriteLine($"You can't drop your {itemToDrop.Name}");
                 }
             }
             else
             {
-                Console.WriteLine($"{itemName} is not an item that exists in your inventory");
+                Console.WriteLine($"That is not an item that exists in your inventory");
             }
 
+            Console.WriteLine("Press any key to continue");
+            Console.ReadKey();
+        }
+
+        private Item GetInventoryItem(string message)
+        {
+            Inventory inventory = Shipwreck.CurrentGame.Player.Inventory;
+            Console.WriteLine(message);
+            string itemName = Console.ReadLine();
+            if (itemName.ToUpper() == "X")
+            {
+                return null;
+            }
+
+            return InventoryController.IsValidInventoryItem(inventory, itemName) ?? null;
         }
     }
 }

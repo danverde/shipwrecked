@@ -46,6 +46,16 @@ namespace Shipwreck.Model
                 else
                 {
                     Items.Remove(inventoryItem);
+
+                    // remove active item if necessary
+                    if (ActiveArmor == inventoryItem)
+                    {
+                        ActiveArmor = null;
+                    }
+                    else if (ActiveWeapon == inventoryItem)
+                    {
+                        ActiveWeapon = null;
+                    }
                 }
                 dropped = true;
             } 

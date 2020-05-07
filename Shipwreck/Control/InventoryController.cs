@@ -9,7 +9,7 @@ namespace Shipwreck.Control
     {
         public static void AddDefaultItemsToInventory(Inventory inventory)
         {
-            Weapon fists = new Weapon("Fists", "Fists of Fury", 1);
+            Weapon fists = new Weapon("Fists", "Fists of Fury", 1, 1, false);
             Weapon spear = new Weapon("Spear", "Hunting Spear", 4);
             Food fish = new Food("Fish", "Fresh fish", 3);
             inventory.AddItem(fists);
@@ -22,7 +22,7 @@ namespace Shipwreck.Control
         {
             Item match = inventory.Items.Find(x => x.Name == itemName);
 
-            return match != null ? match: null;
+            return match ?? null;
         }
     }
 }
