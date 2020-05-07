@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 
-// TODO read this. Use it
-// https://scottlilly.com/how-to-build-stackable-inventory-for-a-game-in-c/
-
 namespace Shipwreck.Model
 {
     class Inventory
