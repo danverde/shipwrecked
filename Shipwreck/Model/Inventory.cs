@@ -30,7 +30,31 @@ namespace Shipwreck.Model
             {
                 ++matchingItem.Quantity;
             }
-            
+        }
+
+        public bool DropItem(Item item)
+        {
+            bool dropped;
+            if (item.Droppable)
+            {
+                // do crap 
+                Item inventoryItem = Items.Find(x => x.Name.Equals(item.Name));
+                if (inventoryItem.Quantity > 1)
+                {
+                    --inventoryItem.Quantity;
+                } 
+                else
+                {
+                    Items.Remove(inventoryItem);
+                }
+                dropped = true;
+            } 
+            else
+            {
+                dropped = false;
+            }
+
+            return dropped;
         }
     }
 }

@@ -10,6 +10,7 @@ namespace Shipwreck
         public static MainMenuView MainMenuView;
         public static GameMenuView GameMenuView;
         public static HelpMenuView HelpMenuView;
+        public static InventoryView InventoryView;
         public static NewDayView NewDayView;
         static void Main(string[] args)
         {
@@ -34,6 +35,7 @@ namespace Shipwreck
             MainMenuView = new MainMenuView();
             GameMenuView = new GameMenuView();
             HelpMenuView = new HelpMenuView();
+            InventoryView = new InventoryView();
             NewDayView = new NewDayView();
             
         }

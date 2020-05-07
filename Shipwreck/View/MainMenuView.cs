@@ -9,8 +9,7 @@ namespace Shipwreck.View
     class MainMenuView : View
     {
         public MainMenuView()
-            :base("\n"
-                  + "\n----------------------------------"
+            :base("\n\n----------------------------------"
                   + "\n| Main Menu"
                   + "\n----------------------------------"
                   + "\n N - New Game"
