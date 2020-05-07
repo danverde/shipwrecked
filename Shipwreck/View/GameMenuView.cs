@@ -46,13 +46,12 @@ namespace Shipwreck.View
         private void ShowPlayerStats()
         {
             Player player = Shipwreck.CurrentGame.Player;
-            // int playerAttack = // TODO where should this come from?
 
             Console.WriteLine("\n-------------------------\n Character Stats:");
             Console.WriteLine($" Name: {player.Name}");
             Console.WriteLine($" Heath: {player.Health}");
             Console.WriteLine($" Hunger: {player.Hunger}");
-            Console.WriteLine($" Base Attack: {player.CalculatedAttack}");
+            Console.WriteLine($" Base Attack: {player.BaseAttack}");
             Console.WriteLine($" Base Defense: {player.BaseDefense}");
             Console.WriteLine("-------------------------");
 
