@@ -9,6 +9,7 @@ namespace Shipwreck.Model
     {
         // public Character Character { get; }
         public Weapon ActiveWeapon { get; set; }
+        public Armor ActiveArmor { get; set; }
         public List<Item> Items { get; private set; }
 
         // I want to save the full item, not just the item type...

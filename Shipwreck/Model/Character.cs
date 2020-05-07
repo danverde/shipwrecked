@@ -12,7 +12,14 @@ namespace Shipwreck.Model
         public int BaseAttack { get; set; }
         public int BaseDefense { get; private set; }
         public bool IsAlive { get; private set; }
-        
+        public int CalculatedAttack
+        {
+            get{ return BaseAttack + (Inventory.ActiveWeapon?.AttackPower ?? 0);  }
+        }
+        public int CalculatedDefense
+        {
+            get { return BaseDefense + (Inventory.ActiveArmor?.DefensePower ?? 0); }
+        }
         public Inventory Inventory { get; }
         // private Location Location { get; }
 

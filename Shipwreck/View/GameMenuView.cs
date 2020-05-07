@@ -52,8 +52,8 @@ namespace Shipwreck.View
             Console.WriteLine($" Name: {player.Name}");
             Console.WriteLine($" Heath: {player.Health}");
             Console.WriteLine($" Hunger: {player.Hunger}");
-            Console.WriteLine($" Attack: {player.BaseAttack}");
-            Console.WriteLine($" Defense: {player.BaseDefense}");
+            Console.WriteLine($" Base Attack: {player.CalculatedAttack}");
+            Console.WriteLine($" Base Defense: {player.BaseDefense}");
             Console.WriteLine("-------------------------");
 
             Console.WriteLine("Press any key to continue");
@@ -68,8 +68,8 @@ namespace Shipwreck.View
             Inventory inventory = Shipwreck.CurrentGame.Player.Inventory;
 
             Console.WriteLine("\n-------------------------\n Inventory:\n-------------------------");
-            Console.WriteLine($" Active Weapon: {inventory.ActiveWeapon.Name} +{inventory.ActiveWeapon.AttackPower}");
-            Console.WriteLine($" Active Armor: ");
+            Console.WriteLine($" Active Weapon: {inventory.ActiveWeapon?.Name ?? "None"} +{inventory.ActiveWeapon?.AttackPower ?? 0}");
+            Console.WriteLine($" Active Armor:  {inventory.ActiveArmor?.Name ?? "None"} +{inventory.ActiveArmor?.DefensePower ?? 0}");
 
             line = new StringBuilder("                                              ");
             line.Insert(1, "ITEM");
