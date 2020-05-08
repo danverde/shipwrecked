@@ -49,7 +49,7 @@ namespace Shipwreck.View
                     ShowPlayerStats();
                     break;
                 case "I":
-                    ShowInventory();
+                    done = ShowInventory();
                     break;
                 case "W":
                     done = WaitItOut();
@@ -61,9 +61,10 @@ namespace Shipwreck.View
             return done;
         }
 
-        private void ShowInventory()
+        private bool ShowInventory()
         {
             Shipwreck.InventoryView.Display();
+            return Shipwreck.CurrentGame == null ? true : false;
         }
 
         private bool WaitItOut()
