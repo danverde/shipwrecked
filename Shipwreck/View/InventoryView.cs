@@ -13,11 +13,11 @@ namespace Shipwreck.View
                   + "\n| Inventory Menu"
                   + "\n----------------------------------"
                   + "\n A - View All Items"
-                  + "\n W - View Weapons & Armor"
+                  + "\n G - View Gear"
                   + "\n F - View Food"
                   // + "\n R - View Resources" // resources not implemented yet
                   + "\n E - Eat Food"
-                  + "\n S - Set Active Weapon or Armor"
+                  + "\n Q - Equip Gear"
                   + "\n D - Drop Item"
                   + "\n C - View Character"
                   + "\n X - Close Inventory"
@@ -34,8 +34,8 @@ namespace Shipwreck.View
                 case "A":
                     ShowAllItems();
                     break;
-                case "W":
-                    ViewWeaponsAndArmor();
+                case "G":
+                    ViewGear();
                     break;
                 case "F":
                     ViewFood();
@@ -45,7 +45,7 @@ namespace Shipwreck.View
                 case "E":
                     done = EatFood();
                     break;
-                case "S":
+                case "Q":
                     SetActiveWeaponOrArmor();
                     break;
                 case "D":
@@ -88,14 +88,79 @@ namespace Shipwreck.View
             Console.ReadKey();
         }
 
-        private void ViewWeaponsAndArmor()
+        private void ViewGear()
         {
-            throw new NotImplementedException();
+            StringBuilder line;
+            Inventory inventory = Shipwreck.CurrentGame?.Player.Inventory;
+            List<InventoryRecord> gearItems = InventoryController.GetItemsByType<Weapon>(inventory);
+            gearItems.AddRange(InventoryController.GetItemsByType<Armor>(inventory));
+
+            Console.WriteLine("\n-------------------------\n Gear:\n-------------------------");
+
+            line = new StringBuilder("                                              ");
+            line.Insert(1, "T");
+            line.Insert(4, "ITEM");
+            line.Insert(19, "QTY");
+            line.Insert(23, "BONUS");
+            Console.WriteLine(line);
+
+            foreach (InventoryRecord gear in gearItems)
+            {
+                // Type itemType = gear.InventoryItem.GetType();
+                int itemBonus = 0;
+                bool isActive = false;
+
+                if (gear.InventoryItem.GetType() == typeof(Armor))
+                {
+                    itemBonus = ((Armor)gear.InventoryItem).DefensePower;
+                    isActive = inventory.ActiveArmor.Name == gear.InventoryItem.Name;
+                }
+                else if (gear.InventoryItem.GetType() == typeof(Weapon))
+                {
+                    itemBonus = ((Weapon)gear.InventoryItem).AttackPower;
+                    isActive = inventory.ActiveWeapon.Name == gear.InventoryItem.Name;
+                }
+
+                line = new StringBuilder("                                              ");
+                line.Insert(1, gear.InventoryItem.GetType() == typeof(Armor) ? "A" : "W");
+                line.Insert(3, isActive ? "*" : "");
+                line.Insert(4, gear.InventoryItem.Name);
+                line.Insert(19, gear.Quantity);
+                line.Insert(23, $"+{itemBonus}");
+                Console.WriteLine(line);
+            }
+
+            Console.WriteLine("Press any key to continue");
+            Console.ReadKey();
         }
 
         private void ViewFood()
         {
-            throw new NotImplementedException();
+            StringBuilder line;
+            Inventory inventory = Shipwreck.CurrentGame?.Player.Inventory;
+            List<InventoryRecord> foodItems = InventoryController.GetItemsByType<Food>(inventory);
+
+            Console.WriteLine("\n-------------------------\n Food:\n-------------------------");
+
+            line = new StringBuilder("                                              ");
+            line.Insert(1, "ITEM");
+            line.Insert(16, "QTY");
+            line.Insert(20, "HLTH");
+            line.Insert(25, "HNGR");
+            Console.WriteLine(line);
+
+            foreach (InventoryRecord foodItem in foodItems)
+            {
+                line = new StringBuilder("                                              ");
+                line.Insert(1, foodItem.InventoryItem.Name);
+                line.Insert(16, foodItem.Quantity);
+                line.Insert(20, ((Food)foodItem.InventoryItem).HealingPower);
+                line.Insert(25, ((Food)foodItem.InventoryItem).FillingPower);
+                Console.WriteLine(line);
+            }
+
+            Console.WriteLine("Press any key to continue");
+            Console.ReadKey();
         }
 
         private bool EatFood()
@@ -129,7 +194,6 @@ namespace Shipwreck.View
             else
             {
                 Console.WriteLine($"That is not an item that exists in your inventory");
-                return EatFood();
             }
 
             Console.WriteLine("Press any key to continue");
@@ -193,10 +257,6 @@ namespace Shipwreck.View
             Inventory inventory = Shipwreck.CurrentGame.Player.Inventory;
             Console.WriteLine(message);
             string itemName = Console.ReadLine();
-            if (itemName.ToUpper() == "X")
-            {
-                return null;
-            }
 
             return InventoryController.IsValidInventoryItem(inventory, itemName) ?? null;
         }
