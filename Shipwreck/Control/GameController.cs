@@ -26,6 +26,15 @@ namespace Shipwreck.Control
             }
         }
 
+        public static void EndGame()
+        {
+            Shipwreck.CurrentGame.Player.Die();
+            Shipwreck.CurrentGame = null;
+
+            GameOverView gameOverView = new GameOverView();
+            gameOverView.Display();
+        }
+
         private static void AdvanceDay()
         {
             Shipwreck.CurrentGame.IncrementDay();
@@ -36,14 +45,6 @@ namespace Shipwreck.Control
             {
                 EndGame();
             }
-        }
-
-        private static void EndGame()
-        {
-            Shipwreck.CurrentGame = null;
-
-            GameOverView gameOverView = new GameOverView();
-            gameOverView.Display();
         }
     }
 }

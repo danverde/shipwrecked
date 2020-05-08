@@ -27,6 +27,7 @@ namespace Shipwreck.View
         public override bool DoAction(string value)
         {
             string menuItem = value.ToUpper();
+            bool done = false;
 
             switch(menuItem)
             {
@@ -42,7 +43,7 @@ namespace Shipwreck.View
                 // case "R":
                 //     break;
                 case "E":
-                    EatFood();
+                    done = EatFood();
                     break;
                 case "S":
                     SetActiveWeaponOrArmor();
@@ -55,7 +56,7 @@ namespace Shipwreck.View
                     break;
 
             }
-            return false;
+            return done;
         }
 
         private void ShowAllItems()
@@ -97,9 +98,44 @@ namespace Shipwreck.View
             throw new NotImplementedException();
         }
 
-        private void EatFood()
-        {
-            throw new NotImplementedException();
+        private bool EatFood()
+        { 
+            bool done = false;
+            Player player = Shipwreck.CurrentGame?.Player;
+            Inventory inventory = player.Inventory;
+            Item itemToEat = GetInventoryItem("Which item would you like to eat?");
+            if (itemToEat != null)
+            {
+                if (itemToEat.Droppable == false)
+                {
+                    Console.WriteLine($"You can't eat your {itemToEat.Name}");
+                }
+                else if (itemToEat.GetType() == typeof(Food))
+                {
+                    // should this be happening in a controller?
+                    player.Eat((Food)itemToEat);
+                    inventory.DropItem(itemToEat);
+
+                    Console.WriteLine("Delicious!");
+
+                }
+                else
+                {
+                    Console.WriteLine("Oops. That wasn't edible...");
+                    GameController.EndGame();
+                    done = true;
+                }
+            }
+            else
+            {
+                Console.WriteLine($"That is not an item that exists in your inventory");
+                return EatFood();
+            }
+
+            Console.WriteLine("Press any key to continue");
+            Console.ReadKey();
+
+            return done;
         }
 
         private void SetActiveWeaponOrArmor()

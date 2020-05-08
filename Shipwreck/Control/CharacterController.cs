@@ -7,7 +7,6 @@ namespace Shipwreck.Control
 {
     class CharacterController
     {
-
         public static int Attack(Character defendingCharacter, Character attackingCharacter)
         {
             int damageAmount = attackingCharacter.CalculatedAttack - defendingCharacter.CalculatedDefense;

@@ -13,6 +13,12 @@ namespace Shipwreck.Model
             Hunger = hunger;
         }
 
-        // maybe add an eat method? or does that break the MVC approach...?
+        // should this be in a controller?
+        public void Eat(Food food)
+        {
+            Health = Health + food.HealingPower < MaxHealth ? Health + food.HealingPower : MaxHealth;
+            Hunger = Hunger - food.FillingPower > 0 ? Hunger - food.FillingPower : 0;
+        }
+
     }
 }

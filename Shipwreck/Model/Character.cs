@@ -34,7 +34,7 @@ namespace Shipwreck.Model
             Inventory = new Inventory();
         }
 
-        public void KillCharacter()
+        public void Die()
         {
             IsAlive = false;
         }

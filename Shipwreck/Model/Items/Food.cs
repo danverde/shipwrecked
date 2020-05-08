@@ -7,11 +7,13 @@ namespace Shipwreck.Model
     class Food : Item
     {
         public int HealingPower { get; }
+        public int FillingPower { get;  }
 
-        public Food(string itemType, string description, int healingPower)
+        public Food(string itemType, string description, int healingPower, int fillingPower)
             :base(itemType, description)
         {
             HealingPower = healingPower;
+            FillingPower = fillingPower;
         }
     }
 }

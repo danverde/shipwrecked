@@ -11,11 +11,11 @@ namespace Shipwreck.Control
         {
             Weapon fists = new Weapon("Fists", "Fists of Fury", 1, false);
             Weapon spear = new Weapon("Spear", "Hunting Spear", 4);
-            Food fish = new Food("Fish", "Fresh fish", 3);
+            Food fish = new Food("Fish", "Fresh fish", 2, 3);
             inventory.AddItem(fists);
             inventory.AddItem(spear);
             inventory.ActiveWeapon = fists; // how do I make it so that the active weapon references an item in the inventory?
-            inventory.AddItem(fish);
+            inventory.AddItem(fish, 3);
         }
 
         public static Item IsValidInventoryItem(Inventory inventory, string itemName)

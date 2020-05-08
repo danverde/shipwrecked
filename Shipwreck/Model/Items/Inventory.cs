@@ -18,15 +18,15 @@ namespace Shipwreck.Model
             Items = new List<InventoryRecord>();
         }
 
-        public void AddItem(Item newItem)
+        public void AddItem(Item newItem, int quantity = 1)
         {
             InventoryRecord inventoryRecord = Items.Find(x => x.InventoryItem.Name.Equals(newItem.Name));
             if (inventoryRecord == null)
             {
-                Items.Add(new InventoryRecord(newItem, 1));
+                Items.Add(new InventoryRecord(newItem, quantity));
             } else
             {
-                ++inventoryRecord.Quantity;
+                inventoryRecord.Quantity += quantity;
             }
         }
 
@@ -42,17 +42,17 @@ namespace Shipwreck.Model
                 } 
                 else
                 {
-                    Items.Remove(inventoryRecord);
-
                     // remove active item if necessary
-                    if (ActiveArmor.Name == inventoryRecord.InventoryItem.Name)
+                    if (ActiveArmor?.Name == inventoryRecord.InventoryItem.Name)
                     {
                         ActiveArmor = null;
                     }
-                    else if (ActiveWeapon.Name == inventoryRecord.InventoryItem.Name)
+                    else if (ActiveWeapon?.Name == inventoryRecord.InventoryItem.Name)
                     {
                         ActiveWeapon = null;
                     }
+
+                    Items.Remove(inventoryRecord);
                 }
                 dropped = true;
             } 
