@@ -22,7 +22,7 @@ namespace Shipwreck.Control
         {
             for (int i = 0; i < numDays && Shipwreck.CurrentGame != null; i++)
             {
-                AdvanceDay();
+                AdvanceDay(true);
             }
         }
 
@@ -35,16 +35,30 @@ namespace Shipwreck.Control
             gameOverView.Display();
         }
 
-        private static void AdvanceDay()
+        private static void AdvanceDay(bool waiting = false)
         {
             Shipwreck.CurrentGame.IncrementDay();
+            Player player = Shipwreck.CurrentGame?.Player;
+            player.GainExperience(25);
+
             Shipwreck.NewDayView.Display();
 
-            Shipwreck.CurrentGame.Player.Hunger += 3; // this probably ought to be a value somewhere
+            player.Hunger += 3; // this probably ought to be a value somewhere
             if (Shipwreck.CurrentGame.Player.Hunger > 20) // also ought to be a value somewhere...
             {
                 EndGame();
             }
+
+            Random random = new Random();
+            if (waiting && random.Next(100000) == 1)
+            {
+                string message = "\n You're Saved! What luck!" +
+                    "\n A gang of local poachers found you on their way back to town." +
+                    "\n Good thing their not picky about how they earn a living...";
+                GameOverView gameOverView = new GameOverView(message);
+                gameOverView.Display();
+            }
+
         }
     }
 }

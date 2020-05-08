@@ -7,6 +7,7 @@ namespace Shipwreck
     class Shipwreck
     {
         public static Game CurrentGame;
+
         public static MainMenuView MainMenuView;
         public static GameMenuView GameMenuView;
         public static HelpMenuView HelpMenuView;
@@ -37,7 +38,6 @@ namespace Shipwreck
             HelpMenuView = new HelpMenuView();
             InventoryView = new InventoryView();
             NewDayView = new NewDayView();
-            
         }
     }
 }

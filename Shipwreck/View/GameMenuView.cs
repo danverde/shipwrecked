@@ -27,7 +27,9 @@ namespace Shipwreck.View
 
             Console.WriteLine("\n-------------------------\n Character Stats:");
             Console.WriteLine($" Name: {player.Name}");
-            Console.WriteLine($" Heath: {player.Health}");
+            Console.WriteLine($" level: {player.Level}");
+            Console.WriteLine($" Exp: {player.Exp} / 100");
+            Console.WriteLine($" Heath: {player.Health} / {player.MaxHealth}");
             Console.WriteLine($" Hunger: {player.Hunger}");
             Console.WriteLine($" Base Attack: {player.BaseAttack}");
             Console.WriteLine($" Base Defense: {player.BaseDefense}");

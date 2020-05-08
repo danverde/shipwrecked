@@ -14,7 +14,7 @@ namespace Shipwreck.Control
             Armor suit = new Armor("Suit", "A Once Fine Business Suit", 0);
             Food fish = new Food("Fish", "Fresh fish", 2, 3);
             inventory.AddItem(fists);
-            inventory.AddItem(spear);
+            // inventory.AddItem(spear);
             inventory.AddItem(suit);
             inventory.ActiveArmor = suit;
             inventory.ActiveWeapon = fists; // how do I make it so that the active weapon references an item in the inventory?

@@ -7,8 +7,8 @@ namespace Shipwreck.View
 {
     class GameOverView : View
     {
-        public GameOverView()
-            :base("You Died. Sucks to suck", true)
+        public GameOverView(string message = "You Died. Sucks to suck")
+            :base(message, true)
         {}
         public override bool DoAction(string value)
         {

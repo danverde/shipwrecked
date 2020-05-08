@@ -40,18 +40,13 @@ namespace Shipwreck.View
                     break;
             }
 
-            // not sure why this returns a boolean...
             return false;
         }
 
         private void StartNewGame()
         {
-            // ideally I get the character name in the view...
-            // maybe create a createCharacter view?
-            // Shipwreck.currentGame = new Game();
             NewGameView newGameView = new NewGameView();
             newGameView.Display();
-            // GameController.CreateNewGame();
         }
 
         private void SaveGame()
