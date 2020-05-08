@@ -38,9 +38,6 @@ namespace Shipwreck.View
                 case "H":
                     OpenHelpView();
                     break;
-                default:
-                    // might not do what I think it does
-                    return true;
             }
 
             // not sure why this returns a boolean...
