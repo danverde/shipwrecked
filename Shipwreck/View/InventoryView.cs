@@ -1,5 +1,6 @@
 ﻿using Shipwreck.Control;
 using Shipwreck.Model;
+using Shipwreck.Model.Items;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -92,8 +93,7 @@ namespace Shipwreck.View
         {
             StringBuilder line;
             Inventory inventory = Shipwreck.CurrentGame?.Player.Inventory;
-            List<InventoryRecord> gearItems = InventoryController.GetItemsByType<Weapon>(inventory);
-            gearItems.AddRange(InventoryController.GetItemsByType<Armor>(inventory));
+            List<InventoryRecord> gearItems = InventoryController.GetItemsByType<Gear>(inventory);
 
             Console.WriteLine("\n-------------------------\n Gear:\n-------------------------");
 
