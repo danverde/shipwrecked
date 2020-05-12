@@ -14,15 +14,5 @@ namespace Shipwreck.Model
         {
             AttackPower = attackPower;
         }
-
-        public enum WeaponTypes
-        {
-            Fists,
-            Staff,
-            Club,
-            Hatchet,
-            Spear,
-            Pistol
-        }
     }
 }
