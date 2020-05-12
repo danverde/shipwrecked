@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shipwreck.Model.Items;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
