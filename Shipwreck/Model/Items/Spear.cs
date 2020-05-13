@@ -6,10 +6,13 @@ namespace Shipwreck.Model.Items
 {
     class Spear : Weapon
     {
+        public override int AttackPower { get; }
         // Maybe create some sort of buildable class that stores the material requirements?
         // this could be useful, but I'd have to figure out how to sort my inventory by parent Types as well as Type...
         public Spear()
-            :base("Spear", "Hunting Spear", 4)
-        { }
+            :base("Spear", "Hunting Spear")
+        {
+            AttackPower = 4;
+        }
     }
 }
