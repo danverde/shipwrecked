@@ -6,7 +6,7 @@ namespace Shipwreck.Model.Items
 {
     interface ICraftable
     {
-        public Dictionary<string, int> RequiredItems { get; protected set; }
+        public static Dictionary<string, int> RequiredItems { get; protected set; }
 
 
     }
