@@ -10,7 +10,7 @@ namespace Shipwreck.Model.Items
         public override Weapon GetWeapon(string weaponType)
         {
             weaponType = weaponType.ToLower();
-            Weapon weapon;
+            Weapon weapon = null;
             switch(weaponType)
             {
                 case "spear":
@@ -19,8 +19,6 @@ namespace Shipwreck.Model.Items
                 case "fists":
                     weapon = new Fists();
                     break;
-                default:
-                    throw new Exception($"Unable to create {weaponType}. It is not a valid weapon");
             }
 
             return weapon;
