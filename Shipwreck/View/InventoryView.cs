@@ -49,7 +49,7 @@ namespace Shipwreck.View
                     done = EatFood();
                     break;
                 case "Q":
-                    SetActiveWeaponOrArmor();
+                    EquipGear();
                     break;
                 case "D":
                     DropItem();
@@ -119,7 +119,7 @@ namespace Shipwreck.View
                     itemBonus = ((Armor)gear.InventoryItem).DefensePower;
                     isActive = inventory.ActiveArmor.Name == gear.InventoryItem.Name;
                 }
-                else if (gear.InventoryItem.GetType() == typeof(Weapon))
+                else if (gear.InventoryItem.GetType().IsSubclassOf(typeof(Weapon)))
                 {
                     itemBonus = ((Weapon)gear.InventoryItem).AttackPower;
                     isActive = inventory.ActiveWeapon.Name == gear.InventoryItem.Name;
@@ -229,13 +229,13 @@ namespace Shipwreck.View
             return done;
         }
 
-        private void SetActiveWeaponOrArmor()
+        private void EquipGear()
         {
             Inventory inventory = Shipwreck.CurrentGame?.Player.Inventory;
             Item itemToEquip = GetInventoryItem("Which item would you like to equip?");
             if (itemToEquip != null)
             {
-                if (itemToEquip.GetType() == typeof(Weapon))
+                if (itemToEquip.GetType().IsSubclassOf(typeof(Weapon)))
                 {
                     inventory.ActiveWeapon = (Weapon)itemToEquip;
                 }

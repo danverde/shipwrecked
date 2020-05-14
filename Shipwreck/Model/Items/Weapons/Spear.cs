@@ -15,8 +15,8 @@ namespace Shipwreck.Model.Items
             AttackPower = 4;
             RequiredItems = new Dictionary<string, int>
             {
-                // {"Branch", 1},
-                // {"Sharp Stone", 3 },
+                {"Branch", 1},
+                {"Sharp Stone", 3 },
                 {"Vine", 5 }
             };
         }

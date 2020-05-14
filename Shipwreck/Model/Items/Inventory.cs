@@ -7,7 +7,6 @@ namespace Shipwreck.Model.Items
 {
     class Inventory
     {
-        // public Character Character { get; }
         public Weapon ActiveWeapon { get; set; }
         public Armor ActiveArmor { get; set; }
         public List<InventoryRecord> Items { get; private set; }
@@ -35,25 +34,7 @@ namespace Shipwreck.Model.Items
             bool dropped;
             if (item.Droppable)
             {
-                InventoryRecord inventoryRecord = Items.Find(x => x.InventoryItem.Name.Equals(item.Name));
-                if (inventoryRecord.Quantity > 1)
-                {
-                    --inventoryRecord.Quantity;
-                } 
-                else
-                {
-                    // remove active item if necessary
-                    if (ActiveArmor?.Name == inventoryRecord.InventoryItem.Name)
-                    {
-                        ActiveArmor = null;
-                    }
-                    else if (ActiveWeapon?.Name == inventoryRecord.InventoryItem.Name)
-                    {
-                        ActiveWeapon = null;
-                    }
-
-                    Items.Remove(inventoryRecord);
-                }
+                RemoveItem(item);
                 dropped = true;
             } 
             else
@@ -62,6 +43,29 @@ namespace Shipwreck.Model.Items
             }
 
             return dropped;
+        }
+
+        public void RemoveItem(Item item)
+        {
+            InventoryRecord inventoryRecord = Items.Find(x => x.InventoryItem.Name.Equals(item.Name));
+            if (inventoryRecord.Quantity > 1)
+            {
+                --inventoryRecord.Quantity;
+            }
+            else
+            {
+                // remove active item if necessary
+                if (ActiveArmor?.Name == inventoryRecord.InventoryItem.Name)
+                {
+                    ActiveArmor = null;
+                }
+                else if (ActiveWeapon?.Name == inventoryRecord.InventoryItem.Name)
+                {
+                    ActiveWeapon = null;
+                }
+
+                Items.Remove(inventoryRecord);
+            }
         }
     }
 }

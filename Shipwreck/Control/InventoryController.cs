@@ -48,7 +48,7 @@ namespace Shipwreck.Control
         {
             // I'll have to implement custom exceptions in order to pass errors to the view
             
-            // Call weapon factory
+            // Build the weapon
             ConcreteWeaponFactory weaponFactory = new ConcreteWeaponFactory();
             Weapon weapon = weaponFactory.GetWeapon(itemToBuild);
             if (weapon == null)
@@ -56,20 +56,33 @@ namespace Shipwreck.Control
                 throw new Exception($"{itemToBuild} is not a buildable item");
             }
 
+
+            // Check inventory for required materials
             foreach (KeyValuePair<string, int> requiredItem in ((ICraftable)weapon).RequiredItems)
             {
                 InventoryRecord inventoryItem = inventory.Items.Find(x => x.InventoryItem.Name == requiredItem.Key);
-                if (requiredItem.Value > inventoryItem.Quantity)
+                if ( inventoryItem == null || requiredItem.Value > inventoryItem.Quantity)
                 {
                     // not enough items!!
+                    throw new Exception($"You need {requiredItem.Value} {requiredItem.Key}(s) to build a(n) {itemToBuild}");
                 }
             }
-            // inventory.Items.Find
 
 
-            // Check inventory for correct items
             // remove items from inventory
+            foreach (KeyValuePair<string, int> requiredItem in ((ICraftable)weapon).RequiredItems)
+            {
+                InventoryRecord inventoryRecord = inventory.Items.Find(x => x.InventoryItem.Name == requiredItem.Key);
+                
+                for (int i = 0; i < requiredItem.Value; i++)
+                {
+                    inventory.RemoveItem(inventoryRecord.InventoryItem);
+                }
+            }
+
             // add weapon to inventory
+            inventory.AddItem(weapon);
+
             // equip weapon?
         }
     }
