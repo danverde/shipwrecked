@@ -11,4 +11,8 @@
     <None Remove="Model\Items\Weaponss\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Control\InventoryController.cs~RF9baa09.TMP" />
+  </ItemGroup>
+
 </Project>

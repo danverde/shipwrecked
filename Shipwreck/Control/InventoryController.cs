@@ -1,7 +1,9 @@
-﻿using Shipwreck.Model;
+﻿using Shipwreck.Exceptions;
+using Shipwreck.Model;
 using Shipwreck.Model.Items;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 
@@ -32,11 +34,11 @@ namespace Shipwreck.Control
             inventory.AddItem(fish, 3);
         }
 
-        public static Item IsValidInventoryItem(Inventory inventory, string itemName)
+        public static Item GetItemFromInventory(Inventory inventory, string itemName)
         {
             InventoryRecord match = inventory.Items.Find(x => x.InventoryItem.Name == itemName);
 
-            return match?.InventoryItem ?? null;
+            return match?.InventoryItem;
         }
 
         public static List<InventoryRecord> GetItemsByType<T>(Inventory inventory)
@@ -45,38 +47,38 @@ namespace Shipwreck.Control
         }
 
         public static void BuildWeapon(Inventory inventory, string itemToBuild)
-        {
-            // I'll have to implement custom exceptions in order to pass errors to the view
-            
+        {   
             // Build the weapon
             ConcreteWeaponFactory weaponFactory = new ConcreteWeaponFactory();
             Weapon weapon = weaponFactory.GetWeapon(itemToBuild);
-            if (weapon == null)
+            if (weapon == null || !(weapon is ICraftable))
             {
-                throw new Exception($"{itemToBuild} is not a buildable item");
+                throw new InventoryException("You can't build that!");
             }
 
+            List<InventoryRecord> inventoryCopy = new List<InventoryRecord>(inventory.Items);
 
+            // Get list of required items
+            Dictionary<string, int> requiredItems = (Dictionary<string, int>)weapon.GetType().GetProperty("RequiredItems").GetValue(null, null);
+            
             // Check inventory for required materials
-            foreach (KeyValuePair<string, int> requiredItem in ((ICraftable)weapon).RequiredItems)
-            {
-                InventoryRecord inventoryItem = inventory.Items.Find(x => x.InventoryItem.Name == requiredItem.Key);
-                if ( inventoryItem == null || requiredItem.Value > inventoryItem.Quantity)
-                {
-                    // not enough items!!
-                    throw new Exception($"You need {requiredItem.Value} {requiredItem.Key}(s) to build a(n) {itemToBuild}");
-                }
-            }
-
-
-            // remove items from inventory
-            foreach (KeyValuePair<string, int> requiredItem in ((ICraftable)weapon).RequiredItems)
+            foreach (KeyValuePair<string, int> requiredItem in requiredItems)
             {
                 InventoryRecord inventoryRecord = inventory.Items.Find(x => x.InventoryItem.Name == requiredItem.Key);
-                
-                for (int i = 0; i < requiredItem.Value; i++)
+                if ( inventoryRecord == null || requiredItem.Value > inventoryRecord.Quantity)
                 {
-                    inventory.RemoveItem(inventoryRecord.InventoryItem);
+                    // not enough items!!
+                    throw new InventoryException($"You need {requiredItem.Value} {requiredItem.Key}(s) to build that");
+                }
+                try
+                {
+                    // remove items from inventory
+                    inventory.RemoveItems(inventoryRecord.InventoryItem, requiredItem.Value, true);
+                }
+                catch(InventoryException e)
+                {
+                    inventory.Items = inventoryCopy;
+                    throw e;
                 }
             }
 

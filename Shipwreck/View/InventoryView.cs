@@ -1,4 +1,5 @@
 ﻿using Shipwreck.Control;
+using Shipwreck.Exceptions;
 using Shipwreck.Model;
 using Shipwreck.Model.Items;
 using System;
@@ -259,10 +260,26 @@ namespace Shipwreck.View
             Item itemToDrop = GetInventoryItem("Which item would you like to drop?");
             if (itemToDrop != null)
             {
-                bool dropped = inventory.DropItem(itemToDrop);
+                int? quantity = null;
+                do 
+                {
+                    Console.WriteLine("how many would you like to drop?");
+                    string squantity = Console.ReadLine();
+                    try
+                    {
+                        quantity = int.Parse(squantity);
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine("that is not a valid quantity");
+                    }
+
+                } while (quantity == null);
+
+                bool dropped = inventory.DropItem(itemToDrop, (int)quantity);
                 if (dropped)
                 {
-                    Console.WriteLine($"You dropped your {itemToDrop.Name}");
+                    Console.WriteLine($"You dropped {quantity} {itemToDrop.Name}(s)");
                 }
                 else
                 {
@@ -291,7 +308,7 @@ namespace Shipwreck.View
                 Console.WriteLine($"Successfully built 1 {itemToBuild}");
                 Continue();
             }
-            catch(Exception e)
+            catch(InventoryException e)
             {
                 Console.WriteLine(e.Message);
                 Continue();
@@ -304,7 +321,7 @@ namespace Shipwreck.View
             Console.WriteLine(message);
             string itemName = Console.ReadLine();
 
-            return InventoryController.IsValidInventoryItem(inventory, itemName) ?? null;
+            return InventoryController.GetItemFromInventory(inventory, itemName) ?? null;
         }
 
         private void Continue()

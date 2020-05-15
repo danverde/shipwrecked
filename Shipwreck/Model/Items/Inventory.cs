@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shipwreck.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -9,10 +10,10 @@ namespace Shipwreck.Model.Items
     {
         public Weapon ActiveWeapon { get; set; }
         public Armor ActiveArmor { get; set; }
-        public List<InventoryRecord> Items { get; private set; }
+        public List<InventoryRecord> Items { get; set; }
 
 
-        public Inventory ()
+        public Inventory()
         {
             Items = new List<InventoryRecord>();
         }
@@ -29,12 +30,12 @@ namespace Shipwreck.Model.Items
             }
         }
 
-        public bool DropItem(Item item)
+        public bool DropItem(Item item, int quantity = 1)
         {
             bool dropped;
             if (item.Droppable)
             {
-                RemoveItem(item);
+                RemoveItems(item, quantity);
                 dropped = true;
             } 
             else
@@ -45,26 +46,41 @@ namespace Shipwreck.Model.Items
             return dropped;
         }
 
-        public void RemoveItem(Item item)
+        public void RemoveItems(Item item, int quantity = 1, bool strict = false)
         {
-            InventoryRecord inventoryRecord = Items.Find(x => x.InventoryItem.Name.Equals(item.Name));
-            if (inventoryRecord.Quantity > 1)
+            for (int i = 0; i < quantity; i++)
             {
-                --inventoryRecord.Quantity;
-            }
-            else
-            {
-                // remove active item if necessary
-                if (ActiveArmor?.Name == inventoryRecord.InventoryItem.Name)
+                InventoryRecord inventoryRecord = Items.Find(x => x.InventoryItem.Name.Equals(item.Name));
+                if (inventoryRecord == null)
                 {
-                    ActiveArmor = null;
-                }
-                else if (ActiveWeapon?.Name == inventoryRecord.InventoryItem.Name)
-                {
-                    ActiveWeapon = null;
+                    if (strict)
+                    {
+                        throw new InventoryException("Insufficient items in inventory");
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
 
-                Items.Remove(inventoryRecord);
+                if (inventoryRecord.Quantity > 1)
+                {
+                    --inventoryRecord.Quantity;
+                }
+                else
+                {
+                    // remove active item if necessary
+                    if (ActiveArmor?.Name == inventoryRecord.InventoryItem.Name)
+                    {
+                        ActiveArmor = null;
+                    }
+                    else if (ActiveWeapon?.Name == inventoryRecord.InventoryItem.Name)
+                    {
+                        ActiveWeapon = null;
+                    }
+
+                    Items.Remove(inventoryRecord);
+                }
             }
         }
     }
