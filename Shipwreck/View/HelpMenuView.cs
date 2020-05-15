@@ -12,6 +12,7 @@ namespace Shipwreck.View
                 + "\n| Help Menu"
                 + "\n----------------------------------"
                 + "\n P - Purpose of the Game"
+                + "\n I - Inventory Help"
                 + "\n M - Map Terminolagy"
                 + "\n R - Resource Help"
                 + "\n C - Combat Help"
@@ -25,6 +26,9 @@ namespace Shipwreck.View
             switch (menuOption) {
                 case "P":
                     PurposeHelp();
+                    break;
+                case "I":
+                    ShowInventoryHelp();
                     break;
                 case "M":
                     MapHelp();
@@ -53,6 +57,12 @@ namespace Shipwreck.View
                 + "\n wait patiently till someone comes to find you. I mean, after such a big"
                 + "\n ship went down SOMEONE's bound to come looking for survivors, Right?"
                 + "\n***************************************************************************");
+        }
+
+        private void ShowInventoryHelp()
+        {
+            InventoryHelpView inventoryHelpView = new InventoryHelpView();
+            inventoryHelpView.Display();
         }
 
         private void MapHelp()  

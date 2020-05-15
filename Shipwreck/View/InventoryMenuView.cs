@@ -8,9 +8,9 @@ using System.Text;
 
 namespace Shipwreck.View
 {
-    class InventoryView : View
+    class InventoryMenuView : View
     {
-        public InventoryView()
+        public InventoryMenuView()
             :base("\n\n----------------------------------"
                   + "\n| Inventory Menu"
                   + "\n----------------------------------"
@@ -23,6 +23,7 @@ namespace Shipwreck.View
                   + "\n D - Drop Item"
                   + "\n C - View Character"
                   + "\n B - Build Weapon"
+                  + "\n H - Inventory Help"
                   + "\n X - Close Inventory"
                   + "\n----------------------------------")
         { }
@@ -60,6 +61,9 @@ namespace Shipwreck.View
                     break;
                 case "B":
                     BuildWeapon();
+                    break;
+                case "H":
+                    ShowInventoryHelpView();
                     break;
 
             }
@@ -313,6 +317,12 @@ namespace Shipwreck.View
                 Console.WriteLine(e.Message);
                 Continue();
             }
+        }
+
+        private void ShowInventoryHelpView()
+        {
+            InventoryHelpView inventoryHelpView = new InventoryHelpView();
+            inventoryHelpView.Display();
         }
 
         private Item GetInventoryItem(string message)
