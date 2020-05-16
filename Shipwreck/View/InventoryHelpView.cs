@@ -42,14 +42,21 @@ namespace Shipwreck.View
             Console.WriteLine(line);
 
             // for each weapon
-            Console.WriteLine(" Spear");
-
-            foreach (KeyValuePair<string, int> item in Spear.RequiredItems)
+            List<Type> itemTypes = new List<Type> { typeof(Spear) };
+            
+            foreach(Type type in itemTypes)
             {
-                line = new StringBuilder("                                ");
-                line.Insert(8, item.Key);
-                line.Insert(24, item.Value);
-                Console.WriteLine(line);
+                Dictionary<string, int> requiredItems = (Dictionary<string, int>)type.GetProperty("RequiredItems").GetValue(null, null);
+            
+                Console.WriteLine($" {type.Name}");
+
+                foreach (KeyValuePair<string, int> item in requiredItems)
+                {
+                    line = new StringBuilder("                                ");
+                    line.Insert(8, item.Key);
+                    line.Insert(24, item.Value);
+                    Console.WriteLine(line);
+                }
             }
 
             Console.WriteLine("Press any key to continue");

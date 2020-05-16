@@ -6,12 +6,18 @@ namespace Shipwreck.Model.Items
 {
     class Spear : Weapon, ICraftable
     {
-        public static Dictionary<string, int> RequiredItems = new Dictionary<string, int>
+        public static Dictionary<string, int> RequiredItems
         {
-            { "Branch", 1},
-            { "Sharp Stone", 3 },
-            { "Vine", 5 }
-        };
+            get
+            {
+                return new Dictionary<string, int>
+                {
+                    { "Branch", 1},
+                    { "Sharp Stone", 3 },
+                    { "Vine", 5},
+                };
+            }
+        }
 
         public override int AttackPower { get; }
         public Spear()
