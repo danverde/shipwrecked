@@ -34,7 +34,7 @@ namespace Shipwreck.Control
             inventory.AddItem(fish, 3);
         }
 
-        public static Item GetItemFromInventory(Inventory inventory, string itemName)
+        public static IItem GetItemFromInventory(Inventory inventory, string itemName)
         {
             InventoryRecord match = inventory.Items.Find(x => x.InventoryItem.Name == itemName);
 

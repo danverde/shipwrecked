@@ -18,7 +18,7 @@ namespace Shipwreck.Model.Items
             Items = new List<InventoryRecord>();
         }
 
-        public void AddItem(Item newItem, int quantity = 1)
+        public void AddItem(IItem newItem, int quantity = 1)
         {
             InventoryRecord inventoryRecord = Items.Find(x => x.InventoryItem.Name.Equals(newItem.Name));
             if (inventoryRecord == null)
@@ -30,7 +30,7 @@ namespace Shipwreck.Model.Items
             }
         }
 
-        public bool DropItem(Item item, int quantity = 1)
+        public bool DropItem(IItem item, int quantity = 1)
         {
             bool dropped;
             if (item.Droppable)
@@ -46,7 +46,7 @@ namespace Shipwreck.Model.Items
             return dropped;
         }
 
-        public void RemoveItems(Item item, int quantity = 1, bool strict = false)
+        public void RemoveItems(IItem item, int quantity = 1, bool strict = false)
         {
             for (int i = 0; i < quantity; i++)
             {

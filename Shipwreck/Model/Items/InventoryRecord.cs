@@ -6,10 +6,10 @@ namespace Shipwreck.Model.Items
 {
     class InventoryRecord
     {
-        public Item InventoryItem { get; set; }
+        public IItem InventoryItem { get; set; }
         public int Quantity { get; set; }
 
-        public InventoryRecord(Item item, int quantity)
+        public InventoryRecord(IItem item, int quantity)
         {
             InventoryItem = item;
             Quantity = quantity;

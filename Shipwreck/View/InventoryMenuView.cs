@@ -201,7 +201,7 @@ namespace Shipwreck.View
             bool done = false;
             Player player = Shipwreck.CurrentGame?.Player;
             Inventory inventory = player.Inventory;
-            Item itemToEat = GetInventoryItem("Which item would you like to eat?");
+            IItem itemToEat = GetInventoryItem("Which item would you like to eat?");
             if (itemToEat != null)
             {
                 if (itemToEat.Droppable == false)
@@ -237,7 +237,7 @@ namespace Shipwreck.View
         private void EquipGear()
         {
             Inventory inventory = Shipwreck.CurrentGame?.Player.Inventory;
-            Item itemToEquip = GetInventoryItem("Which item would you like to equip?");
+            IItem itemToEquip = GetInventoryItem("Which item would you like to equip?");
             if (itemToEquip != null)
             {
                 if (itemToEquip.GetType().IsSubclassOf(typeof(Weapon)))
@@ -261,7 +261,7 @@ namespace Shipwreck.View
         private void DropItem()
         {
             Inventory inventory = Shipwreck.CurrentGame?.Player.Inventory;
-            Item itemToDrop = GetInventoryItem("Which item would you like to drop?");
+            IItem itemToDrop = GetInventoryItem("Which item would you like to drop?");
             if (itemToDrop != null)
             {
                 int? quantity = null;
@@ -325,7 +325,7 @@ namespace Shipwreck.View
             inventoryHelpView.Display();
         }
 
-        private Item GetInventoryItem(string message)
+        private IItem GetInventoryItem(string message)
         {
             Inventory inventory = Shipwreck.CurrentGame.Player.Inventory;
             Console.WriteLine(message);

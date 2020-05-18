@@ -4,10 +4,16 @@ using System.Text;
 
 namespace Shipwreck.Model.Items
 {
-    class Gear: Item
+    class Gear: IItem
     {
+        public string Name { get; private set; }
+        public string Description { get; private set; }
+        public bool Droppable { get; private set; }
         public Gear(string name, string description, bool droppable = true)
-            : base(name, description, droppable)
-        { }
+        {
+            Name = name;
+            Description = description;
+            Droppable = droppable;
+        }
     }
 }
