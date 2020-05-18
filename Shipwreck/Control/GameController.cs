@@ -13,8 +13,9 @@ namespace Shipwreck.Control
         {
             Player player = new Player(characterName, 5);
             InventoryController.AddDefaultItemsToInventory(player.Inventory);
+            Day day = new Day();
 
-            Shipwreck.CurrentGame = new Game(player);
+            Shipwreck.CurrentGame = new Game(player, day);
             Shipwreck.NewDayView.Display();
         }
 
@@ -37,13 +38,13 @@ namespace Shipwreck.Control
 
         private static void AdvanceDay(bool waiting = false)
         {
-            Shipwreck.CurrentGame.IncrementDay();
+            Shipwreck.CurrentGame?.Day.IncrementDay();
             Player player = Shipwreck.CurrentGame?.Player;
             player.GainExperience(25);
 
             Shipwreck.NewDayView.Display();
 
-            player.Hunger += 3; // this probably ought to be a value somewhere
+            player.Hunger += Day.HungerPerDay; // this probably ought to be a value somewhere
             if (Shipwreck.CurrentGame.Player.Hunger > 20) // also ought to be a value somewhere...
             {
                 EndGame();
