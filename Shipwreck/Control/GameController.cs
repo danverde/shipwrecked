@@ -38,17 +38,29 @@ namespace Shipwreck.Control
 
         private static void AdvanceDay(bool waiting = false)
         {
-            Shipwreck.CurrentGame?.Day.IncrementDay();
             Player player = Shipwreck.CurrentGame?.Player;
-            player.GainExperience(25);
+            int exp = 25;
 
-            Shipwreck.NewDayView.Display();
-
+            // They get hungry
             player.Hunger += Day.HungerPerDay; // this probably ought to be a value somewhere
             if (Shipwreck.CurrentGame.Player.Hunger > 20) // also ought to be a value somewhere...
             {
                 EndGame();
             }
+
+            // Their fire burns
+            FireController.Burn(Shipwreck.CurrentGame?.Fire);
+            exp = Shipwreck.CurrentGame?.Fire.IsBurning == true ? exp + 15: exp;
+
+
+            // let the player know the next day has started
+            Shipwreck.CurrentGame?.Day.IncrementDay();
+            // gain EXP
+            // TODO EXP should be higher if a fire is burning
+            player.GainExperience(exp);
+            Shipwreck.NewDayView.Display();
+
+            // TODO implement potential weather deaths
 
             Random random = new Random();
             if (waiting && random.Next(100000) == 1)

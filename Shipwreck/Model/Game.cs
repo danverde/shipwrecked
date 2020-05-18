@@ -6,13 +6,15 @@ namespace Shipwreck.Model
 {
     class Game
     {
-        public Player Player { get; private set; }
-        public Day Day { get; private set; }
+        public Player Player { get; }
+        public Day Day { get; }
+        public Fire Fire { get;  }
 
-        public Game(Player player, Day day)
+        public Game(Player player)
         {
             Player = player;
-            Day = day;
+            Day = new Day();
+            Fire = new Fire();
         }
 
     }
