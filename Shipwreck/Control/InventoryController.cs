@@ -1,5 +1,6 @@
 ﻿using Shipwreck.Exceptions;
 using Shipwreck.Model;
+using Shipwreck.Model.Factories;
 using Shipwreck.Model.Items;
 using System;
 using System.Collections.Generic;
@@ -13,20 +14,24 @@ namespace Shipwreck.Control
     {
         public static void AddDefaultItemsToInventory(Inventory inventory)
         {
+            ArmorFactory armorFactory = new ArmorFactory();
+            FoodFactory foodFactory = new FoodFactory();
+            ResourceFactory resourceFactory = new ResourceFactory();
+                                 
             // Spear spear = new Spear();
             Fists fists = new Fists();
-            Armor suit = new Armor("Suit", "A Once Fine Business Suit", 0);
+            Armor suit = armorFactory.GetArmor(Armor.Type.Suit);
 
-            Food fish = new Food("Fish", "Fresh fish", 2, 3);
+            Food fish = foodFactory.GetFood(Food.Type.Fish);
 
-            Resource match = new Resource("Match", "A waterproof match");
-            Resource vine = new Resource("Vine", "Jungle Vines");
+            Resource match = resourceFactory.GetResource(Resource.Type.Match);
+            Resource vine = resourceFactory.GetResource(Resource.Type.Vine);
 
             inventory.AddItem(fists);
             // inventory.AddItem(spear);
             inventory.AddItem(suit);
             inventory.ActiveArmor = suit;
-            inventory.ActiveWeapon = fists; // how do I make it so that the active weapon references an item in the inventory?
+            // inventory.ActiveWeapon = fists; // how do I make it so that the active weapon references an item in the inventory?
 
             inventory.AddItem(match, 3);
             inventory.AddItem(vine, 6);
@@ -49,7 +54,7 @@ namespace Shipwreck.Control
         public static void BuildWeapon(Inventory inventory, string itemToBuild)
         {   
             // Build the weapon
-            ConcreteWeaponFactory weaponFactory = new ConcreteWeaponFactory();
+            WeaponFactory weaponFactory = new WeaponFactory();
             Weapon weapon = weaponFactory.GetWeapon(itemToBuild);
             if (weapon == null || !(weapon is ICraftable))
             {

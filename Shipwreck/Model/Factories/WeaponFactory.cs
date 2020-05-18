@@ -1,13 +1,14 @@
-﻿using System;
+﻿using Shipwreck.Model.Items;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
 
-namespace Shipwreck.Model.Items
+namespace Shipwreck.Model.Factories
 {
-    class ConcreteWeaponFactory: WeaponFactory
+    class WeaponFactory
     {
-        public override Weapon GetWeapon(string weaponType)
+        public Weapon GetWeapon(string weaponType)
         {
             weaponType = weaponType.ToLower();
             Weapon weapon = null;

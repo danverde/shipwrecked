@@ -102,7 +102,7 @@ namespace Shipwreck.View
         {
             StringBuilder line;
             Inventory inventory = Shipwreck.CurrentGame?.Player.Inventory;
-            List<InventoryRecord> gearItems = InventoryController.GetItemsByType<Gear>(inventory);
+            List<InventoryRecord> gearItems = InventoryController.GetItemsByType<IGear>(inventory);
 
             Console.WriteLine("\n-------------------------\n Gear:\n-------------------------");
 
