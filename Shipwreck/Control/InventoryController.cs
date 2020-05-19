@@ -62,7 +62,8 @@ namespace Shipwreck.Control
                 throw new InventoryException("You can't build that!");
             }
 
-            // List<InventoryRecord> inventoryCopy = new List<InventoryRecord>(inventory.Items);
+            // TODO broken
+            List<InventoryRecord> inventoryCopy = new List<InventoryRecord>(inventory.Items);
 
             // Get list of required items
             Dictionary<string, int> requiredItems = (Dictionary<string, int>)weapon.GetType().GetProperty("RequiredItems").GetValue(null, null);
@@ -83,7 +84,7 @@ namespace Shipwreck.Control
                 }
                 catch(InventoryException e)
                 {
-                    //inventory.Items = inventoryCopy;
+                    inventory.Items = inventoryCopy;
                     throw e;
                 }
             }

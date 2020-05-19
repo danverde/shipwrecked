@@ -20,16 +20,7 @@ namespace Shipwreck.Model
 
         public void StartFire()
         {
-            try 
-            {
-                Resource match = Shipwreck.ResourceFactory.GetResource(Resource.Type.Match);
-                Inventory.RemoveItems(match, 1, true);
-                IsBurning = true;
-            }
-            catch(InventoryException e)
-            {
-                throw (e);
-            }
+            IsBurning = true;
         }
 
         public void ExtinguishFire()

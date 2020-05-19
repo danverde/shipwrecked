@@ -30,20 +30,19 @@ namespace Shipwreck.Model.Items
             }
         }
 
-        public bool DropItem(IItem item, int quantity = 1)
+        public int DropItem(IItem item, int quantity = 1)
         {
-            bool dropped;
+            int numDropped;
             if (item.Droppable)
             {
-                RemoveItems(item, quantity);
-                dropped = true;
+                numDropped = RemoveItems(item, quantity);
             } 
             else
             {
-                dropped = false;
+                throw new InventoryException($"You can't drop your {item.Name}");
             }
 
-            return dropped;
+            return numDropped;
         }
 
         /* Doesn't restore used items if errs out in strict mode */

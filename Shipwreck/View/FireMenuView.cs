@@ -1,5 +1,6 @@
 ﻿using Shipwreck.Control;
 using Shipwreck.Exceptions;
+using Shipwreck.Model;
 using Shipwreck.Model.Items;
 using System;
 using System.Collections.Generic;
@@ -45,7 +46,16 @@ namespace Shipwreck.View
 
         private void ShowStatus()
         {
-            throw new NotImplementedException();
+            Fire fire = Shipwreck.CurrentGame?.Fire;
+            string fireStatus = fire.IsBurning == true ? "Burning" : "Extinguished";
+            InventoryRecord wood = fire.Inventory.Items.Find(x => x.InventoryItem.Name == "Branch");
+            int woodQuantity = wood?.Quantity ?? 0;
+
+            Console.WriteLine("\n-------------------------\n Fire Status:\n-------------------------");
+            Console.WriteLine($" {fireStatus}");
+            Console.WriteLine($" Remaining Wood: {woodQuantity}");
+            Console.WriteLine("-------------------------");
+            Continue();
         }
 
         private void AddWood()
@@ -76,7 +86,17 @@ namespace Shipwreck.View
 
         private void StartFire()
         {
-            throw new NotImplementedException();
+            try
+            {
+                FireController.StartFire();
+                Console.WriteLine("The Fire was started");
+                Continue();
+            } 
+            catch(InventoryException)
+            {
+                Console.WriteLine("You can't start the fire without a match!");
+                Continue();
+            }
         }
 
         private void Continue()

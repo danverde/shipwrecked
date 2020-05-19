@@ -264,30 +264,18 @@ namespace Shipwreck.View
             IItem itemToDrop = GetInventoryItem("Which item would you like to drop?");
             if (itemToDrop != null)
             {
-                int? quantity = null;
-                do 
-                {
-                    Console.WriteLine("how many would you like to drop?");
-                    string squantity = Console.ReadLine();
-                    try
-                    {
-                        quantity = int.Parse(squantity);
-                    }
-                    catch (Exception)
-                    {
-                        Console.WriteLine("that is not a valid quantity");
-                    }
+                Console.WriteLine("how many would you like to drop?");
+                string squantity = Console.ReadLine();
+                int.TryParse(squantity, out int quantity);
 
-                } while (quantity == null);
-
-                bool dropped = inventory.DropItem(itemToDrop, (int)quantity);
-                if (dropped)
+                try
                 {
-                    Console.WriteLine($"You dropped {quantity} {itemToDrop.Name}(s)");
+                    int numDropped = inventory.DropItem(itemToDrop, quantity);
+                    Console.WriteLine($"You dropped {numDropped} {itemToDrop.Name}(s)");
                 }
-                else
+                catch(InventoryException e)
                 {
-                    Console.WriteLine($"You can't drop your {itemToDrop.Name}");
+                    Console.WriteLine(e.Message);
                 }
             }
             else

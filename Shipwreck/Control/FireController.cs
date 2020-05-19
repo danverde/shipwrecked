@@ -44,5 +44,20 @@ namespace Shipwreck.Control
                 throw e;
             }
         }
+
+        public static void StartFire()
+        {
+            try
+            {
+                Inventory inventory = Shipwreck.CurrentGame?.Player.Inventory;
+                Resource match = Shipwreck.ResourceFactory.GetResource(Resource.Type.Match);
+                inventory.RemoveItems(match, 1, true);
+                Shipwreck.CurrentGame?.Fire.StartFire();
+            }
+            catch (InventoryException e)
+            {
+                throw (e);
+            }
+        }
     }
 }
