@@ -1,4 +1,5 @@
 ﻿using Shipwreck.Model;
+using Shipwreck.Model.Factories;
 using Shipwreck.View;
 using System;
 
@@ -8,14 +9,19 @@ namespace Shipwreck
     {
         public static Game CurrentGame;
 
+        // TODO remove views
         public static MainMenuView MainMenuView;
         public static GameMenuView GameMenuView;
         public static HelpMenuView HelpMenuView;
         public static InventoryMenuView InventoryView;
         public static NewDayView NewDayView;
+
+        public static ResourceFactory ResourceFactory;
+
         static void Main(string[] args)
         {
-           InitilizeViews();
+            InitilizeViews();
+            InitilizeFactories();
 
             Console.WriteLine("======================================================================"
                 + "\nCongratulations!! You just washed up on the shore of a tropical "
@@ -38,6 +44,11 @@ namespace Shipwreck
             HelpMenuView = new HelpMenuView();
             InventoryView = new InventoryMenuView();
             NewDayView = new NewDayView();
+        }
+
+        private static void InitilizeFactories()
+        {
+            ResourceFactory = new ResourceFactory();
         }
     }
 }

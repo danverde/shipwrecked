@@ -8,7 +8,7 @@ namespace Shipwreck.Model
     {
         public static int HungerPerDay  = 3;
         public int Number { get; private set; }
-        public Weather Weather { get; set; } // TODO implement me
+        public Weather Weather { get; set; }
 
 
         public Day()

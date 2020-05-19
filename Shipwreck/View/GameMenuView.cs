@@ -16,6 +16,7 @@ namespace Shipwreck.View
                   + "\n C - View Character"
                   + "\n I - View Inventory"
                   + "\n W - Wait for rescue"
+                  + "\n F - Tend Signal Fire"
                   + "\n H - Help Menu"
                   + "\n X - End it all (Exit Game)"
                   + "\n----------------------------------")
@@ -56,6 +57,9 @@ namespace Shipwreck.View
                 case "W":
                     done = WaitItOut();
                     break;
+                case "F":
+                    OpenFireMenu();
+                    break;
                 case "H":
                     OpenHelpView();
                     break;
@@ -75,6 +79,12 @@ namespace Shipwreck.View
             waitView.Display();
 
             return Shipwreck.CurrentGame == null ? true: false;
+        }
+
+        private void OpenFireMenu()
+        {
+            FireMenuView fireMenuView = new FireMenuView();
+            fireMenuView.Display();
         }
 
         private void OpenHelpView()

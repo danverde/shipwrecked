@@ -15,7 +15,7 @@ namespace Shipwreck.Control
             InventoryController.AddDefaultItemsToInventory(player.Inventory);
             Day day = new Day();
 
-            Shipwreck.CurrentGame = new Game(player, day);
+            Shipwreck.CurrentGame = new Game(player);
             Shipwreck.NewDayView.Display();
         }
 

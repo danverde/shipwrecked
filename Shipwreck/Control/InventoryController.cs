@@ -16,7 +16,6 @@ namespace Shipwreck.Control
         {
             ArmorFactory armorFactory = new ArmorFactory();
             FoodFactory foodFactory = new FoodFactory();
-            ResourceFactory resourceFactory = new ResourceFactory();
                                  
             // Spear spear = new Spear();
             Fists fists = new Fists();
@@ -24,8 +23,9 @@ namespace Shipwreck.Control
 
             Food fish = foodFactory.GetFood(Food.Type.Fish);
 
-            Resource match = resourceFactory.GetResource(Resource.Type.Match);
-            Resource vine = resourceFactory.GetResource(Resource.Type.Vine);
+            Resource match = Shipwreck.ResourceFactory.GetResource(Resource.Type.Match);
+            Resource vine = Shipwreck.ResourceFactory.GetResource(Resource.Type.Vine);
+            Resource branch = Shipwreck.ResourceFactory.GetResource(Resource.Type.Branch);
 
             inventory.AddItem(fists);
             // inventory.AddItem(spear);
@@ -35,6 +35,7 @@ namespace Shipwreck.Control
 
             inventory.AddItem(match, 3);
             inventory.AddItem(vine, 6);
+            inventory.AddItem(branch, 3);
 
             inventory.AddItem(fish, 3);
         }
@@ -61,7 +62,7 @@ namespace Shipwreck.Control
                 throw new InventoryException("You can't build that!");
             }
 
-            List<InventoryRecord> inventoryCopy = new List<InventoryRecord>(inventory.Items);
+            // List<InventoryRecord> inventoryCopy = new List<InventoryRecord>(inventory.Items);
 
             // Get list of required items
             Dictionary<string, int> requiredItems = (Dictionary<string, int>)weapon.GetType().GetProperty("RequiredItems").GetValue(null, null);
@@ -82,7 +83,7 @@ namespace Shipwreck.Control
                 }
                 catch(InventoryException e)
                 {
-                    inventory.Items = inventoryCopy;
+                    //inventory.Items = inventoryCopy;
                     throw e;
                 }
             }

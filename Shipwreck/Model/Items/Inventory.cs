@@ -46,15 +46,18 @@ namespace Shipwreck.Model.Items
             return dropped;
         }
 
-        public void RemoveItems(IItem item, int quantity = 1, bool strict = false)
+        /* Doesn't restore used items if errs out in strict mode */
+        public int RemoveItems(IItem item, int quantity = 1, bool strict = false)
         {
-            for (int i = 0; i < quantity; i++)
+            int i = 0;
+            for (; i < quantity; i++)
             {
                 InventoryRecord inventoryRecord = Items.Find(x => x.InventoryItem.Name.Equals(item.Name));
                 if (inventoryRecord == null)
                 {
                     if (strict)
                     {
+                        AddItem(item, i);
                         throw new InventoryException("Insufficient items in inventory");
                     }
                     else
@@ -82,6 +85,8 @@ namespace Shipwreck.Model.Items
                     Items.Remove(inventoryRecord);
                 }
             }
+
+            return i;
         }
     }
 }

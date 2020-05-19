@@ -21,9 +21,27 @@ namespace Shipwreck.Control
             {
                 fire.Inventory.RemoveItems(wood.InventoryItem, Fire.BurnRate, true);
             }
-            catch (InventoryException e)
+            catch (InventoryException)
             {
                 fire.ExtinguishFire();
+            }
+        }
+
+        public static int AddWood(int quantityToAdd)
+        {
+            Inventory inventory = Shipwreck.CurrentGame?.Player.Inventory;
+            InventoryRecord woodRecord = inventory.Items.Find(x => x.InventoryItem.Name == "Branch");
+            int inventoryQuantity = woodRecord?.Quantity ?? 0;
+
+            try
+            {
+                int numRemoved = inventory.RemoveItems(woodRecord.InventoryItem, quantityToAdd);
+                Shipwreck.CurrentGame?.Fire.AddWood(quantityToAdd);
+                return numRemoved;
+            }
+            catch(InventoryException e)
+            {
+                throw e;
             }
         }
     }

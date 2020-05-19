@@ -1,4 +1,5 @@
 ﻿using Shipwreck.Exceptions;
+using Shipwreck.Model.Factories;
 using Shipwreck.Model.Items;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,16 @@ namespace Shipwreck.Model
 
         public void StartFire()
         {
-            IsBurning = true;
+            try 
+            {
+                Resource match = Shipwreck.ResourceFactory.GetResource(Resource.Type.Match);
+                Inventory.RemoveItems(match, 1, true);
+                IsBurning = true;
+            }
+            catch(InventoryException e)
+            {
+                throw (e);
+            }
         }
 
         public void ExtinguishFire()
@@ -27,11 +37,15 @@ namespace Shipwreck.Model
             IsBurning = false;
         }
 
-        
-
         public void AddWood(int quantity)
         {
-
+            if (quantity == 0)
+            {
+                return;
+            }
+            ResourceFactory resourceFactory = new ResourceFactory();
+            Resource wood = resourceFactory.GetResource(Resource.Type.Branch);
+            Inventory.AddItem(wood, quantity);
         }
     }
 }
