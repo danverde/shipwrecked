@@ -81,7 +81,9 @@ namespace Shipwreck.View
 
         private void ExtinguishFire()
         {
-            throw new NotImplementedException();
+            Shipwreck.CurrentGame?.Fire.ExtinguishFire();
+            Console.WriteLine("The Fire was extinguished");
+            Continue();
         }
 
         private void StartFire()
