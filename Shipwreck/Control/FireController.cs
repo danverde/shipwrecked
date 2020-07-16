@@ -1,9 +1,6 @@
 ﻿using Shipwreck.Exceptions;
 using Shipwreck.Model;
 using Shipwreck.Model.Items;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Shipwreck.Control
 {
@@ -11,12 +8,13 @@ namespace Shipwreck.Control
     {
         public static void Burn(Fire fire)
         {
-            if (fire.IsBurning == false)
+            if (fire.Status != FireStatus.Burning)
             {
                 return;
             }
 
-            InventoryRecord wood = fire.Inventory.Items.Find(x => x.InventoryItem.Name == "Branch");
+            // TODO improve null checking
+            var wood = fire.Inventory.Items.Find(x => x.InventoryItem.Name == "Branch");
             try
             {
                 fire.Inventory.RemoveItems(wood.InventoryItem, Fire.BurnRate, true);
@@ -29,35 +27,22 @@ namespace Shipwreck.Control
 
         public static int AddWood(int quantityToAdd)
         {
-            Inventory inventory = Shipwreck.CurrentGame?.Player.Inventory;
-            InventoryRecord woodRecord = inventory.Items.Find(x => x.InventoryItem.Name == "Branch");
-            int inventoryQuantity = woodRecord?.Quantity ?? 0;
+            var inventory = Shipwreck.CurrentGame.Player.Inventory;
+            // TODO fix null checking
+            var woodRecord = inventory.Items.Find(x => x.InventoryItem.Name == "Branch");
+            // var inventoryQuantity = woodRecord?.Quantity ?? 0;
 
-            try
-            {
-                int numRemoved = inventory.RemoveItems(woodRecord.InventoryItem, quantityToAdd);
-                Shipwreck.CurrentGame?.Fire.AddWood(quantityToAdd);
-                return numRemoved;
-            }
-            catch(InventoryException e)
-            {
-                throw e;
-            }
+            var numRemoved = inventory.RemoveItems(woodRecord.InventoryItem, quantityToAdd);
+            Shipwreck.CurrentGame?.Fire.AddWood(quantityToAdd);
+            return numRemoved;
         }
 
         public static void StartFire()
         {
-            try
-            {
-                Inventory inventory = Shipwreck.CurrentGame?.Player.Inventory;
-                Resource match = Shipwreck.ResourceFactory.GetResource(Resource.Type.Match);
-                inventory.RemoveItems(match, 1, true);
-                Shipwreck.CurrentGame?.Fire.StartFire();
-            }
-            catch (InventoryException e)
-            {
-                throw (e);
-            }
+            var inventory = Shipwreck.CurrentGame.Player.Inventory;
+            var match = Shipwreck.ResourceFactory.GetResource(Resource.Type.Match);
+            inventory.RemoveItems(match, 1, true);
+            Shipwreck.CurrentGame?.Fire.StartFire();
         }
     }
 }

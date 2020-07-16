@@ -1,7 +1,4 @@
 ﻿using Shipwreck.Model;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Shipwreck.Control
 {
@@ -9,7 +6,7 @@ namespace Shipwreck.Control
     {
         public static int Attack(Character defendingCharacter, Character attackingCharacter)
         {
-            int damageAmount = attackingCharacter.CalculatedAttack - defendingCharacter.CalculatedDefense;
+            var damageAmount = attackingCharacter.CalculatedAttack - defendingCharacter.CalculatedDefense;
             if (damageAmount <= 0)
             {
                 damageAmount = 0;

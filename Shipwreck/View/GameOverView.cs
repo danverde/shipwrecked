@@ -1,16 +1,18 @@
-﻿using Shipwreck.Control;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Shipwreck.View
+﻿namespace Shipwreck.View
 {
     class GameOverView : View
     {
-        public GameOverView(string message = "You Died. Sucks to suck")
-            :base(message, true)
-        {}
-        public override bool DoAction(string value)
+        public GameOverView()
+        {
+            Message = "You Died. Sucks to suck";
+        }
+        
+        public GameOverView(string message)
+        {
+            Message = message;
+        }
+
+        protected override bool HandleInput(string input)
         {
             return true;
         }

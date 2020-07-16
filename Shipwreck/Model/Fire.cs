@@ -1,31 +1,28 @@
-﻿using Shipwreck.Exceptions;
-using Shipwreck.Model.Factories;
+﻿using Shipwreck.Model.Factories;
 using Shipwreck.Model.Items;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Shipwreck.Model
 {
     class Fire
     {
         public static int BurnRate = 2;
-        public bool IsBurning { get; private set; }
+        public FireStatus Status { get; private set; }
         public Inventory Inventory { get; }
 
         public Fire()
         {
+            Status = FireStatus.NotStarted;
             Inventory = new Inventory();
         }
 
         public void StartFire()
         {
-            IsBurning = true;
+            Status = FireStatus.Burning;
         }
 
         public void ExtinguishFire()
         {
-            IsBurning = false;
+            Status = FireStatus.Extinguished;
         }
 
         public void AddWood(int quantity)
@@ -34,8 +31,8 @@ namespace Shipwreck.Model
             {
                 return;
             }
-            ResourceFactory resourceFactory = new ResourceFactory();
-            Resource wood = resourceFactory.GetResource(Resource.Type.Branch);
+            var resourceFactory = new ResourceFactory();
+            var wood = resourceFactory.GetResource(Resource.Type.Branch);
             Inventory.AddItem(wood, quantity);
         }
     }

@@ -7,19 +7,21 @@ namespace Shipwreck.View
 {
     class InventoryHelpView : View
     {
-        public InventoryHelpView()
-            :base("\n"
-                + "\n----------------------------------"
-                + "\n| Inventory Help Menu"
-                + "\n----------------------------------"
-                + "\n C - View Item Catalog"
-                + "\n X - Exit Inventory Help Menu"
-                + "\n----------------------------------")
-        { }
-
-        public override bool DoAction(string value)
+        public InventoryHelpView(View parentView)
         {
-            string menuItem = value.ToUpper();
+            ParentView = parentView;
+            Message = "\n"
+                      + "\n----------------------------------"
+                      + "\n| Inventory Help Menu"
+                      + "\n----------------------------------"
+                      + "\n C - View Item Catalog"
+                      + "\n X - Exit Inventory Help Menu"
+                      + "\n----------------------------------";
+        }
+
+        protected override bool HandleInput(string input)
+        {
+            var menuItem = input.ToUpper();
             switch (menuItem)
             {
                 case "C":
@@ -42,15 +44,16 @@ namespace Shipwreck.View
             Console.WriteLine(line);
 
             // for each weapon
-            List<Type> itemTypes = new List<Type> { typeof(Spear) };
+            var itemTypes = new List<Type> { typeof(Spear) };
             
-            foreach(Type type in itemTypes)
+            foreach(var type in itemTypes)
             {
-                Dictionary<string, int> requiredItems = (Dictionary<string, int>)type.GetProperty("RequiredItems").GetValue(null, null);
+                // TODO YIKES!
+                var requiredItems = (Dictionary<string, int>)type.GetProperty("RequiredItems").GetValue(null, null);
             
                 Console.WriteLine($" {type.Name}");
 
-                foreach (KeyValuePair<string, int> item in requiredItems)
+                foreach (var item in requiredItems)
                 {
                     line = new StringBuilder("                                ");
                     line.Insert(8, item.Key);

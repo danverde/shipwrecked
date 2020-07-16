@@ -1,28 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Shipwreck.View
 {
     class HelpMenuView : View
     {
-        public HelpMenuView()
-            :base("\n"
-                + "\n----------------------------------"
-                + "\n| Help Menu"
-                + "\n----------------------------------"
-                + "\n P - Purpose of the Game"
-                + "\n I - Inventory Help"
-                + "\n M - Map Terminolagy"
-                + "\n R - Resource Help"
-                + "\n C - Combat Help"
-                + "\n B - Building Help"
-                + "\n X - Exit Help Menu"
-                + "\n----------------------------------")
-        { }
-        public override bool DoAction(string value)
+        public HelpMenuView(View parentView)
         {
-            string menuOption = value.ToUpper();
+            ParentView = parentView;
+            Message = "\n"
+                      + "\n----------------------------------"
+                      + "\n| Help Menu"
+                      + "\n----------------------------------"
+                      + "\n P - Purpose of the Game"
+                      + "\n I - Inventory Help"
+                      + "\n M - Map Terminology"
+                      + "\n R - Resource Help"
+                      + "\n C - Combat Help"
+                      + "\n B - Building Help"
+                      + "\n X - Exit Help Menu"
+                      + "\n----------------------------------";
+        }
+        protected override bool HandleInput(string input)
+        {
+            var menuOption = input.ToUpper();
             switch (menuOption) {
                 case "P":
                     PurposeHelp();
@@ -61,7 +61,7 @@ namespace Shipwreck.View
 
         private void ShowInventoryHelp()
         {
-            InventoryHelpView inventoryHelpView = new InventoryHelpView();
+            var inventoryHelpView = new InventoryHelpView(new HelpMenuView(ParentView));
             inventoryHelpView.Display();
         }
 

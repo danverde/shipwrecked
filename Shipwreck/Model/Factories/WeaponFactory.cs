@@ -1,8 +1,4 @@
 ﻿using Shipwreck.Model.Items;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Text;
 
 namespace Shipwreck.Model.Factories
 {

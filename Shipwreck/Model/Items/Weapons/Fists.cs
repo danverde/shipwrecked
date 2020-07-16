@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Shipwreck.Model.Items
+﻿namespace Shipwreck.Model.Items
 {
     class Fists : Weapon
     {

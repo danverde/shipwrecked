@@ -1,9 +1,7 @@
 ﻿using Shipwreck.Control;
 using Shipwreck.Exceptions;
-using Shipwreck.Model;
 using Shipwreck.Model.Items;
 using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace Shipwreck.View
@@ -11,27 +9,29 @@ namespace Shipwreck.View
     class InventoryMenuView : View
     {
         public InventoryMenuView()
-            :base("\n\n----------------------------------"
-                  + "\n| Inventory Menu"
-                  + "\n----------------------------------"
-                  + "\n A - View All Items"
-                  + "\n G - View Gear"
-                  + "\n F - View Food"
-                  + "\n R - View Resources"
-                  + "\n E - Eat Food"
-                  + "\n Q - Equip Gear"
-                  + "\n D - Drop Item"
-                  + "\n C - View Character"
-                  + "\n B - Build Weapon"
-                  + "\n H - Inventory Help"
-                  + "\n X - Close Inventory"
-                  + "\n----------------------------------")
-        { }
-
-        public override bool DoAction(string value)
         {
-            string menuItem = value.ToUpper();
-            bool done = false;
+            ParentView = new GameMenuView();
+            Message = "\n\n----------------------------------"
+                      + "\n| Inventory Menu"
+                      + "\n----------------------------------"
+                      + "\n A - View All Items"
+                      + "\n G - View Gear"
+                      + "\n F - View Food"
+                      + "\n R - View Resources"
+                      + "\n E - Eat Food"
+                      + "\n Q - Equip Gear"
+                      + "\n D - Drop Item"
+                      + "\n C - View Character"
+                      + "\n B - Build Weapon"
+                      + "\n H - Inventory Help"
+                      + "\n X - Close Inventory"
+                      + "\n----------------------------------";
+        }
+
+        protected override bool HandleInput(string input)
+        {
+            var menuItem = input.ToUpper();
+            var done = false;
 
             switch(menuItem)
             {
@@ -73,7 +73,7 @@ namespace Shipwreck.View
         private void ShowAllItems()
         {
             StringBuilder line;
-            Inventory inventory = Shipwreck.CurrentGame.Player.Inventory;
+            var inventory = Shipwreck.CurrentGame.Player.Inventory;
 
             Console.WriteLine("\n-------------------------\n Inventory:\n-------------------------");
             Console.WriteLine($" Active Weapon: {inventory.ActiveWeapon?.Name ?? "None"} +{inventory.ActiveWeapon?.AttackPower ?? 0}");
@@ -85,7 +85,7 @@ namespace Shipwreck.View
             line.Insert(20, "DESC");
             Console.WriteLine(line);
 
-            foreach (InventoryRecord itemRecord in inventory.Items)
+            foreach (var itemRecord in inventory.Items)
             {
                 line = new StringBuilder("                                              ");
                 line.Insert(1, itemRecord.InventoryItem.Name);
@@ -100,24 +100,23 @@ namespace Shipwreck.View
 
         private void ViewGear()
         {
-            StringBuilder line;
-            Inventory inventory = Shipwreck.CurrentGame?.Player.Inventory;
-            List<InventoryRecord> gearItems = InventoryController.GetItemsByType<IGear>(inventory);
+            var inventory = Shipwreck.CurrentGame.Player.Inventory;
+            var gearItems = InventoryController.GetItemsByType<IGear>(inventory);
 
             Console.WriteLine("\n-------------------------\n Gear:\n-------------------------");
 
-            line = new StringBuilder("                                              ");
+            var line = new StringBuilder("                                              ");
             line.Insert(1, "T");
             line.Insert(4, "ITEM");
             line.Insert(19, "QTY");
             line.Insert(23, "BONUS");
             Console.WriteLine(line);
 
-            foreach (InventoryRecord gear in gearItems)
+            foreach (var gear in gearItems)
             {
                 // Type itemType = gear.InventoryItem.GetType();
-                int itemBonus = 0;
-                bool isActive = false;
+                var itemBonus = 0;
+                var isActive = false;
 
                 if (gear.InventoryItem.GetType() == typeof(Armor))
                 {
@@ -145,8 +144,8 @@ namespace Shipwreck.View
         private void ViewFood()
         {
             StringBuilder line;
-            Inventory inventory = Shipwreck.CurrentGame?.Player.Inventory;
-            List<InventoryRecord> foodItems = InventoryController.GetItemsByType<Food>(inventory);
+            var inventory = Shipwreck.CurrentGame?.Player.Inventory;
+            var foodItems = InventoryController.GetItemsByType<Food>(inventory);
 
             Console.WriteLine("\n-------------------------\n Food:\n-------------------------");
 
@@ -157,7 +156,7 @@ namespace Shipwreck.View
             line.Insert(25, "HNGR");
             Console.WriteLine(line);
 
-            foreach (InventoryRecord foodItem in foodItems)
+            foreach (var foodItem in foodItems)
             {
                 line = new StringBuilder("                                              ");
                 line.Insert(1, foodItem.InventoryItem.Name);
@@ -173,8 +172,8 @@ namespace Shipwreck.View
         private void ViewResources()
         {
             StringBuilder line;
-            Inventory inventory = Shipwreck.CurrentGame?.Player.Inventory;
-            List<InventoryRecord> resources = InventoryController.GetItemsByType<Resource>(inventory);
+            var inventory = Shipwreck.CurrentGame?.Player.Inventory;
+            var resources = InventoryController.GetItemsByType<Resource>(inventory);
 
             Console.WriteLine("\n-------------------------\n Resources:\n-------------------------");
 
@@ -184,7 +183,7 @@ namespace Shipwreck.View
             line.Insert(20, "DESC");
             Console.WriteLine(line);
 
-            foreach (InventoryRecord resource in resources)
+            foreach (var resource in resources)
             {
                 line = new StringBuilder("                                              ");
                 line.Insert(1, resource.InventoryItem.Name);
@@ -198,10 +197,10 @@ namespace Shipwreck.View
 
         private bool EatFood()
         { 
-            bool done = false;
-            Player player = Shipwreck.CurrentGame?.Player;
-            Inventory inventory = player.Inventory;
-            IItem itemToEat = GetInventoryItem("Which item would you like to eat?");
+            var done = false;
+            var player = Shipwreck.CurrentGame.Player;
+            var inventory = player.Inventory;
+            var itemToEat = GetInventoryItem("Which item would you like to eat?");
             if (itemToEat != null)
             {
                 if (itemToEat.Droppable == false)
@@ -236,8 +235,8 @@ namespace Shipwreck.View
 
         private void EquipGear()
         {
-            Inventory inventory = Shipwreck.CurrentGame?.Player.Inventory;
-            IItem itemToEquip = GetInventoryItem("Which item would you like to equip?");
+            var inventory = Shipwreck.CurrentGame.Player.Inventory;
+            var itemToEquip = GetInventoryItem("Which item would you like to equip?");
             if (itemToEquip != null)
             {
                 if (itemToEquip.GetType().IsSubclassOf(typeof(Weapon)))
@@ -260,17 +259,17 @@ namespace Shipwreck.View
 
         private void DropItem()
         {
-            Inventory inventory = Shipwreck.CurrentGame?.Player.Inventory;
-            IItem itemToDrop = GetInventoryItem("Which item would you like to drop?");
+            var inventory = Shipwreck.CurrentGame.Player.Inventory;
+            var itemToDrop = GetInventoryItem("Which item would you like to drop?");
             if (itemToDrop != null)
             {
                 Console.WriteLine("how many would you like to drop?");
-                string squantity = Console.ReadLine();
-                int.TryParse(squantity, out int quantity);
+                var sQuantity = Console.ReadLine();
+                int.TryParse(sQuantity, out var quantity);
 
                 try
                 {
-                    int numDropped = inventory.DropItem(itemToDrop, quantity);
+                    var numDropped = inventory.DropItem(itemToDrop, quantity);
                     Console.WriteLine($"You dropped {numDropped} {itemToDrop.Name}(s)");
                 }
                 catch(InventoryException e)
@@ -288,7 +287,7 @@ namespace Shipwreck.View
 
         private void BuildWeapon()
         {
-            Inventory inventory = Shipwreck.CurrentGame?.Player.Inventory;
+            var inventory = Shipwreck.CurrentGame?.Player.Inventory;
             string itemToBuild;
 
             Console.WriteLine("Which Weapon would you like to build?");
@@ -309,23 +308,17 @@ namespace Shipwreck.View
 
         private void ShowInventoryHelpView()
         {
-            InventoryHelpView inventoryHelpView = new InventoryHelpView();
+            var inventoryHelpView = new InventoryHelpView(new InventoryMenuView());
             inventoryHelpView.Display();
         }
 
         private IItem GetInventoryItem(string message)
         {
-            Inventory inventory = Shipwreck.CurrentGame.Player.Inventory;
+            var inventory = Shipwreck.CurrentGame.Player.Inventory;
             Console.WriteLine(message);
-            string itemName = Console.ReadLine();
+            var itemName = Console.ReadLine();
 
-            return InventoryController.GetItemFromInventory(inventory, itemName) ?? null;
-        }
-
-        private void Continue()
-        {
-            Console.WriteLine("Press any key to continue");
-            Console.ReadKey();
+            return InventoryController.GetItemFromInventory(inventory, itemName);
         }
     }
 }

@@ -1,31 +1,26 @@
 ﻿using Shipwreck.Exceptions;
-using Shipwreck.Model;
 using Shipwreck.Model.Factories;
 using Shipwreck.Model.Items;
-using System;
 using System.Collections.Generic;
-using System.Reflection;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Text;
 
 namespace Shipwreck.Control
 {
-    class InventoryController
+    static class InventoryController
     {
         public static void AddDefaultItemsToInventory(Inventory inventory)
         {
-            ArmorFactory armorFactory = new ArmorFactory();
-            FoodFactory foodFactory = new FoodFactory();
+            var armorFactory = new ArmorFactory();
+            var foodFactory = new FoodFactory();
                                  
             // Spear spear = new Spear();
-            Fists fists = new Fists();
-            Armor suit = armorFactory.GetArmor(Armor.Type.Suit);
+            var fists = new Fists();
+            var suit = armorFactory.GetArmor(Armor.Type.Suit);
 
-            Food fish = foodFactory.GetFood(Food.Type.Fish);
+            var fish = foodFactory.GetFood(Food.Type.Fish);
 
-            Resource match = Shipwreck.ResourceFactory.GetResource(Resource.Type.Match);
-            Resource vine = Shipwreck.ResourceFactory.GetResource(Resource.Type.Vine);
-            Resource branch = Shipwreck.ResourceFactory.GetResource(Resource.Type.Branch);
+            var match = Shipwreck.ResourceFactory.GetResource(Resource.Type.Match);
+            var vine = Shipwreck.ResourceFactory.GetResource(Resource.Type.Vine);
+            var branch = Shipwreck.ResourceFactory.GetResource(Resource.Type.Branch);
 
             inventory.AddItem(fists);
             // inventory.AddItem(spear);
@@ -42,7 +37,7 @@ namespace Shipwreck.Control
 
         public static IItem GetItemFromInventory(Inventory inventory, string itemName)
         {
-            InventoryRecord match = inventory.Items.Find(x => x.InventoryItem.Name == itemName);
+            var match = inventory.Items.Find(x => x.InventoryItem.Name == itemName);
 
             return match?.InventoryItem;
         }
@@ -55,23 +50,23 @@ namespace Shipwreck.Control
         public static void BuildWeapon(Inventory inventory, string itemToBuild)
         {   
             // Build the weapon
-            WeaponFactory weaponFactory = new WeaponFactory();
-            Weapon weapon = weaponFactory.GetWeapon(itemToBuild);
+            var weaponFactory = new WeaponFactory();
+            var weapon = weaponFactory.GetWeapon(itemToBuild);
             if (weapon == null || !(weapon is ICraftable))
             {
                 throw new InventoryException("You can't build that!");
             }
 
             // TODO broken
-            List<InventoryRecord> inventoryCopy = new List<InventoryRecord>(inventory.Items);
+            var inventoryCopy = new List<InventoryRecord>(inventory.Items);
 
             // Get list of required items
-            Dictionary<string, int> requiredItems = (Dictionary<string, int>)weapon.GetType().GetProperty("RequiredItems").GetValue(null, null);
+            var requiredItems = (Dictionary<string, int>)weapon.GetType().GetProperty("RequiredItems").GetValue(null, null);
             
             // Check inventory for required materials
-            foreach (KeyValuePair<string, int> requiredItem in requiredItems)
+            foreach (var requiredItem in requiredItems)
             {
-                InventoryRecord inventoryRecord = inventory.Items.Find(x => x.InventoryItem.Name == requiredItem.Key);
+                var inventoryRecord = inventory.Items.Find(x => x.InventoryItem.Name == requiredItem.Key);
                 if ( inventoryRecord == null || requiredItem.Value > inventoryRecord.Quantity)
                 {
                     // not enough items!!

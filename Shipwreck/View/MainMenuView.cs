@@ -1,30 +1,28 @@
-﻿using Shipwreck.Control;
-using Shipwreck.Model;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 
 namespace Shipwreck.View
 {
     class MainMenuView : View
     {
         public MainMenuView()
-            :base("\n\n----------------------------------"
-                  + "\n| Main Menu"
-                  + "\n----------------------------------"
-                  + "\n N - New Game"
-                  + "\n S - Save Game"
-                  + "\n C - Continue Game"
-                  + "\n H - Help Menu"
-                  + "\n X - Close Shipwreck"
-                  + "\n----------------------------------")
-        { }
-
-        public override bool DoAction(string menuOption)
         {
-            menuOption = menuOption.ToUpper();
+            // TODO breaks when closing b/c there's no parent view
+            Message = "\n\n----------------------------------"
+                      + "\n| Main Menu"
+                      + "\n----------------------------------"
+                      + "\n N - New Game"
+                      + "\n S - Save Game"
+                      + "\n C - Continue Game"
+                      + "\n H - Help Menu"
+                      + "\n X - Close Shipwreck"
+                      + "\n----------------------------------";
+        }
 
-            switch (menuOption) 
+        protected override bool HandleInput(string input)
+        {
+            input = input.ToUpper();
+
+            switch (input) 
             {
                 case "N":
                     StartNewGame();
@@ -45,8 +43,7 @@ namespace Shipwreck.View
 
         private void StartNewGame()
         {
-            NewGameView newGameView = new NewGameView();
-            newGameView.Display();
+            new NewGameView().Display();
         }
 
         private void SaveGame()
@@ -61,8 +58,7 @@ namespace Shipwreck.View
 
         private void OpenHelpView()
         {
-            HelpMenuView helpMenuView = new HelpMenuView();
-            helpMenuView.Display();
+            new HelpMenuView(new MainMenuView()).Display();
         }
     }
 }

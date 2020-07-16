@@ -1,30 +1,28 @@
-﻿using Shipwreck.Control;
-using Shipwreck.Model;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 
 namespace Shipwreck.View
 {
     class GameMenuView : View
     {
         public GameMenuView()
-            : base("\n"
-                  + "\n----------------------------------"
-                  + "\n| Game Menu"
-                  + "\n----------------------------------"
-                  + "\n C - View Character"
-                  + "\n I - View Inventory"
-                  + "\n W - Wait for rescue"
-                  + "\n F - Tend Signal Fire"
-                  + "\n H - Help Menu"
-                  + "\n X - End it all (Exit Game)"
-                  + "\n----------------------------------")
-        { }
+        {
+            ParentView = new MainMenuView();
+            Message = "\n"
+                      + "\n----------------------------------"
+                      + "\n| Game Menu"
+                      + "\n----------------------------------"
+                      + "\n C - View Character"
+                      + "\n I - View Inventory"
+                      + "\n W - Wait for rescue"
+                      + "\n F - Tend Signal Fire"
+                      + "\n H - Help Menu"
+                      + "\n X - End it all (Exit Game)"
+                      + "\n----------------------------------";
+        }
 
         public static void ShowPlayerStats()
         {
-            Player player = Shipwreck.CurrentGame.Player;
+            var player = Shipwreck.CurrentGame.Player;
 
             Console.WriteLine("\n-------------------------\n Character Stats:");
             Console.WriteLine($" Name: {player.Name}");
@@ -42,20 +40,20 @@ namespace Shipwreck.View
             // Console.Write(new string(' ', Console.WindowWidth));
         }
 
-        public override bool DoAction(string value)
+        protected override bool HandleInput(string input)
         {
-            value = value.ToUpper();
-            bool done = false;
-            switch(value)
+            input = input.ToUpper();
+            var closeView = false;
+            switch(input)
             {
                 case "C":
                     ShowPlayerStats();
                     break;
                 case "I":
-                    done = ShowInventory();
+                    closeView = ShowInventory();
                     break;
                 case "W":
-                    done = WaitItOut();
+                    closeView = WaitItOut();
                     break;
                 case "F":
                     OpenFireMenu();
@@ -64,32 +62,35 @@ namespace Shipwreck.View
                     OpenHelpView();
                     break;
             }
-            return done;
+            return closeView;
         }
 
         private bool ShowInventory()
         {
-            Shipwreck.InventoryView.Display();
+            new InventoryMenuView().Display();
+            
+            // TODO I don't think I need this logic anymore!
             return Shipwreck.CurrentGame == null ? true : false;
         }
 
         private bool WaitItOut()
         {
-            WaitView waitView = new WaitView();
+            var waitView = new WaitView();
             waitView.Display();
 
+            // TODO I don't think I need this logic anymore!
             return Shipwreck.CurrentGame == null ? true: false;
         }
 
         private void OpenFireMenu()
         {
-            FireMenuView fireMenuView = new FireMenuView();
+            var fireMenuView = new FireMenuView();
             fireMenuView.Display();
         }
 
         private void OpenHelpView()
         {
-            HelpMenuView helpMenuView = new HelpMenuView();
+            var helpMenuView = new HelpMenuView(new GameMenuView());
             helpMenuView.Display();
         }
     }

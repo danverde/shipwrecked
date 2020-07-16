@@ -1,66 +1,65 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using Shipwreck.Model;
 
 namespace Shipwreck.View
 {
-    abstract class View : IView
+    public abstract class View
     {
-        private bool AllowEmpty;
-        protected string displayMessage;
+        protected bool AllowEmpty { get; set; }
+        protected View ParentView { get; set; }
+        protected string Message { get; set; }
 
-        // so that you don't have to pass a message to the constructor of a view
-        public View()
-        {
-
-        }
-
-        public View(string message, bool allowEmpty = false)
-        {
-            displayMessage = message;
-            AllowEmpty = allowEmpty;
-        }
-
-        // public override void Display()?
         public void Display()
         {
-            var done = false;
+            var closeView = true;
             do
             {
-                string value = GetInput();
-                // this lets you close out of the game without actually closing anything. Does that matter?
-                if (value.ToUpper() == "X")
+                Console.WriteLine(Message);
+                var input = GetInput();
+                if (input != "X")
                 {
-                    return;
+                    closeView = HandleInput(input);
                 }
-                done = DoAction(value);
-            } while (done == false);
+
+            } while (closeView == false && Shipwreck.CurrentGame.Status != GameStatus.Over);
+
+            // don't open the parent view if the game is over
+            if (Shipwreck.CurrentGame.Status != GameStatus.Over)
+            {
+                OpenParentView();
+            }
         }
 
         // public override string GetInput()?
-        public string GetInput()
+        protected virtual string GetInput()
         {
-            string value = null;
-            bool valid = false;
+            // get input
+            var input = Console.ReadLine();
 
-            while(!valid)
-            {
-                Console.WriteLine($"\n{displayMessage}");
-
-                value = Console.ReadLine();
-                value = value.Trim();
-
-                if (value.Length < 1 && !AllowEmpty)
-                {
-                    Console.WriteLine("\nInvalid value. Entry cannot be blank");
-                    continue;
-                }
-                break;
-            }
-
-            return value;
+            // format input 
+            input = input?.ToUpper() ?? "";
+            
+            return input;
         }
 
-        public abstract bool DoAction(string value);
+        protected abstract bool HandleInput(string input);
+
+        private void OpenParentView()
+        {
+            if (ParentView != null)
+            {
+                ParentView.Display();
+            }
+            else
+            {
+                throw new Exception("No parent view");
+            }
+        }
+
+        protected void Continue()
+        {
+            Console.WriteLine("Press any key to continue");
+            Console.ReadKey();
+        }
     }
 }

@@ -1,8 +1,5 @@
 ﻿using Shipwreck.Exceptions;
-using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
 
 namespace Shipwreck.Model.Items
 {
@@ -20,7 +17,7 @@ namespace Shipwreck.Model.Items
 
         public void AddItem(IItem newItem, int quantity = 1)
         {
-            InventoryRecord inventoryRecord = Items.Find(x => x.InventoryItem.Name.Equals(newItem.Name));
+            var inventoryRecord = Items.Find(x => x.InventoryItem.Name.Equals(newItem.Name));
             if (inventoryRecord == null)
             {
                 Items.Add(new InventoryRecord(newItem, quantity));
@@ -48,10 +45,10 @@ namespace Shipwreck.Model.Items
         /* Doesn't restore used items if errs out in strict mode */
         public int RemoveItems(IItem item, int quantity = 1, bool strict = false)
         {
-            int i = 0;
+            var i = 0;
             for (; i < quantity; i++)
             {
-                InventoryRecord inventoryRecord = Items.Find(x => x.InventoryItem.Name.Equals(item.Name));
+                var inventoryRecord = Items.Find(x => x.InventoryItem.Name.Equals(item.Name));
                 if (inventoryRecord == null)
                 {
                     if (strict)

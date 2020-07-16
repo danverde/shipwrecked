@@ -1,21 +1,19 @@
-﻿using Shipwreck.Model;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Shipwreck.View
+﻿namespace Shipwreck.View
 {
-    class NewDayView
+    class NewDayView : View
     {
-        public void Display()
+        public NewDayView()
         {
-            // string day = Shipwreck.CurrentGame != null ? Shipwreck.CurrentGame.Day.ToString() : "Unknown";
-            Day day = Shipwreck.CurrentGame?.Day;
-
-            Console.WriteLine("\n---------------------" +
-                $"\n Day {day.Number}" +
-                $"\n Weather: {day.Weather.Name}" +
-                "\n---------------------");
+            ParentView = new GameMenuView();
+            Message = "\n---------------------" +
+                      $"\n Day {Shipwreck.CurrentGame.Day.Number}" +
+                      $"\n Weather: {Shipwreck.CurrentGame.Day.Weather.Name}" +
+                      "\n---------------------";
+        }
+        
+        protected override bool HandleInput(string input)
+        {
+            return true;
         }
     }
 }
