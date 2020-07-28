@@ -11,7 +11,7 @@ namespace Shipwreck.Model
 
         public Game()
         {
-            Status = GameStatus.PreGame;
+            Status = GameStatus.Setup;
         }
         
         // public Game(Player player)

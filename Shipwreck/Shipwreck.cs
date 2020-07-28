@@ -9,6 +9,7 @@ namespace Shipwreck
     {
         public static Game CurrentGame;
         public static ResourceFactory ResourceFactory;
+        public static View.View NextView { get; set; }
 
         static void Main(string[] args)
         {
@@ -27,7 +28,12 @@ namespace Shipwreck
                 + "\nwent down SOMEONE's bound to come looking for survivors, Right?"
                 + "\n======================================================================");
 
-            
+            // NextView = new MainMenuView();
+            // do
+            // {
+            //     NextView.Display();
+            // } while (NextView != null);
+
             new MainMenuView().Display();
         }
 

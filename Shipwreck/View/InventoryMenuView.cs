@@ -56,7 +56,7 @@ namespace Shipwreck.View
                     DropItem();
                     break;
                 case "C":
-                    GameMenuView.ShowPlayerStats();
+                    new GameMenuView().ShowPlayerStats();
                     break;
                 case "B":
                     BuildWeapon();
@@ -77,7 +77,8 @@ namespace Shipwreck.View
             Console.WriteLine("\n-------------------------\n Inventory:\n-------------------------");
             Console.WriteLine($" Active Weapon: {inventory.ActiveWeapon?.Name ?? "None"} +{inventory.ActiveWeapon?.AttackPower ?? 0}");
             Console.WriteLine($" Active Armor:  {inventory.ActiveArmor?.Name ?? "None"} +{inventory.ActiveArmor?.DefensePower ?? 0}");
-
+            Console.WriteLine("");
+            
             line = new StringBuilder("                                              ");
             line.Insert(1, "ITEM");
             line.Insert(16, "QTY");

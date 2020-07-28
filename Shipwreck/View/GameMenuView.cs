@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Net;
+using System.Runtime.CompilerServices;
 using Shipwreck.Control;
 
 namespace Shipwreck.View
@@ -21,7 +23,7 @@ namespace Shipwreck.View
                       + "\n----------------------------------";
         }
 
-        public static void ShowPlayerStats()
+        public void ShowPlayerStats()
         {
             var player = Shipwreck.CurrentGame.Player;
 
@@ -35,8 +37,8 @@ namespace Shipwreck.View
             Console.WriteLine($" Base Defense: {player.BaseDefense}");
             Console.WriteLine("-------------------------");
 
-            Console.WriteLine("Press any key to continue");
-            Console.ReadKey();
+            Continue();
+            
             // Console.SetCursorPosition(0, Console.CursorTop - 1);
             // Console.Write(new string(' ', Console.WindowWidth));
         }
@@ -63,7 +65,6 @@ namespace Shipwreck.View
                     ShowPlayerStats();
                     break;
                 case "I":
-                    // closeView = ShowInventory();
                     ShowInventory();
                     break;
                 case "W":
@@ -86,17 +87,11 @@ namespace Shipwreck.View
         private void ShowInventory()
         {
             new InventoryMenuView().Display();
-            
-            // TODO I don't think I need this logic anymore!
-            // return Shipwreck.CurrentGame == null ? true : false;
         }
 
         private void WaitItOut()
         {
             new WaitView().Display();
-
-            // TODO I don't think I need this logic anymore!
-            // return Shipwreck.CurrentGame == null ? true: false;
         }
 
         private void OpenFireMenu()

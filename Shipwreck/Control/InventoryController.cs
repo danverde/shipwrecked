@@ -1,4 +1,5 @@
-﻿using Shipwreck.Exceptions;
+﻿using System;
+using Shipwreck.Exceptions;
 using Shipwreck.Model.Factories;
 using Shipwreck.Model.Items;
 using System.Collections.Generic;
@@ -26,7 +27,7 @@ namespace Shipwreck.Control
             // inventory.AddItem(spear);
             inventory.AddItem(suit);
             inventory.ActiveArmor = suit;
-            // inventory.ActiveWeapon = fists; // how do I make it so that the active weapon references an item in the inventory?
+            inventory.ActiveWeapon = fists; // how do I make it so that the active weapon references an item in the inventory?
 
             inventory.AddItem(match, 3);
             inventory.AddItem(vine, 6);

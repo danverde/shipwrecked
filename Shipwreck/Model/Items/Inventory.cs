@@ -8,6 +8,7 @@ namespace Shipwreck.Model.Items
         public Weapon ActiveWeapon { get; set; }
         public Armor ActiveArmor { get; set; }
         public List<InventoryRecord> Items { get; set; }
+        // TODO just create a separate list for each item type!!!
 
 
         public Inventory()

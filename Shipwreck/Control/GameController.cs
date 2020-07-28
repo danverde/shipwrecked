@@ -38,7 +38,7 @@ namespace Shipwreck.Control
         public static void QuitGame()
         {
             Shipwreck.CurrentGame.Status = GameStatus.Over;
-            new GameOverView("Game Over").Display();
+            new GameOverView("GAME OVER").Display();
         }
 
         public static void Wait(int numDays)

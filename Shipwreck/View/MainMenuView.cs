@@ -6,7 +6,6 @@ namespace Shipwreck.View
     {
         public MainMenuView()
         {
-            // TODO breaks when closing b/c there's no parent view
             Message = "\n\n----------------------------------"
                       + "\n| Main Menu"
                       + "\n----------------------------------"
