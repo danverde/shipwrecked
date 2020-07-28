@@ -15,5 +15,13 @@ namespace Shipwreck.Control
             defendingCharacter.Health -= damageAmount;
             return damageAmount;
         }
+
+        
+        
+        public static void KillPlayer(Player player, Game game)
+        {
+            player.Die();
+            game.EndGame();
+        }
     }
 }

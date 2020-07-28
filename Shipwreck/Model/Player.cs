@@ -6,12 +6,12 @@ namespace Shipwreck.Model
     {
         public int Exp { get; private set; }
         public int Hunger { get; set; }
+        public static readonly int HungerLimit = 20; 
         public Player(string name, int hunger = 0)
             :base(name)
         {
             Hunger = hunger;
         }
-
 
         public void GainExperience(int experience)
         {
@@ -39,6 +39,5 @@ namespace Shipwreck.Model
             Health = Health + food.HealingPower < MaxHealth ? Health + food.HealingPower : MaxHealth;
             Hunger = Hunger - food.FillingPower > 0 ? Hunger - food.FillingPower : 0;
         }
-
     }
 }

@@ -2,10 +2,9 @@
 {
     class Day
     {
-        public static int HungerPerDay  = 3;
+        public static readonly int HungerPerDay = 3;
         public int Number { get; private set; }
         public Weather Weather { get; set; }
-
 
         public Day()
         {

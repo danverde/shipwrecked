@@ -20,9 +20,9 @@ namespace Shipwreck.View
                       + "\n X - Exit Help Menu"
                       + "\n----------------------------------";
         }
-        protected override bool HandleInput(string input)
+        protected override bool HandleInput(string menuOption)
         {
-            var menuOption = input.ToUpper();
+            var closeView = false;
             switch (menuOption) {
                 case "P":
                     PurposeHelp();
@@ -44,7 +44,7 @@ namespace Shipwreck.View
                     break;
             }
 
-            return false;
+            return closeView;
         }
 
         private void PurposeHelp()
@@ -57,6 +57,7 @@ namespace Shipwreck.View
                 + "\n wait patiently till someone comes to find you. I mean, after such a big"
                 + "\n ship went down SOMEONE's bound to come looking for survivors, Right?"
                 + "\n***************************************************************************");
+            Continue();
         }
 
         private void ShowInventoryHelp()
@@ -73,6 +74,7 @@ namespace Shipwreck.View
                 + "\n Time will elapse while you travel, increasing your hunger."
                 + "\n Be aware that some types of terrain are easier to traverse than others"
                 + "\n************************************************************************");
+            Continue();
         }
 
         private void ResourceHelp()

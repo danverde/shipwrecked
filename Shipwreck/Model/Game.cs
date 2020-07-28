@@ -4,24 +4,32 @@ namespace Shipwreck.Model
 {
     class Game
     {
-        public Player Player { get; }
-        public Day Day { get; }
-        public Fire Fire { get;  }
+        public Player Player { get; private set; }
+        public Day Day { get; private set; }
+        public Fire Fire { get; private set; }
         public GameStatus Status { get; set; }
 
-        public Game(Player player)
+        public Game()
         {
             Status = GameStatus.PreGame;
-            Player = player;
-            Day = new Day();
-            Fire = new Fire();
         }
         
-        // public void StartGame()
+        // public Game(Player player)
         // {
-        //     Status = GameStatus.Playing;
-        //     Console.WriteLine("The game has begun");
+        //     Status = GameStatus.PreGame;
+        //     Player = player;
+        //     Day = new Day();
+        //     Fire = new Fire();
         // }
+
+        public void StartGame(Player player)
+        {
+            Player = player;
+            Status = GameStatus.Playing;
+            Fire = new Fire();
+            Day = new Day();
+            Console.WriteLine("The game has begun");
+        }
 
         public void EndGame()
         {

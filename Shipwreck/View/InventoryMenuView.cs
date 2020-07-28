@@ -28,9 +28,8 @@ namespace Shipwreck.View
                       + "\n----------------------------------";
         }
 
-        protected override bool HandleInput(string input)
+        protected override bool HandleInput(string menuItem)
         {
-            var menuItem = input.ToUpper();
             var done = false;
 
             switch(menuItem)
@@ -197,7 +196,7 @@ namespace Shipwreck.View
 
         private bool EatFood()
         { 
-            var done = false;
+            var closeView = false;
             var player = Shipwreck.CurrentGame.Player;
             var inventory = player.Inventory;
             var itemToEat = GetInventoryItem("Which item would you like to eat?");
@@ -219,8 +218,8 @@ namespace Shipwreck.View
                 else
                 {
                     Console.WriteLine("Oops. That wasn't edible...");
-                    GameController.EndGame();
-                    done = true;
+                    GameController.LoseGame();
+                    closeView = true;
                 }
             }
             else
@@ -230,7 +229,7 @@ namespace Shipwreck.View
 
             Continue();
 
-            return done;
+            return closeView;
         }
 
         private void EquipGear()

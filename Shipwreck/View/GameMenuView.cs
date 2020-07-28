@@ -1,4 +1,5 @@
 ﻿using System;
+using Shipwreck.Control;
 
 namespace Shipwreck.View
 {
@@ -40,9 +41,21 @@ namespace Shipwreck.View
             // Console.Write(new string(' ', Console.WindowWidth));
         }
 
+        protected override string GetInput()
+        {
+            // get input
+            var input = Console.ReadLine();
+
+            // format input 
+            input = FormatInput(input);
+
+            input = input == "X" ? "QUIT" : input;
+            
+            return input;
+        }
+        
         protected override bool HandleInput(string input)
         {
-            input = input.ToUpper();
             var closeView = false;
             switch(input)
             {
@@ -50,10 +63,11 @@ namespace Shipwreck.View
                     ShowPlayerStats();
                     break;
                 case "I":
-                    closeView = ShowInventory();
+                    // closeView = ShowInventory();
+                    ShowInventory();
                     break;
                 case "W":
-                    closeView = WaitItOut();
+                    WaitItOut();
                     break;
                 case "F":
                     OpenFireMenu();
@@ -61,25 +75,28 @@ namespace Shipwreck.View
                 case "H":
                     OpenHelpView();
                     break;
+                case "QUIT":
+                    GameController.QuitGame();
+                    closeView = true;
+                    break;
             }
             return closeView;
         }
 
-        private bool ShowInventory()
+        private void ShowInventory()
         {
             new InventoryMenuView().Display();
             
             // TODO I don't think I need this logic anymore!
-            return Shipwreck.CurrentGame == null ? true : false;
+            // return Shipwreck.CurrentGame == null ? true : false;
         }
 
-        private bool WaitItOut()
+        private void WaitItOut()
         {
-            var waitView = new WaitView();
-            waitView.Display();
+            new WaitView().Display();
 
             // TODO I don't think I need this logic anymore!
-            return Shipwreck.CurrentGame == null ? true: false;
+            // return Shipwreck.CurrentGame == null ? true: false;
         }
 
         private void OpenFireMenu()

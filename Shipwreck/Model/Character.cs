@@ -9,7 +9,7 @@ namespace Shipwreck.Model
         public int Health { get; set; }
         public int BaseAttack { get; protected set; }
         public int BaseDefense { get; protected set; }
-        public bool IsAlive { get; private set; }
+        public CharacterStatus Status { get; set; }
         
         public int Level { get; protected set; }
         public int CalculatedAttack
@@ -31,13 +31,14 @@ namespace Shipwreck.Model
             BaseAttack = attack;
             BaseDefense = defense;
             Level = level;
+            Status = CharacterStatus.Alive;
 
             Inventory = new Inventory();
         }
 
         public void Die()
         {
-            IsAlive = false;
+            Status = CharacterStatus.Dead;
         }
     }
 }

@@ -19,9 +19,8 @@ namespace Shipwreck.View
                       + "\n----------------------------------";
         }
 
-        protected override bool HandleInput(string input)
+        protected override bool HandleInput(string menuItem)
         {
-            var menuItem = input.ToUpper();
             switch (menuItem)
             {
                 case "C":

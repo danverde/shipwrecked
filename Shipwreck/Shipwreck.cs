@@ -12,10 +12,10 @@ namespace Shipwreck
 
         static void Main(string[] args)
         {
+            // TODO I wonder if I ought to make my controllers singletons...
             InitializeFactories();
             
-            // TODO do I create a game here, or later?
-            // CurrentGame = new Game();
+            CurrentGame = new Game();
 
             Console.WriteLine("======================================================================"
                 + "\nCongratulations!! You just washed up on the shore of a tropical "

@@ -12,7 +12,12 @@ namespace Shipwreck.View
 
         protected override bool HandleInput(string input)
         {
-            GameController.CreateNewGame(input);
+            if (input == "")
+            {
+                return false;
+            }
+            
+            GameController.StartCurrentGame(input);
             new GameMenuView().Display();
             return true;
         }

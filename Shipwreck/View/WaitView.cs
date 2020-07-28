@@ -13,18 +13,22 @@ namespace Shipwreck.View
         
         protected override bool HandleInput(string input)
         {
+            var closeView = false;
+            
             if (int.TryParse(input, out var numDays))
             {
                 // will this quit if we die?
                 GameController.Wait(numDays);
 
-                return true;
+                closeView = true;
             }
             else
             {
                 Console.WriteLine("Input must be a number");
-                return false;
+                closeView = false;
             }
+
+            return closeView;
         }
     }
 }

@@ -20,8 +20,6 @@ namespace Shipwreck.View
 
         protected override bool HandleInput(string input)
         {
-            input = input.ToUpper();
-
             switch (input) 
             {
                 case "N":

@@ -24,7 +24,7 @@ namespace Shipwreck.View
             } while (closeView == false && Shipwreck.CurrentGame.Status != GameStatus.Over);
 
             // don't open the parent view if the game is over
-            if (Shipwreck.CurrentGame.Status != GameStatus.Over)
+            if (Shipwreck.CurrentGame?.Status != GameStatus.Over)
             {
                 OpenParentView();
             }
@@ -36,24 +36,22 @@ namespace Shipwreck.View
             // get input
             var input = Console.ReadLine();
 
-            // format input 
-            input = input?.ToUpper() ?? "";
+            input = FormatInput(input);
             
             return input;
+        }
+
+        protected string FormatInput(string input)
+        {
+            // format input 
+            return input?.ToUpper() ?? "";
         }
 
         protected abstract bool HandleInput(string input);
 
         private void OpenParentView()
         {
-            if (ParentView != null)
-            {
-                ParentView.Display();
-            }
-            else
-            {
-                throw new Exception("No parent view");
-            }
+            ParentView?.Display();
         }
 
         protected void Continue()
