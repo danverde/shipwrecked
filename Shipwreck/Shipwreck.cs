@@ -14,18 +14,15 @@ namespace Shipwreck
         {
             InitializeFactories();
             
-            CurrentGame = new Game();
-
-            Console.WriteLine("======================================================================"
-                + "\nCongratulations!! You just washed up on the shore of a tropical "
-                + "\nIsland after your cruise ship sunk. Your goal is survive however you"
-                + "\ncan! You can either try and escape on your own by building a raft &"
-                + "\nfloating to safety. Or maybe building a large signal fire on the beach"
-                + "\nwill attract help. Maybe your best bet is to simply wait patiently"
-                + "\ntill someone comes to find you. I mean, after such a big ship"
-                + "\nwent down SOMEONE's bound to come looking for survivors, Right?"
-                + "\n======================================================================");
-
+            Console.WriteLine("======================================================================="
+                + "\n Congratulations!! You just washed up on the shore of a tropical "
+                + "\n Island after your cruise ship sunk. Your goal is survive however you"
+                + "\n can! You can either try and escape on your own by building a raft &"
+                + "\n floating to safety. Or maybe building a large signal fire on the beach"
+                + "\n will attract help. Maybe your best bet is to simply wait patiently"
+                + "\n till someone comes to find you. I mean, after such a big ship"
+                + "\n went down SOMEONE's bound to come looking for survivors, Right?"
+                + "\n=======================================================================");
 
             new MainMenuView().Display();
             

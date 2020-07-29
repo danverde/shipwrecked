@@ -1,4 +1,5 @@
 ﻿using System;
+using Shipwreck.Model;
 
 namespace Shipwreck.View
 {
@@ -23,6 +24,7 @@ namespace Shipwreck.View
             switch (input) 
             {
                 case "N":
+                    Shipwreck.CurrentGame = new Game();
                     StartNewGame();
                     break;
                 case "S":
