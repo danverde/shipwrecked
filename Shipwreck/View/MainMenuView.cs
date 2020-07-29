@@ -6,6 +6,7 @@ namespace Shipwreck.View
     {
         public MainMenuView()
         {
+            InGameView = false;
             Message = "\n\n----------------------------------"
                       + "\n| Main Menu"
                       + "\n----------------------------------"

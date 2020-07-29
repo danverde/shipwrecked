@@ -28,13 +28,10 @@ namespace Shipwreck
                 + "\nwent down SOMEONE's bound to come looking for survivors, Right?"
                 + "\n======================================================================");
 
-            // NextView = new MainMenuView();
-            // do
-            // {
-            //     NextView.Display();
-            // } while (NextView != null);
 
             new MainMenuView().Display();
+            
+            Console.WriteLine("DONE");
         }
 
         private static void InitializeFactories()

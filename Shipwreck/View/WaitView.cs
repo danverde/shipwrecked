@@ -7,6 +7,7 @@ namespace Shipwreck.View
     {
         public WaitView()
         {
+            InGameView = true;
             ParentView = new GameMenuView();
             Message = "How many days would you like to wait for?";
         }

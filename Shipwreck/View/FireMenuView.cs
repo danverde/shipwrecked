@@ -8,6 +8,7 @@ namespace Shipwreck.View
     {
         public FireMenuView()
         {
+            InGameView = true;
             ParentView = new GameMenuView();
             Message = "\n\n----------------------------------"
                       + "\n| Fire Menu"

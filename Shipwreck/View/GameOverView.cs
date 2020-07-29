@@ -4,13 +4,14 @@
     {
         public GameOverView()
         {
-            ParentView = new MainMenuView();
+            // called after the game is set to over 
+            InGameView = false; 
             Message = "You Died. Sucks to suck\n GAME OVER";
         }
         
         public GameOverView(string message)
         {
-            ParentView = new MainMenuView();
+            InGameView = false;
             Message = message;
         }
 

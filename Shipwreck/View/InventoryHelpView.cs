@@ -7,8 +7,9 @@ namespace Shipwreck.View
 {
     class InventoryHelpView : View
     {
-        public InventoryHelpView(View parentView)
+        public InventoryHelpView(View parentView, bool inGameView = false)
         {
+            InGameView = inGameView;
             ParentView = parentView;
             Message = "\n"
                       + "\n----------------------------------"

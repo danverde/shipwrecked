@@ -4,6 +4,7 @@
     {
         public NewDayView(View parentView)
         {
+            InGameView = true;
             ParentView = parentView;
             Message = "\n---------------------" +
                       $"\n Day {Shipwreck.CurrentGame.Day.Number}" +
@@ -13,6 +14,7 @@
         
         public NewDayView()
         {
+            InGameView = true;
             ParentView = new GameMenuView();
             Message = "\n---------------------" +
                       $"\n Day {Shipwreck.CurrentGame.Day.Number}" +

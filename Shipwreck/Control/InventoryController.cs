@@ -1,5 +1,4 @@
-﻿using System;
-using Shipwreck.Exceptions;
+﻿using Shipwreck.Exceptions;
 using Shipwreck.Model.Factories;
 using Shipwreck.Model.Items;
 using System.Collections.Generic;

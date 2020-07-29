@@ -5,7 +5,7 @@ namespace Shipwreck.Model
         Over = 0,
         Setup = 1,
         Playing = 2,
-        Won = 3,
-        Lost = 4
+        // Won = 3,
+        // Lost = 4
     }
 }

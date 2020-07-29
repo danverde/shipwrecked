@@ -1,13 +1,12 @@
 ﻿using Shipwreck.Model;
 using Shipwreck.View;
 using System;
-using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace Shipwreck.Control
 {
     class GameController
     {
-        public static void StartCurrentGame(string characterName)
+        public static void StartNewGame(string characterName)
         {
             // setup player
             var player = new Player(characterName, 5);
@@ -24,14 +23,14 @@ namespace Shipwreck.Control
         public static void LoseGame()
         {
             Shipwreck.CurrentGame.Player.Die();
-            Shipwreck.CurrentGame.Status = GameStatus.Lost;
+            Shipwreck.CurrentGame.Status = GameStatus.Over;
 
             new GameOverView().Display();
         }
 
         public static void WinGame(string message)
         {
-            Shipwreck.CurrentGame.Status = GameStatus.Won;
+            Shipwreck.CurrentGame.Status = GameStatus.Over;
             new GameOverView(message).Display();
         }
         

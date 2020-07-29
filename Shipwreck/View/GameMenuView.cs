@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Net;
-using System.Runtime.CompilerServices;
 using Shipwreck.Control;
 
 namespace Shipwreck.View
@@ -9,6 +7,7 @@ namespace Shipwreck.View
     {
         public GameMenuView()
         {
+            InGameView = true;
             ParentView = new MainMenuView();
             Message = "\n"
                       + "\n----------------------------------"
@@ -102,7 +101,7 @@ namespace Shipwreck.View
 
         private void OpenHelpView()
         {
-            var helpMenuView = new HelpMenuView(new GameMenuView());
+            var helpMenuView = new HelpMenuView(new GameMenuView(), InGameView);
             helpMenuView.Display();
         }
     }

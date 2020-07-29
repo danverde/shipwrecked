@@ -28,7 +28,6 @@ namespace Shipwreck.Model
             Status = GameStatus.Playing;
             Fire = new Fire();
             Day = new Day();
-            Console.WriteLine("The game has begun");
         }
 
         public void EndGame()
