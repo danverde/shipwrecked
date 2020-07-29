@@ -16,7 +16,6 @@ namespace Shipwreck.Control
             Shipwreck.CurrentGame.StartGame(player);
             
             // open view
-            // TODO should this start the game loop?
             new NewDayView().Display();
         }
         
@@ -73,7 +72,7 @@ namespace Shipwreck.Control
             player.GainExperience(exp);
             
             // BREAKS waiting b/c it opens the parent view...
-            new NewDayView(null).Display();
+            new NewDayView().Display();
 
             // TODO implement potential weather deaths
 

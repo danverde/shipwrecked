@@ -4,10 +4,9 @@ namespace Shipwreck.View
 {
     class HelpMenuView : View
     {
-        public HelpMenuView(View parentView, bool inGameView = false)
+        public HelpMenuView(bool inGameView = false)
         {
             InGameView = inGameView;
-            ParentView = parentView;
             Message = "\n"
                       + "\n----------------------------------"
                       + "\n| Help Menu"
@@ -63,7 +62,7 @@ namespace Shipwreck.View
 
         private void ShowInventoryHelp()
         {
-            var inventoryHelpView = new InventoryHelpView(new HelpMenuView(ParentView, InGameView), InGameView);
+            var inventoryHelpView = new InventoryHelpView(InGameView);
             inventoryHelpView.Display();
         }
 

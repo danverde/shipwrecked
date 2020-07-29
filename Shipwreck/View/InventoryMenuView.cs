@@ -11,7 +11,6 @@ namespace Shipwreck.View
         public InventoryMenuView()
         {
             InGameView = true;
-            ParentView = new GameMenuView();
             Message = "\n\n----------------------------------"
                       + "\n| Inventory Menu"
                       + "\n----------------------------------"
@@ -309,7 +308,7 @@ namespace Shipwreck.View
 
         private void ShowInventoryHelpView()
         {
-            var inventoryHelpView = new InventoryHelpView(new InventoryMenuView(), InGameView);
+            var inventoryHelpView = new InventoryHelpView(InGameView);
             inventoryHelpView.Display();
         }
 

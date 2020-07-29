@@ -56,7 +56,7 @@ namespace Shipwreck.View
 
         private void OpenHelpView()
         {
-            new HelpMenuView(new MainMenuView()).Display();
+            new HelpMenuView().Display();
         }
     }
 }

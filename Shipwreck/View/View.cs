@@ -5,7 +5,6 @@ namespace Shipwreck.View
 {
     public abstract class View
     {
-        protected View ParentView { get; set; }
         protected string Message { get; set; }
         protected bool InGameView { get; set; }
         
@@ -40,20 +39,10 @@ namespace Shipwreck.View
 
         protected abstract bool HandleInput(string input);
 
-        protected void OpenParentView()
-        {
-            ParentView?.Display();
-        }
-
         protected void Continue()
         {
             Console.WriteLine("Press any key to continue");
             Console.ReadKey();
-        }
-
-        private bool IsGamePlaying()
-        {
-            return InGameView ? Shipwreck.CurrentGame.Status != GameStatus.Over : true;
         }
     }
 }

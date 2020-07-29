@@ -8,7 +8,6 @@ namespace Shipwreck.View
         public GameMenuView()
         {
             InGameView = true;
-            ParentView = new MainMenuView();
             Message = "\n"
                       + "\n----------------------------------"
                       + "\n| Game Menu"
@@ -101,7 +100,7 @@ namespace Shipwreck.View
 
         private void OpenHelpView()
         {
-            var helpMenuView = new HelpMenuView(new GameMenuView(), InGameView);
+            var helpMenuView = new HelpMenuView(InGameView);
             helpMenuView.Display();
         }
     }
