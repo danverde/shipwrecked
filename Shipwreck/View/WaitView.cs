@@ -17,15 +17,12 @@ namespace Shipwreck.View
             
             if (int.TryParse(input, out var numDays))
             {
-                // will this quit if we die?
                 GameController.Wait(numDays);
-
                 closeView = true;
             }
             else
             {
                 Console.WriteLine("Input must be a number");
-                closeView = false;
             }
 
             return closeView;

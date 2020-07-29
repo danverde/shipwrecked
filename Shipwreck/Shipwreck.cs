@@ -9,11 +9,9 @@ namespace Shipwreck
     {
         public static Game CurrentGame;
         public static ResourceFactory ResourceFactory;
-        public static View.View NextView { get; set; }
 
         static void Main(string[] args)
         {
-            // TODO I wonder if I ought to make my controllers singletons...
             InitializeFactories();
             
             CurrentGame = new Game();
