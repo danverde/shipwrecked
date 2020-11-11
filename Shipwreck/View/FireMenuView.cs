@@ -16,7 +16,7 @@ namespace Shipwreck.View
                       + "\n A - Add Wood"
                       + "\n E - Extinguish Fire"
                       + "\n S - Start Fire"
-                      + "\n X - Close Inventory"
+                      + "\n X - Close Fire Menu"
                       + "\n----------------------------------";
         }
 

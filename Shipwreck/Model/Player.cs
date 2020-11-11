@@ -1,4 +1,6 @@
-﻿using Shipwreck.Model.Items;
+﻿using System;
+using Shipwreck.Model.Items;
+using Shipwreck.View;
 
 namespace Shipwreck.Model
 {
@@ -31,9 +33,11 @@ namespace Shipwreck.Model
             BaseDefense += 1;
             MaxHealth += 1;
             Health += 1;
+            
+            new LevelUpView().Display();
         }
 
-        // should this be in a controller?
+        // TODO should this be in a controller?
         public void Eat(Food food)
         {
             Health = Health + food.HealingPower < MaxHealth ? Health + food.HealingPower : MaxHealth;
