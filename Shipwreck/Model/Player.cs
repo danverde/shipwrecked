@@ -8,7 +8,7 @@ namespace Shipwreck.Model
     {
         public int Exp { get; private set; }
         public int Hunger { get; set; }
-        public static readonly int HungerLimit = 20; 
+        public const int HungerLimit = 20; 
         public Player(string name, int hunger = 0)
             :base(name)
         {

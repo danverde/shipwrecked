@@ -1,4 +1,6 @@
-﻿namespace Shipwreck.View
+﻿using Shipwreck.Model;
+
+namespace Shipwreck.View
 {
     class NewDayView : View
     {
@@ -8,6 +10,7 @@
             Message = "\n---------------------" +
                       $"\n Day {Shipwreck.CurrentGame.Day.Number}" +
                       $"\n Weather: {Shipwreck.CurrentGame.Day.Weather.Name}" +
+                      $"\n Hunger: {Shipwreck.CurrentGame.Player.Hunger} / {Player.HungerLimit}" +
                       "\n---------------------";
         }
         
