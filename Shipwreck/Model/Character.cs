@@ -4,7 +4,7 @@ namespace Shipwreck.Model
 {
     class Character
     {
-        public string Name { get; set; }
+        public string Name { get; }
         public int MaxHealth { get; set; }
         public int Health { get; set; }
         public int BaseAttack { get; protected set; }
@@ -12,14 +12,9 @@ namespace Shipwreck.Model
         public CharacterStatus Status { get; set; }
         
         public int Level { get; protected set; }
-        public int CalculatedAttack
-        {
-            get{ return BaseAttack + (Inventory.ActiveWeapon?.AttackPower ?? 0);  }
-        }
-        public int CalculatedDefense
-        {
-            get { return BaseDefense + (Inventory.ActiveArmor?.DefensePower ?? 0); }
-        }
+        public int CalculatedAttack => BaseAttack + (Inventory.ActiveWeapon?.AttackPower ?? 0);
+
+        public int CalculatedDefense => BaseDefense + (Inventory.ActiveArmor?.DefensePower ?? 0);
         public Inventory Inventory { get; }
         // private Location Location { get; }
 
