@@ -1,4 +1,4 @@
-namespace Shipwreck.Model
+namespace Shipwreck.Model.Game
 {
     public enum GameStatus
     {

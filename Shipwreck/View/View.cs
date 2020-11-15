@@ -1,5 +1,6 @@
 ﻿using System;
 using Shipwreck.Model;
+using Shipwreck.Model.Game;
 
 namespace Shipwreck.View
 {

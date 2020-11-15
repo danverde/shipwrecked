@@ -1,6 +1,6 @@
-﻿namespace Shipwreck.Model.Items
+﻿namespace Shipwreck.Model.Items.Weapons
 {
-    abstract class Weapon : IGear
+    public abstract class Weapon : IGear
     {
         public string Name { get; }
         public string Description { get; }

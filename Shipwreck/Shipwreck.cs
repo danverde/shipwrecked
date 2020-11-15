@@ -2,6 +2,7 @@
 using Shipwreck.Model.Factories;
 using Shipwreck.View;
 using System;
+using Shipwreck.Model.Game;
 
 namespace Shipwreck
 {

@@ -1,6 +1,9 @@
 ﻿using Shipwreck.Model;
 using Shipwreck.View;
 using System;
+using Shipwreck.Model.Character;
+using Shipwreck.Model.Game;
+using Shipwreck.Model.Map;
 
 namespace Shipwreck.Control
 {
@@ -8,12 +11,19 @@ namespace Shipwreck.Control
     {
         public static void StartNewGame(string characterName)
         {
+            // setup map
+            // Shipwreck.CurrentGame.Map = new Map(5,5);
+            var map = MapController.LoadMap1();
+            var startingLocation = map.Locations[map.StartingRow, map.StartingCol];
+            
             // setup player
-            var player = new Player(characterName, 5);
+            var player = new Player(characterName, 5, startingLocation);
+            startingLocation.Characters.Add(player);
             InventoryController.AddDefaultItemsToInventory(player.Inventory);
+            
+            // start game
+            Shipwreck.CurrentGame.StartGame(player, map);
 
-            // setup game
-            Shipwreck.CurrentGame.StartGame(player);
             
             // open view
             new NewDayView().Display();

@@ -1,9 +1,10 @@
 ﻿using Shipwreck.Exceptions;
 using System.Collections.Generic;
+using Shipwreck.Model.Items.Weapons;
 
 namespace Shipwreck.Model.Items
 {
-    class Inventory
+    public class Inventory
     {
         public Weapon ActiveWeapon { get; set; }
         public Armor ActiveArmor { get; set; }

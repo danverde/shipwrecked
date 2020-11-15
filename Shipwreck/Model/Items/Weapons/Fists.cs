@@ -1,4 +1,4 @@
-﻿namespace Shipwreck.Model.Items
+﻿namespace Shipwreck.Model.Items.Weapons
 {
     class Fists : Weapon
     {

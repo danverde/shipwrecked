@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Shipwreck.Model.Items
+namespace Shipwreck.Model.Items.Weapons
 {
     class Spear : Weapon, ICraftable
     {

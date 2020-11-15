@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 using Shipwreck.Control;
 using Shipwreck.Model;
+using Shipwreck.Model.Character;
 
 namespace Shipwreck.View
 {
@@ -15,6 +18,7 @@ namespace Shipwreck.View
                       + "\n----------------------------------"
                       + "\n C - View Character"
                       + "\n I - View Inventory"
+                      + "\n M - View Map"
                       + "\n W - Wait for rescue"
                       + "\n F - Tend Signal Fire"
                       + "\n H - Help Menu"
@@ -66,6 +70,9 @@ namespace Shipwreck.View
                 case "I":
                     ShowInventory();
                     break;
+                case "M":
+                    ShowMap();
+                    break;
                 case "W":
                     WaitItOut();
                     break;
@@ -86,6 +93,37 @@ namespace Shipwreck.View
         private void ShowInventory()
         {
             new InventoryMenuView().Display();
+        }
+
+        private void ShowMap()
+        {
+            // var mapJson = JsonConvert.SerializeObject(Shipwreck.CurrentGame.Map); 
+            // Console.WriteLine(mapJson);
+            
+            var map = Shipwreck.CurrentGame.Map;
+            
+            Console.WriteLine("\n----------------Map----------------");
+            
+            for (var rowIndex = 0; rowIndex < map.NumRows; rowIndex++)
+            {
+                var row = "";
+                
+                for (var colIndex = 0; colIndex < map.NumCols; colIndex++)
+                {
+                    var location = map.Locations[rowIndex, colIndex];
+                    var displaySymbol = location.Scene.DisplaySymbol;
+                    if (Shipwreck.CurrentGame.Settings.EnableFOW && !location.Visited) displaySymbol = "?";
+                    
+                    if (Shipwreck.CurrentGame.Player.CurrentLocation == location) displaySymbol = "X";
+                        
+                    row += $" {displaySymbol}";
+                }
+                
+                Console.WriteLine(row);
+            }
+            
+            Console.WriteLine("\n-----------------------------------");
+            Continue();
         }
 
         private void WaitItOut()

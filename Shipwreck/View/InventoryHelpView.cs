@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Shipwreck.Model.Items.Weapons;
 
 namespace Shipwreck.View
 {

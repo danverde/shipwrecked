@@ -3,6 +3,7 @@ using Shipwreck.Exceptions;
 using Shipwreck.Model.Items;
 using System;
 using System.Text;
+using Shipwreck.Model.Items.Weapons;
 
 namespace Shipwreck.View
 {

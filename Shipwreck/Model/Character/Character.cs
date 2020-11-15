@@ -1,8 +1,8 @@
 ﻿using Shipwreck.Model.Items;
 
-namespace Shipwreck.Model
+namespace Shipwreck.Model.Character
 {
-    class Character
+    public class Character
     {
         public string Name { get; }
         public int MaxHealth { get; set; }

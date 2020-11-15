@@ -2,3 +2,5 @@ Shipwreck/bin
 */obj
 .vs/
 .idea/
+.DS_Store
+Shipwreck/.DS_Store
