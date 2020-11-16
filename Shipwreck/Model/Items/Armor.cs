@@ -1,6 +1,6 @@
 ﻿namespace Shipwreck.Model.Items
 {
-    class Armor: IGear
+    public class Armor: IGear
     {
         public string Name { get; }
         public string Description { get; }

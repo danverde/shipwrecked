@@ -1,0 +1,8 @@
+{
+  "enableFow": false,
+  "baseExpPerDay": 25,
+  "fireExpBoost": 15,
+  "hungerPerDay": 3,
+  "woodBurnPerDay": 2,
+  "waitSuccessRate": 100000
+}

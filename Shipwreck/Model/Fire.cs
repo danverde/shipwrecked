@@ -5,7 +5,6 @@ namespace Shipwreck.Model
 {
     class Fire
     {
-        public static int BurnRate = 2;
         public FireStatus Status { get; private set; }
         public Inventory Inventory { get; }
 

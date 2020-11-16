@@ -3,6 +3,7 @@ using Shipwreck.Exceptions;
 using Shipwreck.Model.Items;
 using System;
 using System.Text;
+using Shipwreck.Model.Items.Weapons;
 
 namespace Shipwreck.View
 {
@@ -56,7 +57,8 @@ namespace Shipwreck.View
                     DropItem();
                     break;
                 case "C":
-                    new GameMenuView().ShowPlayerStats();
+                    GameMenuView.ShowPlayerStats();
+                    Continue();
                     break;
                 case "B":
                     BuildWeapon();

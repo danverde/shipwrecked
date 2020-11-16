@@ -1,18 +1,20 @@
-﻿using System;
-using Shipwreck.Model.Items;
+﻿using Shipwreck.Model.Items;
+using Shipwreck.Model.Map;
 using Shipwreck.View;
 
-namespace Shipwreck.Model
+namespace Shipwreck.Model.Character
 {
     class Player : Character
     {
         public int Exp { get; private set; }
         public int Hunger { get; set; }
         public const int HungerLimit = 20; 
-        public Player(string name, int hunger = 0)
+        public Location CurrentLocation { get; set; }
+        public Player(string name, int hunger, Location location)
             :base(name)
         {
             Hunger = hunger;
+            CurrentLocation = location;
         }
 
         public void GainExperience(int experience)

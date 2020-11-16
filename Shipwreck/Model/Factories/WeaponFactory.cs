@@ -1,4 +1,4 @@
-﻿using Shipwreck.Model.Items;
+﻿using Shipwreck.Model.Items.Weapons;
 
 namespace Shipwreck.Model.Factories
 {

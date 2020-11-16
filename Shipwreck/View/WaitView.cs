@@ -17,7 +17,7 @@ namespace Shipwreck.View
             
             if (int.TryParse(input, out var numDays))
             {
-                GameController.Wait(numDays);
+                GameController.AdvanceDays(numDays, true);
                 closeView = true;
             }
             else

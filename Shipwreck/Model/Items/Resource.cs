@@ -1,6 +1,6 @@
 ﻿namespace Shipwreck.Model.Items
 {
-    class Resource : IItem
+    public class Resource : IItem
     {
         public string Name { get; }
         public string Description { get; }

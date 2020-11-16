@@ -2,6 +2,7 @@
 using Shipwreck.Model.Factories;
 using Shipwreck.Model.Items;
 using System.Collections.Generic;
+using Shipwreck.Model.Items.Weapons;
 
 namespace Shipwreck.Control
 {
