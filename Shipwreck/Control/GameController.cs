@@ -3,7 +3,6 @@ using Shipwreck.View;
 using System;
 using Shipwreck.Model.Character;
 using Shipwreck.Model.Game;
-using Shipwreck.Model.Map;
 
 namespace Shipwreck.Control
 {
@@ -12,7 +11,6 @@ namespace Shipwreck.Control
         public static void StartNewGame(string characterName)
         {
             // setup map
-            // Shipwreck.CurrentGame.Map = new Map(5,5);
             var map = MapController.LoadMap1();
             var startingLocation = map.Locations[map.StartingRow, map.StartingCol];
             
@@ -49,50 +47,59 @@ namespace Shipwreck.Control
             new GameOverView("GAME OVER").Display();
         }
 
-        public static void Wait(int numDays)
+        public static void AdvanceDays(int numDays, bool waiting = false)
         {
             for (var i = 0; i < numDays && Shipwreck.CurrentGame.Status == GameStatus.Playing; i++)
             {
-                AdvanceDay(true);
+                AdvanceDay(waiting);
             }
         }
 
         private static void AdvanceDay(bool waiting = false)
         {
             var player = Shipwreck.CurrentGame.Player;
-            var exp = 25;
+            var exp = Shipwreck.CurrentGame.Settings.BaseExpPerDay;
+            
+            // let the player know the next day has started
+            Shipwreck.CurrentGame.Day.IncrementDay();
+            new NewDayView().Display();
 
-            // They get hungry - TODO should this happen as they move instead of overnight?
-            player.Hunger += Day.HungerPerDay;
+            
+            /***************************
+             * Game ending phenomenon
+             ***************************/
+            // TODO implement potential weather deaths
+            
+            // Hunger
+            player.Hunger += Shipwreck.CurrentGame.Settings.HungerPerDay;
             if (Shipwreck.CurrentGame.Player.Hunger > Player.HungerLimit)
             {
                 LoseGame();
                 return;
             }
-
-            // Their fire burns
-            FireController.Burn(Shipwreck.CurrentGame.Fire);
-            exp = Shipwreck.CurrentGame.Fire.Status == FireStatus.Burning ? exp + 15: exp;
-
-
-            // let the player know the next day has started
-            Shipwreck.CurrentGame.Day.IncrementDay();
-            // gain EXP
-            // TODO EXP should be higher if a fire is burning
-            player.GainExperience(exp);
             
-            // BREAKS waiting b/c it opens the parent view...
-            new NewDayView().Display();
-
-            // TODO implement potential weather deaths
-
-            if (waiting && new Random().Next(100000) == 1)
+            // Rescue (if waiting)
+            if (waiting && new Random().Next(Shipwreck.CurrentGame.Settings.WaitSuccessRate) == 1)
             {
-                var message = "\n You're Saved! What luck!" +
-                              "\n A gang of local poachers found you on their way back to town." +
-                              "\n Good thing they're not picky about how they earn a living...";
+                const string message = "\n You're Saved! What luck!" +
+                                       "\n A gang of local poachers found you on their way back to town." +
+                                       "\n Good thing they're not picky about how they earn a living...";
                 WinGame(message);
             }
+            
+            
+            /***************************
+             * Other phenomenon
+             ***************************/
+            // Their fire burns
+            FireController.Burn(Shipwreck.CurrentGame.Fire);
+            exp = Shipwreck.CurrentGame.Fire.Status == FireStatus.Burning ? exp + Shipwreck.CurrentGame.Settings.FireExpBoost: exp;
+            
+            
+            /**********************************
+             * Gain Exp for living another day
+             **********************************/
+            player.GainExperience(exp);
         }
         
     }

@@ -1,5 +1,4 @@
-﻿using Shipwreck.Model;
-using Shipwreck.Model.Factories;
+﻿using Shipwreck.Model.Factories;
 using Shipwreck.View;
 using System;
 using Shipwreck.Model.Game;

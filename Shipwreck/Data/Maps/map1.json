@@ -1,7 +1,8 @@
 {
   "NumRows": 5,
   "NumCols": 5,
-  "StartingLocation": [0,0],
+  "StartingRow": 0,
+  "StartingCol": 1,
   "Locations": [
     [
       {
@@ -9,10 +10,11 @@
         "Col": 0,
         "Visited": false,
         "Scene": {
-          "Description": "An empty field",
-          "DisplaySymbol": "R1",
+          "Description": "Base Camp",
+          "DisplaySymbol": " ⛺ ",
           "Traversable": true,
-          "Items": []
+          "Items": [],
+          "DaysToTraverse": 1
         },
         "Characters": []
       },
@@ -22,9 +24,10 @@
         "Visited": false,
         "Scene": {
           "Description": "An empty field",
-          "DisplaySymbol": "R1",
+          "DisplaySymbol": "...",
           "Traversable": true,
-          "Items": []
+          "Items": [],
+          "DaysToTraverse": 1
         },
         "Characters": []
       },
@@ -33,10 +36,11 @@
         "Col": 2,
         "Visited": false,
         "Scene": {
-          "Description": "An empty field",
-          "DisplaySymbol": "R1",
-          "Traversable": true,
-          "Items": []
+          "Description": "A snow-capped mountain",
+          "DisplaySymbol": " 🏔 ",
+          "Traversable": false,
+          "Items": [],
+          "DaysToTraverse": 1
         },
         "Characters": []
       },
@@ -46,9 +50,10 @@
         "Visited": false,
         "Scene": {
           "Description": "An empty field",
-          "DisplaySymbol": "R1",
+          "DisplaySymbol": "...",
           "Traversable": true,
-          "Items": []
+          "Items": [],
+          "DaysToTraverse": 1
         },
         "Characters": []
       },
@@ -58,9 +63,10 @@
         "Visited": false,
         "Scene": {
           "Description": "An empty field",
-          "DisplaySymbol": "R1",
+          "DisplaySymbol": "...",
           "Traversable": true,
-          "Items": []
+          "Items": [],
+          "DaysToTraverse": 1
         },
         "Characters": []
       }
@@ -72,9 +78,10 @@
         "Visited": false,
         "Scene": {
           "Description": "An empty field",
-          "DisplaySymbol": "R2",
+          "DisplaySymbol": "...",
           "Traversable": true,
-          "Items": []
+          "Items": [],
+          "DaysToTraverse": 1
         },
         "Characters": []
       },
@@ -83,10 +90,11 @@
         "Col": 1,
         "Visited": false,
         "Scene": {
-          "Description": "An empty field",
-          "DisplaySymbol": "R2",
+          "Description": "a mountain",
+          "DisplaySymbol": " ⛰ ",
           "Traversable": true,
-          "Items": []
+          "Items": [],
+          "DaysToTraverse": 3
         },
         "Characters": []
       },
@@ -96,9 +104,10 @@
         "Visited": false,
         "Scene": {
           "Description": "An empty field",
-          "DisplaySymbol": "R2",
+          "DisplaySymbol": "...",
           "Traversable": true,
-          "Items": []
+          "Items": [],
+          "DaysToTraverse": 1
         },
         "Characters": []
       },
@@ -108,9 +117,10 @@
         "Visited": false,
         "Scene": {
           "Description": "An empty field",
-          "DisplaySymbol": "R2",
+          "DisplaySymbol": "...",
           "Traversable": true,
-          "Items": []
+          "Items": [],
+          "DaysToTraverse": 1
         },
         "Characters": []
       },
@@ -120,9 +130,10 @@
         "Visited": false,
         "Scene": {
           "Description": "An empty field",
-          "DisplaySymbol": "R2",
+          "DisplaySymbol": "...",
           "Traversable": true,
-          "Items": []
+          "Items": [],
+          "DaysToTraverse": 1
         },
         "Characters": []
       }
@@ -136,7 +147,8 @@
           "Description": "An empty field",
           "DisplaySymbol": "...",
           "Traversable": true,
-          "Items": []
+          "Items": [],
+          "DaysToTraverse": 1
         },
         "Characters": []
       },
@@ -148,7 +160,8 @@
           "Description": "An empty field",
           "DisplaySymbol": "...",
           "Traversable": true,
-          "Items": []
+          "Items": [],
+          "DaysToTraverse": 1
         },
         "Characters": []
       },
@@ -160,7 +173,8 @@
           "Description": "An empty field",
           "DisplaySymbol": "...",
           "Traversable": true,
-          "Items": []
+          "Items": [],
+          "DaysToTraverse": 1
         },
         "Characters": []
       },
@@ -172,7 +186,8 @@
           "Description": "An empty field",
           "DisplaySymbol": "...",
           "Traversable": true,
-          "Items": []
+          "Items": [],
+          "DaysToTraverse": 1
         },
         "Characters": []
       },
@@ -184,7 +199,8 @@
           "Description": "An empty field",
           "DisplaySymbol": "...",
           "Traversable": true,
-          "Items": []
+          "Items": [],
+          "DaysToTraverse": 1
         },
         "Characters": []
       }
@@ -198,7 +214,8 @@
           "Description": "An empty field",
           "DisplaySymbol": "...",
           "Traversable": true,
-          "Items": []
+          "Items": [],
+          "DaysToTraverse": 1
         },
         "Characters": []
       },
@@ -210,7 +227,8 @@
           "Description": "An empty field",
           "DisplaySymbol": "...",
           "Traversable": true,
-          "Items": []
+          "Items": [],
+          "DaysToTraverse": 1
         },
         "Characters": []
       },
@@ -222,7 +240,8 @@
           "Description": "An empty field",
           "DisplaySymbol": "...",
           "Traversable": true,
-          "Items": []
+          "Items": [],
+          "DaysToTraverse": 1
         },
         "Characters": []
       },
@@ -234,7 +253,8 @@
           "Description": "An empty field",
           "DisplaySymbol": "...",
           "Traversable": true,
-          "Items": []
+          "Items": [],
+          "DaysToTraverse": 1
         },
         "Characters": []
       },
@@ -246,7 +266,8 @@
           "Description": "An empty field",
           "DisplaySymbol": "...",
           "Traversable": true,
-          "Items": []
+          "Items": [],
+          "DaysToTraverse": 1
         },
         "Characters": []
       }
@@ -260,7 +281,8 @@
           "Description": "An empty field",
           "DisplaySymbol": "...",
           "Traversable": true,
-          "Items": []
+          "Items": [],
+          "DaysToTraverse": 1
         },
         "Characters": []
       },
@@ -272,7 +294,8 @@
           "Description": "An empty field",
           "DisplaySymbol": "...",
           "Traversable": true,
-          "Items": []
+          "Items": [],
+          "DaysToTraverse": 1
         },
         "Characters": []
       },
@@ -284,7 +307,8 @@
           "Description": "An empty field",
           "DisplaySymbol": "...",
           "Traversable": true,
-          "Items": []
+          "Items": [],
+          "DaysToTraverse": 1
         },
         "Characters": []
       },
@@ -296,7 +320,8 @@
           "Description": "An empty field",
           "DisplaySymbol": "...",
           "Traversable": true,
-          "Items": []
+          "Items": [],
+          "DaysToTraverse": 1
         },
         "Characters": []
       },
@@ -308,7 +333,8 @@
           "Description": "An empty field",
           "DisplaySymbol": "...",
           "Traversable": true,
-          "Items": []
+          "Items": [],
+          "DaysToTraverse": 1
         },
         "Characters": []
       }

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System;
 
 namespace Shipwreck.Model.Map
 {
@@ -10,21 +10,21 @@ namespace Shipwreck.Model.Map
         public int StartingCol { get; set; }
         public Location[,] Locations { get; set; }
         
+        public bool TryGetLocation(int row, int col, out Location location)
+        {
+            var validLocation = true;
+            location = new Location();
+            try
+            {
+                validLocation = Locations[row, col] != null;
+                if (validLocation) location = Locations[row, col];
+            }
+            catch (Exception ex)
+            {
+                validLocation = false;
+            }
 
-        // public Map(int numRows, int numCols)
-        // {
-        //     NumRows = numRows;
-        //     NumCols = numCols;
-        //     
-        //     Locations = new Location[numRows, numCols];
-        //     
-        //     for (var row = 0; row < numRows; row++){
-        //         for (var col = 0; col < numCols; col++)
-        //         {
-        //             var location = new Location(row, col);
-        //             Locations[row, col] = location;
-        //         }
-        //     }
-        // }
+            return validLocation;
+        }
     }
 }

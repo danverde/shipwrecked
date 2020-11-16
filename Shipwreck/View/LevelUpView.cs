@@ -1,5 +1,3 @@
-using System.Reflection.Metadata.Ecma335;
-
 namespace Shipwreck.View
 {
     public class LevelUpView : View

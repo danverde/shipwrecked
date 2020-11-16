@@ -57,7 +57,8 @@ namespace Shipwreck.View
                     DropItem();
                     break;
                 case "C":
-                    new GameMenuView().ShowPlayerStats();
+                    GameMenuView.ShowPlayerStats();
+                    Continue();
                     break;
                 case "B":
                     BuildWeapon();

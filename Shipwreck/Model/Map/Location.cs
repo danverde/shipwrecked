@@ -10,13 +10,7 @@ namespace Shipwreck.Model.Map
         public Scene Scene { get; set; }
         public List<Character.Character> Characters { get; set; }
 
-        public Location(int row, int col, bool visited = false)
-        {
-            Row = row;
-            Col = col;
-            Visited = visited;
-            Characters = new List<Character.Character>();
-
-        }
+        public bool IsTraversable => !Visited && Shipwreck.CurrentGame.Settings.EnableFow || Scene.Traversable;
+        
     }
 }

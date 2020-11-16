@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Text.Json.Serialization;
-using Newtonsoft.Json;
+using System.Text;
 using Shipwreck.Control;
-using Shipwreck.Model;
 using Shipwreck.Model.Character;
 
 namespace Shipwreck.View
@@ -19,6 +17,7 @@ namespace Shipwreck.View
                       + "\n C - View Character"
                       + "\n I - View Inventory"
                       + "\n M - View Map"
+                      + "\n L - Move"
                       + "\n W - Wait for rescue"
                       + "\n F - Tend Signal Fire"
                       + "\n H - Help Menu"
@@ -26,7 +25,35 @@ namespace Shipwreck.View
                       + "\n----------------------------------";
         }
 
-        public void ShowPlayerStats()
+        public static void ShowMap()
+        {
+            var map = Shipwreck.CurrentGame.Map;
+            
+            Console.WriteLine("\n--------------- Map ---------------\n");
+            
+            for (var rowIndex = 0; rowIndex < map.NumRows; rowIndex++)
+            {
+                var line = new StringBuilder("                             ");
+                
+                for (var colIndex = 0; colIndex < map.NumCols; colIndex++)
+                {
+                    var location = map.Locations[rowIndex, colIndex];
+                    var displaySymbol = location.Scene.DisplaySymbol;
+                    if (Shipwreck.CurrentGame.Settings.EnableFow && !location.Visited) displaySymbol = " ? ";
+                    
+                    if (Shipwreck.CurrentGame.Player.CurrentLocation == location) displaySymbol = " X ";
+                        
+                    var lineLocation = colIndex * 4 + 1;
+                    line.Insert(lineLocation, displaySymbol);
+                }
+                
+                Console.WriteLine(line);
+            }
+            
+            Console.WriteLine("\n-----------------------------------");
+        }
+        
+        public static void ShowPlayerStats()
         {
             var player = Shipwreck.CurrentGame.Player;
 
@@ -40,8 +67,6 @@ namespace Shipwreck.View
             Console.WriteLine($" Base Defense: {player.BaseDefense}");
             Console.WriteLine("-------------------------");
 
-            Continue();
-            
             // Console.SetCursorPosition(0, Console.CursorTop - 1);
             // Console.Write(new string(' ', Console.WindowWidth));
         }
@@ -66,21 +91,26 @@ namespace Shipwreck.View
             {
                 case "C":
                     ShowPlayerStats();
+                    Continue();
                     break;
                 case "I":
-                    ShowInventory();
+                    new InventoryMenuView().Display();
                     break;
                 case "M":
                     ShowMap();
+                    Continue();
+                    break;
+                case "L":
+                    new MoveView().Display();
                     break;
                 case "W":
-                    WaitItOut();
+                    new WaitView().Display();
                     break;
                 case "F":
-                    OpenFireMenu();
+                    new FireMenuView().Display();
                     break;
                 case "H":
-                    OpenHelpView();
+                    new HelpMenuView(InGameView).Display();
                     break;
                 case "QUIT":
                     GameController.QuitGame();
@@ -88,59 +118,6 @@ namespace Shipwreck.View
                     break;
             }
             return closeView;
-        }
-
-        private void ShowInventory()
-        {
-            new InventoryMenuView().Display();
-        }
-
-        private void ShowMap()
-        {
-            // var mapJson = JsonConvert.SerializeObject(Shipwreck.CurrentGame.Map); 
-            // Console.WriteLine(mapJson);
-            
-            var map = Shipwreck.CurrentGame.Map;
-            
-            Console.WriteLine("\n----------------Map----------------");
-            
-            for (var rowIndex = 0; rowIndex < map.NumRows; rowIndex++)
-            {
-                var row = "";
-                
-                for (var colIndex = 0; colIndex < map.NumCols; colIndex++)
-                {
-                    var location = map.Locations[rowIndex, colIndex];
-                    var displaySymbol = location.Scene.DisplaySymbol;
-                    if (Shipwreck.CurrentGame.Settings.EnableFOW && !location.Visited) displaySymbol = "?";
-                    
-                    if (Shipwreck.CurrentGame.Player.CurrentLocation == location) displaySymbol = "X";
-                        
-                    row += $" {displaySymbol}";
-                }
-                
-                Console.WriteLine(row);
-            }
-            
-            Console.WriteLine("\n-----------------------------------");
-            Continue();
-        }
-
-        private void WaitItOut()
-        {
-            new WaitView().Display();
-        }
-
-        private void OpenFireMenu()
-        {
-            var fireMenuView = new FireMenuView();
-            fireMenuView.Display();
-        }
-
-        private void OpenHelpView()
-        {
-            var helpMenuView = new HelpMenuView(InGameView);
-            helpMenuView.Display();
         }
     }
 }

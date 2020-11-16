@@ -8,6 +8,7 @@ namespace Shipwreck.Model.Map
         public string Description { get; set; }
         public string DisplaySymbol { get; set; }
         public bool Traversable { get; set; }
+        public int DaysToTraverse { get; set; }
         public List<InventoryRecord> Items { get; set; }
     }
 }
