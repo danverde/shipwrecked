@@ -12,9 +12,15 @@ namespace Shipwreck.Control
             return  JsonLoader.LoadJson<Map>("Data/Maps/map1.json");
         }
 
+        public static Location GetPlayerLocation()
+        {
+            var player = Shipwreck.CurrentGame.Player;
+            return Shipwreck.CurrentGame.Map.Locations[player.Row, player.Col];
+        }
+
         public static List<AdjacentCoordinate> GetAdjacentCoordinates()
         {
-            var currentLocation = Shipwreck.CurrentGame.Player.CurrentLocation;
+            var currentLocation = GetPlayerLocation();
             return new List<AdjacentCoordinate>
             {
                 new AdjacentCoordinate { Direction = "N", Row = currentLocation.Row - 1, Col = currentLocation.Col},
@@ -26,6 +32,7 @@ namespace Shipwreck.Control
 
         public static bool TryMove(string direction, out Location newLocation)
         {
+            var player = Shipwreck.CurrentGame.Player;
             var adjacentLocation = GetAdjacentCoordinates().FirstOrDefault(location => location.Direction == direction) ?? new AdjacentCoordinate();
             
             // get the new location safely
@@ -41,9 +48,9 @@ namespace Shipwreck.Control
             GameController.AdvanceDays(newLocation.Scene.DaysToTraverse);
             
             // move character
-            Shipwreck.CurrentGame.Player.CurrentLocation.Characters.Remove(Shipwreck.CurrentGame.Player);
-            newLocation.Characters.Add(Shipwreck.CurrentGame.Player);
-            Shipwreck.CurrentGame.Player.CurrentLocation = newLocation;
+            GetPlayerLocation().Characters.Remove(player);
+            newLocation.Characters.Add(player);
+            player.SetLocationCoordinates(newLocation);
             
             return true;
         }

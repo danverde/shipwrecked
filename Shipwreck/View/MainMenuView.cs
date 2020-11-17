@@ -12,7 +12,6 @@ namespace Shipwreck.View
                       + "\n| Main Menu"
                       + "\n----------------------------------"
                       + "\n N - New Game"
-                      + "\n S - Save Game"
                       + "\n C - Continue Game"
                       + "\n H - Help Menu"
                       + "\n X - Close Shipwreck"
@@ -25,9 +24,6 @@ namespace Shipwreck.View
             {
                 case "N":
                     StartNewGame();
-                    break;
-                case "S":
-                    SaveGame();
                     break;
                 case "C":
                     ContinueGame();
@@ -44,11 +40,6 @@ namespace Shipwreck.View
         {
             Shipwreck.CurrentGame = new Game();
             new NewGameView().Display();
-        }
-
-        private void SaveGame()
-        {
-            throw new NotImplementedException();
         }
 
         private void ContinueGame()

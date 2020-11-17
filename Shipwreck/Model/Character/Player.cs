@@ -9,14 +9,22 @@ namespace Shipwreck.Model.Character
         public int Exp { get; private set; }
         public int Hunger { get; set; }
         public const int HungerLimit = 20; 
-        public Location CurrentLocation { get; set; }
+        public int Col { get; set; }
+        public int Row { get; set; }
         public Player(string name, int hunger, Location location)
             :base(name)
         {
             Hunger = hunger;
-            CurrentLocation = location;
+            Row = location.Row;
+            Col = location.Col;
         }
 
+        public void SetLocationCoordinates(Location location)
+        {
+            Row = location.Row;
+            Col = location.Col;
+        }
+        
         public void GainExperience(int experience)
         {
             Exp += experience;
@@ -27,6 +35,13 @@ namespace Shipwreck.Model.Character
             }
         }
 
+        // TODO should this be in a controller?
+        public void Eat(Food food)
+        {
+            Health = Health + food.HealingPower < MaxHealth ? Health + food.HealingPower : MaxHealth;
+            Hunger = Hunger - food.FillingPower > 0 ? Hunger - food.FillingPower : 0;
+        }
+        
         private void LevelUp()
         {
             Level++;
@@ -37,13 +52,6 @@ namespace Shipwreck.Model.Character
             Health += 1;
             
             new LevelUpView().Display();
-        }
-
-        // TODO should this be in a controller?
-        public void Eat(Food food)
-        {
-            Health = Health + food.HealingPower < MaxHealth ? Health + food.HealingPower : MaxHealth;
-            Hunger = Hunger - food.FillingPower > 0 ? Hunger - food.FillingPower : 0;
         }
     }
 }

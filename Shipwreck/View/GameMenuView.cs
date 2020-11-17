@@ -20,6 +20,7 @@ namespace Shipwreck.View
                       + "\n L - Move"
                       + "\n W - Wait for rescue"
                       + "\n F - Tend Signal Fire"
+                      + "\n S - Save Game"
                       + "\n H - Help Menu"
                       + "\n X - End it all (Exit Game)"
                       + "\n----------------------------------";
@@ -41,7 +42,7 @@ namespace Shipwreck.View
                     var displaySymbol = location.Scene.DisplaySymbol;
                     if (Shipwreck.CurrentGame.Settings.EnableFow && !location.Visited) displaySymbol = " ? ";
                     
-                    if (Shipwreck.CurrentGame.Player.CurrentLocation == location) displaySymbol = " X ";
+                    if (MapController.GetPlayerLocation() == location) displaySymbol = " X ";
                         
                     var lineLocation = colIndex * 4 + 1;
                     line.Insert(lineLocation, displaySymbol);
@@ -109,6 +110,9 @@ namespace Shipwreck.View
                 case "F":
                     new FireMenuView().Display();
                     break;
+                case "S":
+                    SaveGame();
+                    break;
                 case "H":
                     new HelpMenuView(InGameView).Display();
                     break;
@@ -118,6 +122,25 @@ namespace Shipwreck.View
                     break;
             }
             return closeView;
+        }
+        
+        private void SaveGame()
+        {
+            Console.WriteLine("File name:");
+            var fileName = Console.ReadLine();
+
+            // TODO check for existing file & ask to override
+            // todo validate name & extension
+            if (fileName == "x" || fileName == "X") return;
+            fileName += ".json";
+            
+            var success = ShipwreckController.TrySaveGame(fileName);
+
+            Console.WriteLine(success
+                ? "Your game was successfully saved"
+                : "There was an error while trying to save your game");
+            
+            Continue();
         }
     }
 }
