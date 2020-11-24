@@ -1,8 +1,14 @@
 {
-  "enableFow": false,
-  "baseExpPerDay": 25,
-  "fireExpBoost": 15,
-  "hungerPerDay": 3,
-  "woodBurnPerDay": 2,
-  "waitSuccessRate": 100000
+  "waitSuccessRate": 100000,
+  "Map": {
+    "enableFow": false
+  },
+  "Player": {
+    "baseExpPerDay": 25,
+    "hungerPerDay": 3
+  },
+  "Fire": {
+    "woodBurnPerDay": 2,
+    "fireExpBoost": 15
+  }
 }

@@ -17,7 +17,7 @@ namespace Shipwreck.Control
             var wood = fire.Inventory.Items.Find(x => x.InventoryItem.Name == "Branch");
             try
             {
-                fire.Inventory.RemoveItems(wood.InventoryItem, Shipwreck.CurrentGame.Settings.WoodBurnPerDay, true);
+                fire.Inventory.RemoveItems(wood.InventoryItem, Shipwreck.CurrentGame.GameSettings.Fire.WoodBurnPerDay, true);
             }
             catch (InventoryException)
             {

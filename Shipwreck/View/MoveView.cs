@@ -59,7 +59,7 @@ namespace Shipwreck.View
                 var successMsg = $"You successfully moved moved {fullDirection}";
                 // TODO I need a try explore method. just b/c FOW is on doesn't mean I just discovered it.
                 // It would also be good to give more details about the new location
-                if (Shipwreck.CurrentGame.Settings.EnableFow) successMsg += $" and discovered: {location.Scene.Description}";
+                if (Shipwreck.CurrentGame.GameSettings.Map.EnableFow) successMsg += $" and discovered: {location.Scene.Description}";
                 
                 Console.WriteLine(successMsg);
             }

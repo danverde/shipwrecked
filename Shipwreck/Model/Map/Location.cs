@@ -10,7 +10,7 @@ namespace Shipwreck.Model.Map
         public Scene Scene { get; set; }
         public List<Character.Character> Characters { get; set; }
 
-        public bool IsTraversable => !Visited && Shipwreck.CurrentGame.Settings.EnableFow || Scene.Traversable;
+        public bool IsTraversable => !Visited && Shipwreck.CurrentGame.GameSettings.Map.EnableFow || Scene.Traversable;
         
     }
 }

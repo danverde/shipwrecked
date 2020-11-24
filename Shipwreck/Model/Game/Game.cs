@@ -1,6 +1,7 @@
 ﻿using System;
 using Shipwreck.Helpers;
 using Shipwreck.Model.Character;
+using Shipwreck.Model.Settings;
 
 namespace Shipwreck.Model.Game
 {
@@ -11,13 +12,12 @@ namespace Shipwreck.Model.Game
         public Fire Fire { get; private set; }
         public GameStatus Status { get; set; }
         public Map.Map Map { get; set; }
-        
-        public GameSettings Settings { get; set; }
+        public GameSettings GameSettings { get; set; }
 
         public Game()
         {
             Status = GameStatus.Setup;
-            Settings = JsonLoader.LoadJson<GameSettings>("Data/Settings/easyGame.json");
+            GameSettings = JsonLoader.LoadJson<GameSettings>("Data/Settings/easyGame.json");
         }
         
         // TODO this looks like a really good idea...

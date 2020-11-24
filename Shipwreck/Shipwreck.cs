@@ -1,7 +1,9 @@
 ﻿using Shipwreck.Model.Factories;
 using Shipwreck.View;
 using System;
+using Shipwreck.Helpers;
 using Shipwreck.Model.Game;
+using Shipwreck.Model.Settings;
 
 namespace Shipwreck
 {
@@ -9,10 +11,19 @@ namespace Shipwreck
     {
         public static Game CurrentGame;
         public static ResourceFactory ResourceFactory;
+        public static ShipwreckSettings Settings;
 
         static void Main(string[] args)
         {
-            InitializeFactories();
+            try
+            {
+                LoadSettings();
+                InitializeFactories();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Unable to start game. Please don't break me.");
+            }
             
             Console.WriteLine("======================================================================="
                 + "\n Congratulations!! You just washed up on the shore of a tropical "
@@ -27,6 +38,11 @@ namespace Shipwreck
             new MainMenuView().Display();
             
             Console.WriteLine("DONE");
+        }
+
+        private static void LoadSettings()
+        {
+            Settings = JsonLoader.LoadJson<ShipwreckSettings>("Data/Settings/shipwreckSettings.json");
         }
 
         private static void InitializeFactories()

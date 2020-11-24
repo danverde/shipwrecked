@@ -26,6 +26,13 @@ namespace Shipwreck.View
                       + "\n----------------------------------";
         }
 
+        public static bool OverwriteFileName(string fileName)
+        {
+            Console.WriteLine($"{fileName} already exists. Would you like to overwrite it? (Y/n)");
+            var input = Console.ReadLine() ?? "n";
+            return input == "y" || input.ToUpper() == "Y";
+        }
+
         public static void ShowMap()
         {
             var map = Shipwreck.CurrentGame.Map;
@@ -40,7 +47,7 @@ namespace Shipwreck.View
                 {
                     var location = map.Locations[rowIndex, colIndex];
                     var displaySymbol = location.Scene.DisplaySymbol;
-                    if (Shipwreck.CurrentGame.Settings.EnableFow && !location.Visited) displaySymbol = " ? ";
+                    if (Shipwreck.CurrentGame.GameSettings.Map.EnableFow && !location.Visited) displaySymbol = " ? ";
                     
                     if (MapController.GetPlayerLocation() == location) displaySymbol = " X ";
                         
@@ -127,13 +134,10 @@ namespace Shipwreck.View
         private void SaveGame()
         {
             Console.WriteLine("File name:");
-            var fileName = Console.ReadLine();
+            var fileName = Console.ReadLine() ?? "";
 
-            // TODO check for existing file & ask to override
-            // todo validate name & extension
             if (fileName == "x" || fileName == "X") return;
-            fileName += ".json";
-            
+
             var success = ShipwreckController.TrySaveGame(fileName);
 
             Console.WriteLine(success

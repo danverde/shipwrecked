@@ -1,12 +1,4 @@
-using System.IO;
-
-namespace Shipwreck.Helpers
+$HEADER$namespace $NAMESPACE$
 {
-    public static class FileWriter
-    {
-        public static void WriteFile(string filePath, string fileContents)
-        {
-            File.WriteAllText(filePath, fileContents);
-        }
-    }
+  public class $CLASS$ {$END$}
 }

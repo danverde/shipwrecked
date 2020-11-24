@@ -58,7 +58,7 @@ namespace Shipwreck.Control
         private static void AdvanceDay(bool waiting = false)
         {
             var player = Shipwreck.CurrentGame.Player;
-            var exp = Shipwreck.CurrentGame.Settings.BaseExpPerDay;
+            var exp = Shipwreck.CurrentGame.GameSettings.Player.BaseExpPerDay;
             
             // let the player know the next day has started
             Shipwreck.CurrentGame.Day.IncrementDay();
@@ -71,7 +71,7 @@ namespace Shipwreck.Control
             // TODO implement potential weather deaths
             
             // Hunger
-            player.Hunger += Shipwreck.CurrentGame.Settings.HungerPerDay;
+            player.Hunger += Shipwreck.CurrentGame.GameSettings.Player.HungerPerDay;
             if (Shipwreck.CurrentGame.Player.Hunger > Player.HungerLimit)
             {
                 LoseGame();
@@ -79,7 +79,7 @@ namespace Shipwreck.Control
             }
             
             // Rescue (if waiting)
-            if (waiting && new Random().Next(Shipwreck.CurrentGame.Settings.WaitSuccessRate) == 1)
+            if (waiting && new Random().Next(Shipwreck.CurrentGame.GameSettings.WaitSuccessRate) == 1)
             {
                 const string message = "\n You're Saved! What luck!" +
                                        "\n A gang of local poachers found you on their way back to town." +
@@ -93,7 +93,7 @@ namespace Shipwreck.Control
              ***************************/
             // Their fire burns
             FireController.Burn(Shipwreck.CurrentGame.Fire);
-            exp = Shipwreck.CurrentGame.Fire.Status == FireStatus.Burning ? exp + Shipwreck.CurrentGame.Settings.FireExpBoost: exp;
+            exp = Shipwreck.CurrentGame.Fire.Status == FireStatus.Burning ? exp + Shipwreck.CurrentGame.GameSettings.Fire.FireExpBoost: exp;
             
             
             /**********************************
