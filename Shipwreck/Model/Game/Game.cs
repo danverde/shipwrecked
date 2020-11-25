@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Shipwreck.Helpers;
 using Shipwreck.Model.Character;
 using Shipwreck.Model.Settings;
@@ -17,7 +18,9 @@ namespace Shipwreck.Model.Game
         public Game()
         {
             Status = GameStatus.Setup;
-            GameSettings = JsonLoader.LoadJson<GameSettings>("Data/Settings/easyGame.json");
+            // TODO move easyGamePath to shipwreck settings
+            var easyGamePath = Path.Combine(Environment.CurrentDirectory, "Data/Settings/easyGame.json");
+            GameSettings = FileHelper.LoadJson<GameSettings>(easyGamePath);
         }
         
         // TODO this looks like a really good idea...
@@ -29,7 +32,7 @@ namespace Shipwreck.Model.Game
         //     Fire = new Fire();
         // }
 
-        public void StartGame(Player player, Map.Map map)
+        public void SetupGame(Player player, Map.Map map)
         {
             Player = player;
             Status = GameStatus.Playing;

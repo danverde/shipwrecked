@@ -1,4 +1,6 @@
 ﻿using System;
+using Shipwreck.Control;
+using Shipwreck.Helpers;
 using Shipwreck.Model.Game;
 
 namespace Shipwreck.View
@@ -12,7 +14,7 @@ namespace Shipwreck.View
                       + "\n| Main Menu"
                       + "\n----------------------------------"
                       + "\n N - New Game"
-                      + "\n C - Continue Game (COMING SOON)"
+                      + "\n L - Load Game (COMING SOON)"
                       + "\n H - Help Menu"
                       + "\n X - Close Shipwreck"
                       + "\n----------------------------------";
@@ -25,8 +27,8 @@ namespace Shipwreck.View
                 case "N":
                     StartNewGame();
                     break;
-                case "C":
-                    ContinueGame();
+                case "L":
+                    LoadGame();
                     break;
                 case "H":
                     OpenHelpView();
@@ -38,13 +40,49 @@ namespace Shipwreck.View
 
         private void StartNewGame()
         {
+            // TODO de-mysitify game creation
             Shipwreck.CurrentGame = new Game();
             new NewGameView().Display();
         }
 
-        private void ContinueGame()
+        private void LoadGame()
         {
-            throw new NotImplementedException();
+            // list available save files
+            var existingFiles = FileHelper.GetFilesInDir(Shipwreck.Settings.SavePath);
+            if (existingFiles.Count == 0)
+            {
+                Console.WriteLine("There are no save files");
+                return;
+            }
+            
+            Console.WriteLine("Existing Save files:");
+            foreach (var existingFile in existingFiles)
+            {
+                Console.WriteLine(existingFile);
+            }
+            
+            // get desired save file
+            Console.WriteLine("\nWhich file would you like to load?");
+            var fileToLoad = Console.ReadLine() ?? "";
+            if (fileToLoad == "x" || fileToLoad.ToUpper() == "X") return;
+            fileToLoad = FileHelper.AddExtension(fileToLoad, ".json");
+
+            if (!existingFiles.Contains(fileToLoad))
+            {
+                Console.WriteLine("That file does not exist");
+                return;
+            }
+            
+            // try load file
+            if (ShipwreckController.TryLoadGame(fileToLoad))
+            {
+               Console.WriteLine("YAY. What now?"); 
+               GameController.StartGame();
+            }
+            else
+            {
+                Console.WriteLine($"Unable to load {fileToLoad}");
+            }
         }
 
         private void OpenHelpView()

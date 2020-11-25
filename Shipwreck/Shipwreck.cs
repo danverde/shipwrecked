@@ -1,6 +1,7 @@
 ﻿using Shipwreck.Model.Factories;
 using Shipwreck.View;
 using System;
+using System.IO;
 using Shipwreck.Helpers;
 using Shipwreck.Model.Game;
 using Shipwreck.Model.Settings;
@@ -13,6 +14,9 @@ namespace Shipwreck
         public static ResourceFactory ResourceFactory;
         public static ShipwreckSettings Settings;
 
+        private static string SettingsFilePath =>
+            Path.Combine(Environment.CurrentDirectory, "Data/Settings/shipwreckSettings.json");
+        
         static void Main(string[] args)
         {
             try
@@ -42,7 +46,7 @@ namespace Shipwreck
 
         private static void LoadSettings()
         {
-            Settings = JsonLoader.LoadJson<ShipwreckSettings>("Data/Settings/shipwreckSettings.json");
+            Settings = FileHelper.LoadJson<ShipwreckSettings>(SettingsFilePath);
         }
 
         private static void InitializeFactories()

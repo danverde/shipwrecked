@@ -8,10 +8,15 @@ namespace Shipwreck.Control
 {
     class GameController
     {
-        public static void StartNewGame(string characterName)
+        public static void StartGame()
+        {
+            new NewDayView().Display();
+            new GameMenuView().Display();
+        }
+        public static void SetupNewGame(string characterName)
         {
             // setup map
-            var map = MapController.LoadMap1();
+            var map = MapController.LoadMapFromJson("Data/Maps/map1.json");
             var startingLocation = map.Locations[map.StartingRow, map.StartingCol];
             
             // setup player
@@ -19,12 +24,10 @@ namespace Shipwreck.Control
             startingLocation.Characters.Add(player);
             InventoryController.AddDefaultItemsToInventory(player.Inventory);
             
-            // start game
-            Shipwreck.CurrentGame.StartGame(player, map);
+            // setup game
+            Shipwreck.CurrentGame.SetupGame(player, map);
 
-            
-            // open view
-            new NewDayView().Display();
+            StartGame();
         }
         
         public static void LoseGame()

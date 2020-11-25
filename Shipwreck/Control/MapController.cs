@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Shipwreck.Helpers;
 using Shipwreck.Model.Map;
@@ -7,9 +9,10 @@ namespace Shipwreck.Control
 {
     public static class MapController
     {
-        public static Map LoadMap1()
+        public static Map LoadMapFromJson(string mapPath)
         {
-            return  JsonLoader.LoadJson<Map>("Data/Maps/map1.json");
+            var map1Path = Path.Combine(Environment.CurrentDirectory, mapPath);
+            return  FileHelper.LoadJson<Map>(map1Path);
         }
 
         public static Location GetPlayerLocation()

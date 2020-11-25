@@ -7,7 +7,6 @@ namespace Shipwreck.View
         public NewGameView()
         {
             InGameView = true;
-            // ParentView = new MainMenuView();
             Message = "\nPlease Enter Your Character's Name:\n";
         }
 
@@ -18,8 +17,7 @@ namespace Shipwreck.View
                 return false;
             }
             
-            GameController.StartNewGame(input);
-            new GameMenuView().Display();
+            GameController.SetupNewGame(input);
             return true;
         }
     }

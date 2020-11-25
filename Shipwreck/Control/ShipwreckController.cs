@@ -1,8 +1,8 @@
 using System;
 using System.IO;
-using System.Linq;
 using Newtonsoft.Json;
 using Shipwreck.Helpers;
+using Shipwreck.Model.Game;
 using Shipwreck.View;
 
 namespace Shipwreck.Control
@@ -18,10 +18,10 @@ namespace Shipwreck.Control
                 var savePath = Shipwreck.Settings.SavePath;
             
                 // validate name & extension
-                fileName = FileWriter.AddExtension(".json", fileName);
+                fileName = FileHelper.AddExtension(fileName, ".json");
             
                 // check for existing file & ask to override
-                var fileExists = FileWriter.FileExists(savePath, fileName);
+                var fileExists = FileHelper.FileExists(savePath, fileName);
                 if (fileExists)
                 {
                     var overwrite = GameMenuView.OverwriteFileName(fileName);
@@ -39,6 +39,22 @@ namespace Shipwreck.Control
                 return false;
             }
             
+        }
+
+        public static bool TryLoadGame(string fileName)
+        {
+            // TODO what do I do with the game once I have it?
+            try
+            {
+                var filePath = Path.Combine(Shipwreck.Settings.SavePath, fileName);
+                var game = FileHelper.LoadJson<Game>(filePath);
+                Shipwreck.CurrentGame = game;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
     }
 }
