@@ -18,7 +18,7 @@ namespace Shipwreck.Control
             var currentGame = Shipwreck.CurrentGame;
             
             // setup map
-            var map = MapController.LoadMapFromJson("Data/Maps/map1.json");
+            var map = MapController.LoadMapFromJson(currentGame.GameSettings.Map.MapPath);
             var startingLocation = map.Locations[map.StartingRow, map.StartingCol];
             
             // setup player

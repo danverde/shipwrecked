@@ -18,8 +18,7 @@ namespace Shipwreck.Model.Game
         public Game()
         {
             Status = GameStatus.Setup;
-            // TODO move easyGamePath to shipwreck settings
-            var easyGamePath = Path.Combine(Environment.CurrentDirectory, "Data/Settings/easyGame.json");
+            var easyGamePath = Path.Combine(Environment.CurrentDirectory, Shipwreck.Settings.EasyGameSettingsPath);
             GameSettings = FileHelper.LoadJson<GameSettings>(easyGamePath);
         }
         

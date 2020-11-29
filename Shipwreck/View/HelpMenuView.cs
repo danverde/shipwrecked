@@ -14,9 +14,9 @@ namespace Shipwreck.View
                       + "\n P - Purpose of the Game"
                       + "\n I - Inventory Help"
                       + "\n M - Map Terminology"
-                      + "\n R - Resource Help"
-                      + "\n C - Combat Help"
-                      + "\n B - Building Help"
+                      // + "\n R - Resource Help"
+                      // + "\n C - Combat Help"
+                      // + "\n B - Building Help"
                       + "\n X - Exit Help Menu"
                       + "\n----------------------------------";
         }
@@ -33,15 +33,15 @@ namespace Shipwreck.View
                 case "M":
                     MapHelp();
                     break;
-                case "R":
-                    ResourceHelp();
-                    break;
-                case "C":
-                    CombatHelp();
-                    break;
-                case "B":
-                    BuildingHelp();
-                    break;
+                // case "R":
+                //     ResourceHelp();
+                //     break;
+                // case "C":
+                //     CombatHelp();
+                //     break;
+                // case "B":
+                //     BuildingHelp();
+                //     break;
             }
 
             return closeView;

@@ -1,7 +1,8 @@
 {
   "waitSuccessRate": 100000,
   "Map": {
-    "enableFow": false
+    "enableFow": false,
+    "mapPath": "Data/Maps/map1.json"
   },
   "Player": {
     "baseExpPerDay": 25,

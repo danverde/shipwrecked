@@ -50,8 +50,6 @@ namespace Shipwreck.View
         {
             var success = MapController.TryMove(direction, out var location);
             
-            // TODO show days passing
-            
             GameMenuView.ShowMap();
             
             if (success)

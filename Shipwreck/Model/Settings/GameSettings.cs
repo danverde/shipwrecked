@@ -11,6 +11,7 @@ namespace Shipwreck.Model.Settings
     public class MapSettings
     {
         public bool EnableFow { get; set; }
+        public string MapPath { get; set; }
     }
 
     public class PlayerSettings
