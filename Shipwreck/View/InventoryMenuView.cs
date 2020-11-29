@@ -2,8 +2,8 @@
 using Shipwreck.Exceptions;
 using Shipwreck.Model.Items;
 using System;
+using System.Linq;
 using System.Text;
-using Shipwreck.Model.Items.Weapons;
 
 namespace Shipwreck.View
 {
@@ -23,7 +23,7 @@ namespace Shipwreck.View
                       + "\n Q - Equip Gear"
                       + "\n D - Drop Item"
                       + "\n C - View Character"
-                      + "\n B - Build Weapon"
+                      // + "\n B - Build Weapon"
                       + "\n H - Inventory Help"
                       + "\n X - Close Inventory"
                       + "\n----------------------------------";
@@ -60,13 +60,12 @@ namespace Shipwreck.View
                     GameMenuView.ShowPlayerStats();
                     Continue();
                     break;
-                case "B":
-                    BuildWeapon();
-                    break;
+                // case "B":
+                //     BuildWeapon();
+                //     break;
                 case "H":
                     ShowInventoryHelpView();
                     break;
-
             }
             return done;
         }
@@ -103,8 +102,10 @@ namespace Shipwreck.View
         private void ViewGear()
         {
             var inventory = Shipwreck.CurrentGame.Player.Inventory;
-            var gearItems = InventoryController.GetItemsByType<IGear>(inventory);
-
+            var weaponItems = InventoryController.GetItemsByType<Weapon>(inventory);
+            var armorItems = InventoryController.GetItemsByType<Armor>(inventory);
+            var gearItems = weaponItems.Concat(armorItems).ToList();
+            
             Console.WriteLine("\n-------------------------\n Gear:\n-------------------------");
 
             var line = new StringBuilder("                                              ");
@@ -314,7 +315,7 @@ namespace Shipwreck.View
             inventoryHelpView.Display();
         }
 
-        private IItem GetInventoryItem(string message)
+        private Item GetInventoryItem(string message)
         {
             var inventory = Shipwreck.CurrentGame.Player.Inventory;
             Console.WriteLine(message);

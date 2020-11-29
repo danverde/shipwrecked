@@ -5,7 +5,11 @@
   },
   "Player": {
     "baseExpPerDay": 25,
-    "hungerPerDay": 3
+    "hungerPerDay": 3,
+    "InitialHunger": 5,
+    "HealthGrowth": 1,
+    "AttackGrowth": 1,
+    "DefenseGrowth": 1
   },
   "Fire": {
     "woodBurnPerDay": 2,

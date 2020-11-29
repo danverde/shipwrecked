@@ -1,4 +1,4 @@
-﻿using Shipwreck.Model.Items.Weapons;
+﻿using Shipwreck.Model.Items;
 
 namespace Shipwreck.Model.Factories
 {
@@ -11,10 +11,22 @@ namespace Shipwreck.Model.Factories
             switch(weaponType)
             {
                 case "spear":
-                    weapon = new Spear();
+                    weapon = new Weapon
+                    {
+                        Name = "Spear",
+                        Description = "Hunting Spear",
+                        AttackPower = 4,
+                        Droppable = true
+                    };
                     break;
                 case "fists":
-                    weapon = new Fists();
+                    weapon = new Weapon
+                    {
+                        Name = "Fists",
+                        Description = "Fists of Fury",
+                        AttackPower = 1,
+                        Droppable = false
+                    };
                     break;
             }
 

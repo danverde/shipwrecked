@@ -2,7 +2,7 @@
 {
     class Day
     {
-        public int Number { get; private set; }
+        public int Number { get; set; }
         public Weather Weather { get; set; }
 
         public Day()

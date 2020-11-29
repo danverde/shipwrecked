@@ -43,7 +43,6 @@ namespace Shipwreck.Control
 
         public static bool TryLoadGame(string fileName)
         {
-            // TODO what do I do with the game once I have it?
             try
             {
                 var filePath = Path.Combine(Shipwreck.Settings.SavePath, fileName);

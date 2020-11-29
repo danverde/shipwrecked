@@ -1,4 +1,5 @@
-﻿using Shipwreck.Model.Factories;
+﻿using System.Collections.Generic;
+using Shipwreck.Model.Factories;
 using Shipwreck.Model.Items;
 
 namespace Shipwreck.Model
@@ -11,7 +12,10 @@ namespace Shipwreck.Model
         public Fire()
         {
             Status = FireStatus.NotStarted;
-            Inventory = new Inventory();
+            Inventory = new Inventory
+            {
+                Items = new List<InventoryRecord>()
+            };
         }
 
         public void StartFire()

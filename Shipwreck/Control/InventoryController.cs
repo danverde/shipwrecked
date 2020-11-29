@@ -1,8 +1,8 @@
-﻿using Shipwreck.Exceptions;
+﻿using System;
+using Shipwreck.Exceptions;
 using Shipwreck.Model.Factories;
 using Shipwreck.Model.Items;
 using System.Collections.Generic;
-using Shipwreck.Model.Items.Weapons;
 
 namespace Shipwreck.Control
 {
@@ -14,7 +14,13 @@ namespace Shipwreck.Control
             var foodFactory = new FoodFactory();
                                  
             // Spear spear = new Spear();
-            var fists = new Fists();
+            var fists = new Weapon
+            {
+                Name = "Fists",
+                Description = "Fists of Fury",
+                AttackPower = 1,
+                Droppable = false
+            };
             var suit = armorFactory.GetArmor(Armor.Type.Suit);
 
             var fish = foodFactory.GetFood(Food.Type.Fish);
@@ -36,7 +42,7 @@ namespace Shipwreck.Control
             inventory.AddItem(fish, 3);
         }
 
-        public static IItem GetItemFromInventory(Inventory inventory, string itemName)
+        public static Item GetItemFromInventory(Inventory inventory, string itemName)
         {
             var match = inventory.Items.Find(x => x.InventoryItem.Name == itemName);
 
@@ -50,43 +56,45 @@ namespace Shipwreck.Control
 
         public static void BuildWeapon(Inventory inventory, string itemToBuild)
         {   
-            // Build the weapon
-            var weaponFactory = new WeaponFactory();
-            var weapon = weaponFactory.GetWeapon(itemToBuild);
-            if (weapon == null || !(weapon is ICraftable))
-            {
-                throw new InventoryException("You can't build that!");
-            }
-
-            // TODO broken
-            var inventoryCopy = new List<InventoryRecord>(inventory.Items);
-
-            // Get list of required items
-            var requiredItems = (Dictionary<string, int>)weapon.GetType().GetProperty("RequiredItems").GetValue(null, null);
+            throw new NotImplementedException();
             
-            // Check inventory for required materials
-            foreach (var requiredItem in requiredItems)
-            {
-                var inventoryRecord = inventory.Items.Find(x => x.InventoryItem.Name == requiredItem.Key);
-                if ( inventoryRecord == null || requiredItem.Value > inventoryRecord.Quantity)
-                {
-                    // not enough items!!
-                    throw new InventoryException($"You need {requiredItem.Value} {requiredItem.Key}(s) to build that");
-                }
-                try
-                {
-                    // remove items from inventory
-                    inventory.RemoveItems(inventoryRecord.InventoryItem, requiredItem.Value, true);
-                }
-                catch(InventoryException e)
-                {
-                    inventory.Items = inventoryCopy;
-                    throw e;
-                }
-            }
-
-            // add weapon to inventory
-            inventory.AddItem(weapon);
+            // Build the weapon
+            // var weaponFactory = new WeaponFactory();
+            // var weapon = weaponFactory.GetWeapon(itemToBuild);
+            // if (weapon == null || !(weapon is ICraftable))
+            // {
+            //     throw new InventoryException("You can't build that!");
+            // }
+            //
+            // // TODO broken
+            // var inventoryCopy = new List<InventoryRecord>(inventory.Items);
+            //
+            // // Get list of required items
+            // var requiredItems = (Dictionary<string, int>)weapon.GetType().GetProperty("RequiredItems").GetValue(null, null);
+            //
+            // // Check inventory for required materials
+            // foreach (var requiredItem in requiredItems)
+            // {
+            //     var inventoryRecord = inventory.Items.Find(x => x.InventoryItem.Name == requiredItem.Key);
+            //     if ( inventoryRecord == null || requiredItem.Value > inventoryRecord.Quantity)
+            //     {
+            //         // not enough items!!
+            //         throw new InventoryException($"You need {requiredItem.Value} {requiredItem.Key}(s) to build that");
+            //     }
+            //     try
+            //     {
+            //         // remove items from inventory
+            //         inventory.RemoveItems(inventoryRecord.InventoryItem, requiredItem.Value, true);
+            //     }
+            //     catch(InventoryException e)
+            //     {
+            //         inventory.Items = inventoryCopy;
+            //         throw e;
+            //     }
+            // }
+            //
+            // // add weapon to inventory
+            // inventory.AddItem(weapon);
 
             // equip weapon?
         }

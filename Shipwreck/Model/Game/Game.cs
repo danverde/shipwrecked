@@ -8,9 +8,9 @@ namespace Shipwreck.Model.Game
 {
     class Game
     {
-        public Player Player { get; private set; }
-        public Day Day { get; private set; }
-        public Fire Fire { get; private set; }
+        public Player Player { get; set; }
+        public Day Day { get; set; }
+        public Fire Fire { get; set; }
         public GameStatus Status { get; set; }
         public Map.Map Map { get; set; }
         public GameSettings GameSettings { get; set; }
@@ -32,14 +32,14 @@ namespace Shipwreck.Model.Game
         //     Fire = new Fire();
         // }
 
-        public void SetupGame(Player player, Map.Map map)
-        {
-            Player = player;
-            Status = GameStatus.Playing;
-            Fire = new Fire();
-            Day = new Day();
-            Map = map;
-        }
+        // public void SetupGame(Player player, Map.Map map)
+        // {
+        //     Player = player;
+        //     Status = GameStatus.Playing;
+        //     Fire = new Fire();
+        //     Day = new Day();
+        //     Map = map;
+        // }
 
         public void EndGame()
         {

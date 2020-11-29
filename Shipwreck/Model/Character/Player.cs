@@ -11,6 +11,9 @@ namespace Shipwreck.Model.Character
         public const int HungerLimit = 20; 
         public int Col { get; set; }
         public int Row { get; set; }
+
+        public Player() {}
+        
         public Player(string name, int hunger, Location location)
             :base(name)
         {
@@ -44,12 +47,14 @@ namespace Shipwreck.Model.Character
         
         private void LevelUp()
         {
+            var playerSettings = Shipwreck.CurrentGame.GameSettings.Player;
+            
             Level++;
             // I'll have to change stat growths later...
-            BaseAttack += 1;
-            BaseDefense += 1;
-            MaxHealth += 1;
-            Health += 1;
+            BaseAttack += playerSettings.AttachGrowth;
+            BaseDefense += playerSettings.DefenseGrowth;
+            MaxHealth += playerSettings.HealthGrowth;
+            Health += playerSettings.HealthGrowth;
             
             new LevelUpView().Display();
         }

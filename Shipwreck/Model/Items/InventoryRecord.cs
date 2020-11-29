@@ -2,10 +2,12 @@
 {
     public class InventoryRecord
     {
-        public IItem InventoryItem { get; set; }
+        public Item InventoryItem { get; set; }
         public int Quantity { get; set; }
 
-        public InventoryRecord(IItem item, int quantity)
+        public InventoryRecord() {}
+
+        public InventoryRecord(Item item, int quantity)
         {
             InventoryItem = item;
             Quantity = quantity;

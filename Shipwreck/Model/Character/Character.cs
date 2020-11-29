@@ -1,10 +1,11 @@
-﻿using Shipwreck.Model.Items;
+﻿using System.Collections.Generic;
+using Shipwreck.Model.Items;
 
 namespace Shipwreck.Model.Character
 {
     public class Character
     {
-        public string Name { get; }
+        public string Name { get; set; }
         public int MaxHealth { get; set; }
         public int Health { get; set; }
         public int BaseAttack { get; protected set; }
@@ -15,9 +16,10 @@ namespace Shipwreck.Model.Character
         public int CalculatedAttack => BaseAttack + (Inventory.ActiveWeapon?.AttackPower ?? 0);
 
         public int CalculatedDefense => BaseDefense + (Inventory.ActiveArmor?.DefensePower ?? 0);
-        public Inventory Inventory { get; }
-        // private Location Location { get; }
+        public Inventory Inventory { get; set; }
 
+        public Character() {}
+        
         public Character(string name = "Barbarian", int health = 20, int maxHealth = 20, int level = 1, int attack = 1, int defense = 0)
         {
             Name = name;
@@ -28,7 +30,10 @@ namespace Shipwreck.Model.Character
             Level = level;
             Status = CharacterStatus.Alive;
 
-            Inventory = new Inventory();
+            Inventory = new Inventory
+            {
+                Items = new List<InventoryRecord>()
+            };
         }
 
         public void Die()

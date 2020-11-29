@@ -1,6 +1,6 @@
 ﻿namespace Shipwreck.Model.Items
 {
-    public class Food : IItem
+    public class Food : Item
     {
         public string Name { get; }
         public string Description { get; }
@@ -9,6 +9,7 @@
         public int FillingPower { get; }
         public bool Droppable { get; }
 
+        public Food() {}
         public Food(string name, string description, Type type, int healing, int hunger, bool drop = true)
         {
             Name = name;

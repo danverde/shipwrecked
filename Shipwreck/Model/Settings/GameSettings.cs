@@ -17,6 +17,10 @@ namespace Shipwreck.Model.Settings
     {
         public int BaseExpPerDay { get; set; }
         public int HungerPerDay { get; set; }
+        public int InitialHunger { get; set; }
+        public int HealthGrowth { get; set; } 
+        public int AttachGrowth { get; set; } 
+        public int DefenseGrowth { get; set; } 
     }
 
     public class FireSettings

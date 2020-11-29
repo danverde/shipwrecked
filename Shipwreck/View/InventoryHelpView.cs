@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Shipwreck.Model.Items.Weapons;
 
 namespace Shipwreck.View
 {
@@ -14,7 +13,7 @@ namespace Shipwreck.View
                       + "\n----------------------------------"
                       + "\n| Inventory Help Menu"
                       + "\n----------------------------------"
-                      + "\n C - View Item Catalog"
+                      + "\n C - View Item Catalog (Deprecated)"
                       + "\n X - Exit Inventory Help Menu"
                       + "\n----------------------------------";
         }
@@ -43,23 +42,23 @@ namespace Shipwreck.View
             Console.WriteLine(line);
 
             // for each weapon
-            var itemTypes = new List<Type> { typeof(Spear) };
+            // var itemTypes = new List<Type> { typeof(Spear) };
             
-            foreach(var type in itemTypes)
-            {
-                // TODO YIKES!
-                var requiredItems = (Dictionary<string, int>)type.GetProperty("RequiredItems").GetValue(null, null);
-            
-                Console.WriteLine($" {type.Name}");
-
-                foreach (var item in requiredItems)
-                {
-                    line = new StringBuilder("                                ");
-                    line.Insert(8, item.Key);
-                    line.Insert(24, item.Value);
-                    Console.WriteLine(line);
-                }
-            }
+            // foreach(var type in itemTypes)
+            // {
+            //     // TODO YIKES!
+            //     var requiredItems = (Dictionary<string, int>)type.GetProperty("RequiredItems").GetValue(null, null);
+            //
+            //     Console.WriteLine($" {type.Name}");
+            //
+            //     foreach (var item in requiredItems)
+            //     {
+            //         line = new StringBuilder("                                ");
+            //         line.Insert(8, item.Key);
+            //         line.Insert(24, item.Value);
+            //         Console.WriteLine(line);
+            //     }
+            // }
 
             Continue();
         }

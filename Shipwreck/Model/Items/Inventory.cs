@@ -1,6 +1,6 @@
 ﻿using Shipwreck.Exceptions;
 using System.Collections.Generic;
-using Shipwreck.Model.Items.Weapons;
+using System.Linq;
 
 namespace Shipwreck.Model.Items
 {
@@ -12,14 +12,11 @@ namespace Shipwreck.Model.Items
         // TODO just create a separate list for each item type!!!
 
 
-        public Inventory()
-        {
-            Items = new List<InventoryRecord>();
-        }
+        public Inventory() {}
 
-        public void AddItem(IItem newItem, int quantity = 1)
+        public void AddItem(Item newItem, int quantity = 1)
         {
-            var inventoryRecord = Items.Find(x => x.InventoryItem.Name.Equals(newItem.Name));
+            var inventoryRecord = Items.FirstOrDefault(record => record.InventoryItem.Name == newItem.Name);
             if (inventoryRecord == null)
             {
                 Items.Add(new InventoryRecord(newItem, quantity));
@@ -29,7 +26,7 @@ namespace Shipwreck.Model.Items
             }
         }
 
-        public int DropItem(IItem item, int quantity = 1)
+        public int DropItem(Item item, int quantity = 1)
         {
             int numDropped;
             if (item.Droppable)
@@ -45,7 +42,7 @@ namespace Shipwreck.Model.Items
         }
 
         /* Doesn't restore used items if errs out in strict mode */
-        public int RemoveItems(IItem item, int quantity = 1, bool strict = false)
+        public int RemoveItems(Item item, int quantity = 1, bool strict = false)
         {
             var i = 0;
             for (; i < quantity; i++)

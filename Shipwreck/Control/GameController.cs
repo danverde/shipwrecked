@@ -15,17 +15,23 @@ namespace Shipwreck.Control
         }
         public static void SetupNewGame(string characterName)
         {
+            var currentGame = Shipwreck.CurrentGame;
+            
             // setup map
             var map = MapController.LoadMapFromJson("Data/Maps/map1.json");
             var startingLocation = map.Locations[map.StartingRow, map.StartingCol];
             
             // setup player
-            var player = new Player(characterName, 5, startingLocation);
+            var player = new Player(characterName, Shipwreck.CurrentGame.GameSettings.Player.InitialHunger, startingLocation);
             startingLocation.Characters.Add(player);
             InventoryController.AddDefaultItemsToInventory(player.Inventory);
             
             // setup game
-            Shipwreck.CurrentGame.SetupGame(player, map);
+            currentGame.Player = player;
+            currentGame.Status = GameStatus.Playing;
+            currentGame.Fire = new Fire();
+            currentGame.Day = new Day();
+            currentGame.Map = map;
 
             StartGame();
         }
