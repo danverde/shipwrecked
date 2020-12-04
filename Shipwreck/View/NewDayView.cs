@@ -9,7 +9,7 @@ namespace Shipwreck.View
             InGameView = true;
             Message = "\n---------------------" +
                       $"\n Day {Shipwreck.CurrentGame.Day.Number}" +
-                      $"\n Weather: {Shipwreck.CurrentGame.Day.Weather.Name}" +
+                      // $"\n Weather: {Shipwreck.CurrentGame.Day.Weather.Name}" +
                       $"\n Hunger: {Shipwreck.CurrentGame.Player.Hunger} / {Player.HungerLimit}" +
                       "\n---------------------";
         }

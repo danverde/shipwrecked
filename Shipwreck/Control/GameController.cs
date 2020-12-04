@@ -13,6 +13,7 @@ namespace Shipwreck.Control
             new NewDayView().Display();
             new GameMenuView().Display();
         }
+        
         public static void SetupNewGame(string characterName)
         {
             var currentGame = Shipwreck.CurrentGame;
@@ -83,7 +84,7 @@ namespace Shipwreck.Control
             /***************************
              * Game ending phenomenon
              ***************************/
-            // TODO implement potential weather deaths
+            // ENHANCEMENT implement potential weather deaths
             
             // Hunger
             player.Hunger += Shipwreck.CurrentGame.GameSettings.Player.HungerPerDay;
