@@ -4,25 +4,61 @@ namespace Shipwreck.Model.Factories
 {
     class FoodFactory
     {
-        public Food GetFood(Food.Type type)
+        public Food GetFood(FoodType foodType)
         {
             Food food = null;
-            switch(type)
+            switch(foodType)
             {
-                case Food.Type.Banana:
-                    food = new Food("Banana", "My toddler loves these", type, 0, 1);
+                case FoodType.Banana:
+                    food = new Food
+                    {
+                        Name = "Banana",
+                        Description = "My toddler loves these",
+                        FoodType = foodType,
+                        HealingPower = 0,
+                        FillingPower = 1,
+                        Droppable = true
+                    };
                     break;
-                case Food.Type.Coconut:
-                    food = new Food("Coconut", "Fallen Coconut", type, 2, 1);
+                case FoodType.Coconut:
+                    food = new Food{
+                        Name = "Coconut",
+                        Description = "Fallen Coconut",
+                        FoodType = foodType,
+                        HealingPower = 2,
+                        FillingPower = 1,
+                        Droppable = true
+                    };
                     break;
-                case Food.Type.Fish:
-                    food = new Food("Fish", "Fresh Fish", type, 1, 0);
+                case FoodType.Fish:
+                    food = new Food{
+                        Name = "Fish",
+                        Description = "Fresh Fish",
+                        FoodType = foodType,
+                        HealingPower = 1,
+                        FillingPower = 0,
+                        Droppable = true
+                    };
                     break;
-                case Food.Type.Mango:
-                    food = new Food("Mango", "Delicious Mango", type, 4, 3);
+                case FoodType.Mango:
+                    food = new Food{
+                        Name = "Mango",
+                        Description = "Delicious Mango",
+                        FoodType = foodType,
+                        HealingPower = 4,
+                        FillingPower = 3,
+                        Droppable = true
+                    };
                     break;
-                case Food.Type.Meat:
-                    food = new Food("Meat", "Red Meat", type, 2, 3);
+                case FoodType.Meat:
+                    food = new Food{
+                        Name = "Meat",
+                        Description = "Red Meat",
+                        FoodType = foodType,
+                        HealingPower = 2,
+                        FillingPower = 3,
+                        Droppable = true
+                    };
                     break;
             }
             return food;

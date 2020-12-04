@@ -4,32 +4,28 @@ namespace Shipwreck.Model.Factories
 {
     class WeaponFactory
     {
-        public Weapon GetWeapon(string weaponType)
+        public Weapon GetWeapon(WeaponType weaponType)
         {
-            weaponType = weaponType.ToLower();
-            Weapon weapon = null;
+            var weapon = new Weapon
+            {
+                Droppable = true
+            };
+            
             switch(weaponType)
             {
-                case "spear":
-                    weapon = new Weapon
-                    {
-                        Name = "Spear",
-                        Description = "Hunting Spear",
-                        AttackPower = 4,
-                        Droppable = true
-                    };
+                case WeaponType.Spear:
+                    weapon.Name = "Spear";
+                    weapon.Description = "Hunting Spear";
+                    weapon.AttackPower = 4;
                     break;
-                case "fists":
-                    weapon = new Weapon
-                    {
-                        Name = "Fists",
-                        Description = "Fists of Fury",
-                        AttackPower = 1,
-                        Droppable = false
-                    };
+                case WeaponType.Fists:
+                    weapon.Name = "Fists";
+                    weapon.Description = "Fists of Fury";
+                    weapon.AttackPower = 1;
+                    weapon.Droppable = false;
                     break;
             }
-
+        
             return weapon;
         }
     }

@@ -34,8 +34,8 @@ namespace Shipwreck.Model
             {
                 return;
             }
-            var resourceFactory = new ResourceFactory();
-            var wood = resourceFactory.GetResource(Resource.Type.Branch);
+            var resourceFactory = Shipwreck.ResourceFactory;
+            var wood = resourceFactory.GetResource(ResourceType.Branch);
             Inventory.AddItem(wood, quantity);
         }
     }

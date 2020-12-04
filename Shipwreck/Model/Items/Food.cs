@@ -2,32 +2,18 @@
 {
     public class Food : Item
     {
-        public string Name { get; }
-        public string Description { get; }
-        public Type FoodType { get; }
-        public int HealingPower { get; }
-        public int FillingPower { get; }
-        public bool Droppable { get; }
+        public override ItemType ItemType { get; } = ItemType.Food;
+        public FoodType FoodType { get; set; }
+        public int HealingPower { get; set; }
+        public int FillingPower { get; set; }
+    }
 
-        public Food() {}
-        public Food(string name, string description, Type type, int healing, int hunger, bool drop = true)
-        {
-            Name = name;
-            Description = description;
-            FoodType = type;
-            HealingPower = healing;
-            FillingPower = hunger;
-            Droppable = drop;
-        }
-
-        public enum Type 
-        {
-            Banana,
-            Coconut,
-            Fish,
-            Mango,
-            Meat,
-        }
-
+    public enum FoodType
+    {
+        Banana,
+        Coconut,
+        Fish,
+        Mango,
+        Meat
     }
 }

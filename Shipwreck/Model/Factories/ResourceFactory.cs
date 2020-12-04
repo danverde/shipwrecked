@@ -4,28 +4,38 @@ namespace Shipwreck.Model.Factories
 {
     class ResourceFactory
     {
-        public Resource GetResource(Resource.Type type)
+        public Resource GetResource(ResourceType resourceType)
         {
-            Resource resource = null;
-            switch(type)
+            var resource = new Resource
             {
-                case Resource.Type.Branch:
-                    resource = new Resource("Branch", "A sturdy tree branch");
+                Droppable = true,
+                ResourceType = resourceType
+            };
+            
+            switch(resourceType)
+            {
+                case ResourceType.Branch:
+                    resource.Name = "Branch";
+                    resource.Description = "A sturdy tree branch";
                     break;
-                case Resource.Type.Match:
-                    resource = new Resource("Match", "A waterproof match");
+                case ResourceType.Match:
+                    resource.Name = "Match";
+                    resource.Description = "A waterproof match";
                     break;
-                case Resource.Type.SharpStone:
-                    resource = new Resource("Branch", "A sharpened stone");
+                case ResourceType.SharpStone:
+                    resource.Name = "Sharp Stone";
+                    resource.Description = "A sharpened stone";
                     break;
-                case Resource.Type.Stone:
-                    resource = new Resource("Stone", "A rock");
+                case ResourceType.Stone:
+                    resource.Name = "Sharp Stone";
+                    resource.Description = "A rock";
                     break;
-                case Resource.Type.Vine:
-                    resource = new Resource("Vine", "A bundle of jungle vines");
+                case ResourceType.Vine:
+                    resource.Name = "Vine";
+                    resource.Description = "A bundle of jungle vines";
                     break;
             }
-
+        
             return resource;
         }
     }

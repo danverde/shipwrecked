@@ -40,7 +40,7 @@ namespace Shipwreck.Control
         public static void StartFire()
         {
             var inventory = Shipwreck.CurrentGame.Player.Inventory;
-            var match = Shipwreck.ResourceFactory.GetResource(Resource.Type.Match);
+            var match = Shipwreck.ResourceFactory.GetResource(ResourceType.Match);
             inventory.RemoveItems(match, 1, true);
             Shipwreck.CurrentGame?.Fire.StartFire();
         }

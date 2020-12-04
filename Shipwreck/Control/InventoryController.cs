@@ -10,36 +10,33 @@ namespace Shipwreck.Control
     {
         public static void AddDefaultItemsToInventory(Inventory inventory)
         {
-            var armorFactory = new ArmorFactory();
-            var foodFactory = new FoodFactory();
+            var weaponFactory = Shipwreck.WeaponFactory;
+            var armorFactory = Shipwreck.ArmorFactory;
+            var foodFactory = Shipwreck.FoodFactory;
+            var resourceFactory = Shipwreck.ResourceFactory;
                                  
-            // Spear spear = new Spear();
-            var fists = new Weapon
-            {
-                Name = "Fists",
-                Description = "Fists of Fury",
-                AttackPower = 1,
-                Droppable = false
-            };
-            var suit = armorFactory.GetArmor(Armor.Type.Suit);
+            var spear = weaponFactory.GetWeapon(WeaponType.Spear);
+            var fists = weaponFactory.GetWeapon(WeaponType.Fists);
+            
+            var suit = armorFactory.GetArmor(ArmorType.Suit);
+            
+            var fish = foodFactory.GetFood(FoodType.Fish);
 
-            var fish = foodFactory.GetFood(Food.Type.Fish);
-
-            var match = Shipwreck.ResourceFactory.GetResource(Resource.Type.Match);
-            var vine = Shipwreck.ResourceFactory.GetResource(Resource.Type.Vine);
-            var branch = Shipwreck.ResourceFactory.GetResource(Resource.Type.Branch);
+            var match = resourceFactory.GetResource(ResourceType.Match);
+            var vine = resourceFactory.GetResource(ResourceType.Vine);
+            var branch = resourceFactory.GetResource(ResourceType.Branch);
 
             inventory.AddItem(fists);
-            // inventory.AddItem(spear);
+            inventory.AddItem(spear);
             inventory.AddItem(suit);
             inventory.ActiveArmor = suit;
-            inventory.ActiveWeapon = fists; // how do I make it so that the active weapon references an item in the inventory?
+            inventory.ActiveWeapon = fists;
 
+            inventory.AddItem(fish, 3);
+            
             inventory.AddItem(match, 3);
             inventory.AddItem(vine, 6);
             inventory.AddItem(branch, 3);
-
-            inventory.AddItem(fish, 3);
         }
 
         public static Item GetItemFromInventory(Inventory inventory, string itemName)

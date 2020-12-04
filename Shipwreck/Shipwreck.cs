@@ -11,7 +11,13 @@ namespace Shipwreck
     class Shipwreck
     {
         public static Game CurrentGame;
+        
+        // TODO are these better as singletons?
+        public static FoodFactory FoodFactory;
         public static ResourceFactory ResourceFactory;
+        public static WeaponFactory WeaponFactory;
+        public static ArmorFactory ArmorFactory;
+        
         public static ShipwreckSettings Settings;
 
         private static string SettingsFilePath =>
@@ -51,7 +57,10 @@ namespace Shipwreck
 
         private static void InitializeFactories()
         {
+            FoodFactory = new FoodFactory();
             ResourceFactory = new ResourceFactory();
+            WeaponFactory = new WeaponFactory();
+            ArmorFactory = new ArmorFactory();
         }
     }
 }

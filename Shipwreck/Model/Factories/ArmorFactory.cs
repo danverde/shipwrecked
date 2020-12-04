@@ -4,20 +4,32 @@ namespace Shipwreck.Model.Factories
 {
     class ArmorFactory
     {
-        public Armor GetArmor(Armor.Type type)
+        public Armor GetArmor(ArmorType armorType)
         {
             Armor armor = null;
-
-            switch (type)
+        
+            switch (armorType)
             {
-                case Armor.Type.Suit:
-                    armor = new Armor("Suit", "A once fine suit", type, 0);
+                case ArmorType.Suit:
+                    armor = new Armor
+                    {
+                        Name = "Suit",
+                        Description = "A once fine suit",
+                        Droppable = true,
+                        DefensePower = 0
+                    };
                     break;
-                case Armor.Type.LeatherJacket:
-                    armor = new Armor("Leather Jacket", " Old motorcycle jacket", type, 2);
+                case ArmorType.LeatherJacket:
+                    armor = new Armor
+                    {
+                        Name = "Leather Jacket",
+                        Description = "Old motorcycle jacket",
+                        Droppable = true,
+                        DefensePower = 2
+                    };
                     break;
             }
-
+        
             return armor;
         }
     }
