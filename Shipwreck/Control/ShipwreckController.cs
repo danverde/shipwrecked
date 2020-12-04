@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
-using Shipwreck.Control.Interfaces;
 using Shipwreck.Helpers;
 using Shipwreck.Model;
 using Shipwreck.Model.Character;
