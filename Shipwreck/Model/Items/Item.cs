@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Shipwreck.Model.Items
 {
-    [JsonConverter(typeof(JsonSubtypes), "Type")]
+    [JsonConverter(typeof(JsonSubtypes), "StringItemType")]
 
     public abstract class Item
     {
@@ -11,5 +11,14 @@ namespace Shipwreck.Model.Items
         public string Description { get; set; }
         public bool Droppable { get; set; }
         public virtual ItemType ItemType { get; }
+        public virtual string StringItemType { get; }
+    }
+    
+    public enum ItemType
+    {
+        Resource,
+        Weapon,
+        Armor,
+        Food
     }
 }

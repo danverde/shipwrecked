@@ -3,6 +3,7 @@
     public class Resource : Item
     {
         public override ItemType ItemType { get; } = ItemType.Resource;
+        public override string StringItemType { get; } = "Resource";
         public ResourceType ResourceType { get; set; }
     }
     
