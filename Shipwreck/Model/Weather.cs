@@ -1,6 +1,6 @@
 ﻿namespace Shipwreck.Model
 {
-    class Weather
+    public class Weather
     {
         public Type WeatherType { get; }
         public string Name { get; }

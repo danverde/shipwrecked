@@ -1,6 +1,6 @@
 ﻿namespace Shipwreck.Model
 {
-    class Day
+    public class Day
     {
         public int Number { get; set; }
         public Weather Weather { get; set; }

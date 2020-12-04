@@ -3,7 +3,7 @@ using Shipwreck.Model.Game;
 
 namespace Shipwreck.Control
 {
-    class CharacterController
+    public static class CharacterController
     {
         public static int Attack(Character defendingCharacter, Character attackingCharacter)
         {

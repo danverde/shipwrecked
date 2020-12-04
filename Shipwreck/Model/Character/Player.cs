@@ -4,7 +4,7 @@ using Shipwreck.View;
 
 namespace Shipwreck.Model.Character
 {
-    class Player : Character
+    public class Player : Character
     {
         public int Exp { get; set; }
         public int Hunger { get; set; }

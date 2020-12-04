@@ -6,43 +6,8 @@ using Shipwreck.Model.Game;
 
 namespace Shipwreck.Control
 {
-    class GameController
+    public static class GameController
     {
-        public static void StartGame()
-        {
-            new NewDayView().Display();
-            new GameMenuView().Display();
-        }
-        
-        public static void SetupNewGame(string characterName)
-        {
-            var currentGame = Shipwreck.CurrentGame;
-            
-            // setup map
-            var map = MapController.LoadMapFromJson(currentGame.GameSettings.Map.MapPath);
-            var startingLocation = map.Locations[map.StartingRow, map.StartingCol];
-            
-            // setup player
-            var player = new Player
-            {
-                Name = characterName,
-                Hunger = Shipwreck.CurrentGame.GameSettings.Player.InitialHunger,
-                Row = startingLocation.Row,
-                Col = startingLocation.Col,
-            };
-            startingLocation.Characters.Add(player);
-            InventoryController.AddDefaultItemsToInventory(player.Inventory);
-            
-            // setup game
-            currentGame.Player = player;
-            currentGame.Status = GameStatus.Playing;
-            currentGame.Fire = new Fire();
-            currentGame.Day = new Day();
-            currentGame.Map = map;
-
-            StartGame();
-        }
-        
         public static void LoseGame()
         {
             Shipwreck.CurrentGame.Player.Die();
@@ -51,12 +16,6 @@ namespace Shipwreck.Control
             new GameOverView().Display();
         }
 
-        public static void WinGame(string message)
-        {
-            Shipwreck.CurrentGame.Status = GameStatus.Over;
-            new GameOverView(message).Display();
-        }
-        
         public static void QuitGame()
         {
             Shipwreck.CurrentGame.Status = GameStatus.Over;
@@ -70,6 +29,12 @@ namespace Shipwreck.Control
                 AdvanceDay(waiting);
             }
         }
+        
+        private static void WinGame(string message)
+        {
+            Shipwreck.CurrentGame.Status = GameStatus.Over;
+            new GameOverView(message).Display();
+        }
 
         private static void AdvanceDay(bool waiting = false)
         {
@@ -78,7 +43,7 @@ namespace Shipwreck.Control
             
             // let the player know the next day has started
             Shipwreck.CurrentGame.Day.IncrementDay();
-            new NewDayView().Display();
+            new ShowDayView().Display();
 
             
             /***************************
@@ -117,6 +82,5 @@ namespace Shipwreck.Control
              **********************************/
             player.GainExperience(exp);
         }
-        
     }
 }

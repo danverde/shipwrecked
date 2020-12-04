@@ -1,7 +1,6 @@
 ﻿using System;
 using Shipwreck.Control;
 using Shipwreck.Helpers;
-using Shipwreck.Model.Game;
 
 namespace Shipwreck.View
 {
@@ -18,6 +17,15 @@ namespace Shipwreck.View
                       + "\n H - Help Menu"
                       + "\n X - Close Shipwreck"
                       + "\n----------------------------------";
+        }
+
+
+        public static string GetPlayerName()
+        {
+            Console.WriteLine("\nPlease Enter Your Character's Name:\n");
+            var name = Console.ReadLine() ?? "";
+            
+            return string.IsNullOrEmpty(name) ? GetPlayerName() : name;
         }
 
         protected override bool HandleInput(string input)
@@ -40,9 +48,7 @@ namespace Shipwreck.View
 
         private void StartNewGame()
         {
-            // TODO de-mysitify game creation
-            Shipwreck.CurrentGame = new Game();
-            new NewGameView().Display();
+            ShipwreckController.StartNewGame();
         }
 
         private void LoadGame()
@@ -74,9 +80,9 @@ namespace Shipwreck.View
             }
             
             // try load file
-            if (ShipwreckController.TryLoadGame(fileToLoad))
+            if (ShipwreckController.TryLoadGame(fileToLoad, out var game))
             {
-               GameController.StartGame();
+               ShipwreckController.StartGame(game);
             }
             else
             {

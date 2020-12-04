@@ -2,9 +2,9 @@
 
 namespace Shipwreck.View
 {
-    class NewDayView : View
+    class ShowDayView : View
     {
-        public NewDayView()
+        public ShowDayView()
         {
             InGameView = true;
             Message = "\n---------------------" +

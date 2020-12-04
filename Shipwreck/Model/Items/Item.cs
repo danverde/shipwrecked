@@ -9,8 +9,8 @@ namespace Shipwreck.Model.Items
         public string Name { get; set; }
         public string Description { get; set; }
         public bool Droppable { get; set; }
-        protected virtual ItemType ItemType { get; }
-        public virtual string StringItemType { get; }
+        protected abstract ItemType ItemType { get; }
+        public abstract string StringItemType { get; }
     }
     
     public enum ItemType

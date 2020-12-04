@@ -6,7 +6,7 @@ using Shipwreck.Model.Settings;
 
 namespace Shipwreck.Model.Game
 {
-    class Game
+    public class Game
     {
         public Player Player { get; set; }
         public Day Day { get; set; }
@@ -22,29 +22,11 @@ namespace Shipwreck.Model.Game
             GameSettings = FileHelper.LoadJson<GameSettings>(easyGamePath);
         }
         
-        // TODO this looks like a really good idea...
-        // public Game(Player player)
-        // {
-        //     Status = GameStatus.PreGame;
-        //     Player = player;
-        //     Day = new Day();
-        //     Fire = new Fire();
-        // }
-
-        // public void SetupGame(Player player, Map.Map map)
-        // {
-        //     Player = player;
-        //     Status = GameStatus.Playing;
-        //     Fire = new Fire();
-        //     Day = new Day();
-        //     Map = map;
-        // }
-
         public void EndGame()
         {
             Status = GameStatus.Over;
+            // TODO shouldn't console write line here 
             Console.WriteLine("The game is over");
-            
         }
 
     }

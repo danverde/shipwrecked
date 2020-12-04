@@ -3,7 +3,7 @@ using Shipwreck.Model.Items;
 
 namespace Shipwreck.Model
 {
-    class Fire
+    public class Fire
     {
         public FireStatus Status { get; private set; }
         public Inventory Inventory { get; }

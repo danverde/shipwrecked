@@ -4,7 +4,7 @@ using Shipwreck.Model.Items;
 
 namespace Shipwreck.Control
 {
-    class FireController
+    public static class FireController
     {
         public static void Burn(Fire fire)
         {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Shipwreck.Control
 {
-    static class InventoryController
+    public static class InventoryController
     {
         public static void AddDefaultItemsToInventory(Inventory inventory)
         {
