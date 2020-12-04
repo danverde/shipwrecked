@@ -23,7 +23,6 @@ namespace Shipwreck.View
                       + "\n Q - Equip Gear"
                       + "\n D - Drop Item"
                       + "\n C - View Character"
-                      + "\n H - Inventory Help"
                       + "\n X - Close Inventory"
                       + "\n----------------------------------";
         }
@@ -58,9 +57,6 @@ namespace Shipwreck.View
                 case "C":
                     GameMenuView.ShowPlayerStats();
                     Continue();
-                    break;
-                case "H":
-                    ShowInventoryHelpView();
                     break;
             }
             return done;
@@ -271,7 +267,7 @@ namespace Shipwreck.View
                     var numDropped = inventory.DropItem(itemToDrop, quantity);
                     Console.WriteLine($"You dropped {numDropped} {itemToDrop.Name}(s)");
                 }
-                catch(InventoryException e)
+                catch(InventoryRecordNotFoundException e)
                 {
                     Console.WriteLine(e.Message);
                 }
@@ -282,12 +278,6 @@ namespace Shipwreck.View
             }
 
             Continue();
-        }
-
-        private void ShowInventoryHelpView()
-        {
-            var inventoryHelpView = new InventoryHelpView(InGameView);
-            inventoryHelpView.Display();
         }
 
         private Item GetInventoryItem(string message)

@@ -12,11 +12,9 @@ namespace Shipwreck.View
                       + "\n| Help Menu"
                       + "\n----------------------------------"
                       + "\n P - Purpose of the Game"
-                      + "\n I - Inventory Help"
                       + "\n M - Map Terminology"
                       // + "\n R - Resource Help"
                       // + "\n C - Combat Help"
-                      // + "\n B - Building Help"
                       + "\n X - Exit Help Menu"
                       + "\n----------------------------------";
         }
@@ -27,9 +25,6 @@ namespace Shipwreck.View
                 case "P":
                     PurposeHelp();
                     break;
-                case "I":
-                    ShowInventoryHelp();
-                    break;
                 case "M":
                     MapHelp();
                     break;
@@ -38,9 +33,6 @@ namespace Shipwreck.View
                 //     break;
                 // case "C":
                 //     CombatHelp();
-                //     break;
-                // case "B":
-                //     BuildingHelp();
                 //     break;
             }
 
@@ -51,19 +43,13 @@ namespace Shipwreck.View
         {
             Console.WriteLine("\n***************************************************************************"
                 + "\n The purpose of the game is to survive however you can. You're stuck on a"
-                + "\n tropical Island, so you can either try and escape on your own by buildng"
+                + "\n tropical Island, so you can either try and escape on your own by building"
                 + "\n a raft & floating to safety, or by building a large signal fire on"
                 + "\n the beach in an attempt to attract help. Maybe your best bet is to simply "
                 + "\n wait patiently till someone comes to find you. I mean, after such a big"
                 + "\n ship went down SOMEONE's bound to come looking for survivors, Right?"
                 + "\n***************************************************************************");
             Continue();
-        }
-
-        private void ShowInventoryHelp()
-        {
-            var inventoryHelpView = new InventoryHelpView(InGameView);
-            inventoryHelpView.Display();
         }
 
         private void MapHelp()  
@@ -83,11 +69,6 @@ namespace Shipwreck.View
         }
 
         private void CombatHelp()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void BuildingHelp()
         {
             throw new NotImplementedException();
         }

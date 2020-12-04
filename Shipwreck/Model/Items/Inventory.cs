@@ -31,7 +31,7 @@ namespace Shipwreck.Model.Items
             } 
             else
             {
-                throw new InventoryException($"You can't drop your {item.Name}");
+                throw new InventoryRecordNotFoundException($"You can't drop your {item.Name}");
             }
 
             return numDropped;
@@ -49,7 +49,7 @@ namespace Shipwreck.Model.Items
                     if (strict)
                     {
                         AddItem(item, i);
-                        throw new InventoryException("Insufficient items in inventory");
+                        throw new InventoryRecordNotFoundException("Insufficient items in inventory");
                     }
                     else
                     {

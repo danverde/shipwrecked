@@ -44,9 +44,7 @@ namespace Shipwreck.View
         private void ShowStatus()
         {
             var fire = Shipwreck.CurrentGame.Fire;
-            // TODO does this display a string or number?
             var fireStatus = fire.Status.ToString();
-            // var fireStatus = fire.IsBurning == true ? "Burning" : "Extinguished";
             var wood = fire.Inventory.Items.Find(x => x.InventoryItem.Name == "Branch");
             var woodQuantity = wood?.Quantity ?? 0;
 
@@ -70,7 +68,7 @@ namespace Shipwreck.View
                 Console.WriteLine($"Successfully added {numRemoved} wood to the fire");
                 Continue();
             }
-            catch (InventoryException e)
+            catch (InventoryRecordNotFoundException e)
             {
                 Console.WriteLine(e.Message);
                 Continue();
@@ -92,7 +90,7 @@ namespace Shipwreck.View
                 Console.WriteLine("The Fire was started");
                 Continue();
             } 
-            catch(InventoryException)
+            catch(InventoryRecordNotFoundException)
             {
                 Console.WriteLine("You can't start the fire without a match!");
                 Continue();

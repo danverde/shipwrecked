@@ -65,8 +65,6 @@ namespace Shipwreck.View
             {
                 Console.WriteLine($"You were unable to move {fullDirection}");
             }
-            
-            // new GameMenuView().ShowMap();
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Shipwreck.Control
             {
                 fire.Inventory.RemoveItems(wood.InventoryItem, Shipwreck.CurrentGame.GameSettings.Fire.WoodBurnPerDay, true);
             }
-            catch (InventoryException)
+            catch (InventoryRecordNotFoundException)
             {
                 fire.ExtinguishFire();
             }

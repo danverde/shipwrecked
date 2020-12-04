@@ -76,7 +76,6 @@ namespace Shipwreck.View
             // try load file
             if (ShipwreckController.TryLoadGame(fileToLoad))
             {
-               Console.WriteLine("YAY. What now?"); 
                GameController.StartGame();
             }
             else
