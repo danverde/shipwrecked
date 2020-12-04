@@ -2,9 +2,14 @@
 {
     public class Resource : Item
     {
-        public override ItemType ItemType { get; } = ItemType.Resource;
-        public override string StringItemType { get; } = "Resource";
+        protected override ItemType ItemType { get; } = ItemType.Resource;
+        public override string StringItemType { get; } = ItemType.Resource.ToString();
         public ResourceType ResourceType { get; set; }
+
+        public Resource()
+        {
+            ItemType = ItemType.Resource;
+        }
     }
     
     public enum ResourceType

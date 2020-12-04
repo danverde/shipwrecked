@@ -23,7 +23,6 @@ namespace Shipwreck.View
                       + "\n Q - Equip Gear"
                       + "\n D - Drop Item"
                       + "\n C - View Character"
-                      // + "\n B - Build Weapon"
                       + "\n H - Inventory Help"
                       + "\n X - Close Inventory"
                       + "\n----------------------------------";
@@ -60,9 +59,6 @@ namespace Shipwreck.View
                     GameMenuView.ShowPlayerStats();
                     Continue();
                     break;
-                // case "B":
-                //     BuildWeapon();
-                //     break;
                 case "H":
                     ShowInventoryHelpView();
                     break;
@@ -286,27 +282,6 @@ namespace Shipwreck.View
             }
 
             Continue();
-        }
-
-        private void BuildWeapon()
-        {
-            var inventory = Shipwreck.CurrentGame?.Player.Inventory;
-            string itemToBuild;
-
-            Console.WriteLine("Which Weapon would you like to build?");
-            itemToBuild = Console.ReadLine();
-
-            try
-            {
-                InventoryController.BuildWeapon(inventory, itemToBuild);
-                Console.WriteLine($"Successfully built 1 {itemToBuild}");
-                Continue();
-            }
-            catch(InventoryException e)
-            {
-                Console.WriteLine(e.Message);
-                Continue();
-            }
         }
 
         private void ShowInventoryHelpView()

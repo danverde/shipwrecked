@@ -6,21 +6,11 @@ namespace Shipwreck.Model.Character
 {
     class Player : Character
     {
-        public int Exp { get; private set; }
+        public int Exp { get; set; }
         public int Hunger { get; set; }
         public const int HungerLimit = 20; 
         public int Col { get; set; }
         public int Row { get; set; }
-
-        public Player() {}
-        
-        public Player(string name, int hunger, Location location)
-            :base(name)
-        {
-            Hunger = hunger;
-            Row = location.Row;
-            Col = location.Col;
-        }
 
         public void SetLocationCoordinates(Location location)
         {
@@ -38,7 +28,7 @@ namespace Shipwreck.Model.Character
             }
         }
 
-        // TODO should this be in a controller?
+        // TODO move this to a controller
         public void Eat(Food food)
         {
             Health = Health + food.HealingPower < MaxHealth ? Health + food.HealingPower : MaxHealth;
@@ -50,7 +40,6 @@ namespace Shipwreck.Model.Character
             var playerSettings = Shipwreck.CurrentGame.GameSettings.Player;
             
             Level++;
-            // I'll have to change stat growths later...
             BaseAttack += playerSettings.AttachGrowth;
             BaseDefense += playerSettings.DefenseGrowth;
             MaxHealth += playerSettings.HealthGrowth;

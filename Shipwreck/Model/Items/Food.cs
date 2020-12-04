@@ -2,11 +2,16 @@
 {
     public class Food : Item
     {
-        public override ItemType ItemType { get; } = ItemType.Food;
-        public override string StringItemType { get; } = "Food";
+        protected override ItemType ItemType { get; } = ItemType.Food;
+        public override string StringItemType { get; } = ItemType.Food.ToString();
         public FoodType FoodType { get; set; }
         public int HealingPower { get; set; }
         public int FillingPower { get; set; }
+
+        public Food()
+        {
+            ItemType = ItemType.Food;
+        }
     }
 
     public enum FoodType

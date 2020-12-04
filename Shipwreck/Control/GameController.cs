@@ -22,7 +22,13 @@ namespace Shipwreck.Control
             var startingLocation = map.Locations[map.StartingRow, map.StartingCol];
             
             // setup player
-            var player = new Player(characterName, Shipwreck.CurrentGame.GameSettings.Player.InitialHunger, startingLocation);
+            var player = new Player
+            {
+                Name = characterName,
+                Hunger = Shipwreck.CurrentGame.GameSettings.Player.InitialHunger,
+                Row = startingLocation.Row,
+                Col = startingLocation.Col,
+            };
             startingLocation.Characters.Add(player);
             InventoryController.AddDefaultItemsToInventory(player.Inventory);
             
