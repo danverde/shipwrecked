@@ -42,6 +42,7 @@ namespace Shipwreck.View
             for (var rowIndex = 0; rowIndex < map.NumRows; rowIndex++)
             {
                 var line = new StringBuilder("                             ");
+                var playerLocation = MapController.GetPlayerLocation();
                 
                 for (var colIndex = 0; colIndex < map.NumCols; colIndex++)
                 {
@@ -49,7 +50,7 @@ namespace Shipwreck.View
                     var displaySymbol = location.Scene.DisplaySymbol;
                     if (Shipwreck.CurrentGame.GameSettings.Map.EnableFow && !location.Visited) displaySymbol = " ? ";
                     
-                    if (MapController.GetPlayerLocation() == location) displaySymbol = " X ";
+                    if (playerLocation == location) displaySymbol = $"X{displaySymbol.Trim()} ";
                         
                     var lineLocation = colIndex * 4 + 1;
                     line.Insert(lineLocation, displaySymbol);

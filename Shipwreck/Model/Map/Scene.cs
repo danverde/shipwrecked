@@ -19,7 +19,7 @@ namespace Shipwreck.Model.Map
     public enum SceneType
     {
         Camp,
-        Field,
+        Forest,
         Mountain,
         IceCappedMountain,
         Town,
