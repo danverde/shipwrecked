@@ -13,7 +13,7 @@ namespace Shipwreck.View
                       + "\n| Main Menu"
                       + "\n----------------------------------"
                       + "\n N - New Game"
-                      + "\n L - Load Game (COMING SOON)"
+                      + "\n L - Load Game"
                       + "\n H - Help Menu"
                       + "\n X - Close Shipwreck"
                       + "\n----------------------------------";
