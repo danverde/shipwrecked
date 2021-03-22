@@ -55,6 +55,12 @@ namespace Shipwreck.Control
             newLocation.Characters.Add(player);
             player.SetLocationCoordinates(newLocation);
             
+            // win if necessary
+            if (newLocation.Scene.Type == SceneType.Town)
+            {
+                GameController.WinGame();
+            }
+            
             return true;
         }
 

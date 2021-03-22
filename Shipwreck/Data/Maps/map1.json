@@ -10,6 +10,7 @@
         "Col": 0,
         "Visited": false,
         "Scene": {
+          "Type": 0,
           "Description": "Base Camp",
           "DisplaySymbol": " ⛺ ",
           "Traversable": true,
@@ -23,6 +24,7 @@
         "Col": 1,
         "Visited": false,
         "Scene": {
+          "Type": 1,
           "Description": "An empty field",
           "DisplaySymbol": "...",
           "Traversable": true,
@@ -36,6 +38,7 @@
         "Col": 2,
         "Visited": false,
         "Scene": {
+          "Type": 3,
           "Description": "A snow-capped mountain",
           "DisplaySymbol": " 🏔 ",
           "Traversable": false,
@@ -49,6 +52,7 @@
         "Col": 3,
         "Visited": false,
         "Scene": {
+          "Type": 1,
           "Description": "An empty field",
           "DisplaySymbol": "...",
           "Traversable": true,
@@ -62,6 +66,7 @@
         "Col": 4,
         "Visited": false,
         "Scene": {
+          "Type": 1,
           "Description": "An empty field",
           "DisplaySymbol": "...",
           "Traversable": true,
@@ -77,6 +82,7 @@
         "Col": 0,
         "Visited": false,
         "Scene": {
+          "Type": 1,
           "Description": "An empty field",
           "DisplaySymbol": "...",
           "Traversable": true,
@@ -90,6 +96,7 @@
         "Col": 1,
         "Visited": false,
         "Scene": {
+          "Type": 2,
           "Description": "a mountain",
           "DisplaySymbol": " ⛰ ",
           "Traversable": true,
@@ -103,8 +110,9 @@
         "Col": 2,
         "Visited": false,
         "Scene": {
-          "Description": "An empty field",
-          "DisplaySymbol": "...",
+          "Type": 4,
+          "Description": "A Town!",
+          "DisplaySymbol": "🏘",
           "Traversable": true,
           "Items": [],
           "DaysToTraverse": 1
@@ -116,6 +124,7 @@
         "Col": 3,
         "Visited": false,
         "Scene": {
+          "Type": 1,
           "Description": "An empty field",
           "DisplaySymbol": "...",
           "Traversable": true,
@@ -129,6 +138,7 @@
         "Col": 4,
         "Visited": false,
         "Scene": {
+          "Type": 1,
           "Description": "An empty field",
           "DisplaySymbol": "...",
           "Traversable": true,
@@ -144,6 +154,7 @@
         "Col": 0,
         "Visited": false,
         "Scene": {
+          "Type": 1,
           "Description": "An empty field",
           "DisplaySymbol": "...",
           "Traversable": true,
@@ -157,6 +168,7 @@
         "Col": 1,
         "Visited": false,
         "Scene": {
+          "Type": 1,
           "Description": "An empty field",
           "DisplaySymbol": "...",
           "Traversable": true,
@@ -170,6 +182,7 @@
         "Col": 2,
         "Visited": false,
         "Scene": {
+          "Type": 1,
           "Description": "An empty field",
           "DisplaySymbol": "...",
           "Traversable": true,
@@ -183,6 +196,7 @@
         "Col": 3,
         "Visited": false,
         "Scene": {
+          "Type": 1,
           "Description": "An empty field",
           "DisplaySymbol": "...",
           "Traversable": true,
@@ -196,6 +210,7 @@
         "Col": 4,
         "Visited": false,
         "Scene": {
+          "Type": 1,
           "Description": "An empty field",
           "DisplaySymbol": "...",
           "Traversable": true,
@@ -211,6 +226,7 @@
         "Col": 0,
         "Visited": false,
         "Scene": {
+          "Type": 1,
           "Description": "An empty field",
           "DisplaySymbol": "...",
           "Traversable": true,
@@ -224,6 +240,7 @@
         "Col": 1,
         "Visited": false,
         "Scene": {
+          "Type": 1,
           "Description": "An empty field",
           "DisplaySymbol": "...",
           "Traversable": true,
@@ -237,6 +254,7 @@
         "Col": 2,
         "Visited": false,
         "Scene": {
+          "Type": 1,
           "Description": "An empty field",
           "DisplaySymbol": "...",
           "Traversable": true,
@@ -250,6 +268,7 @@
         "Col": 3,
         "Visited": false,
         "Scene": {
+          "Type": 1,
           "Description": "An empty field",
           "DisplaySymbol": "...",
           "Traversable": true,
@@ -263,6 +282,7 @@
         "Col": 4,
         "Visited": false,
         "Scene": {
+          "Type": 1,
           "Description": "An empty field",
           "DisplaySymbol": "...",
           "Traversable": true,
@@ -278,6 +298,7 @@
         "Col": 0,
         "Visited": false,
         "Scene": {
+          "Type": 1,
           "Description": "An empty field",
           "DisplaySymbol": "...",
           "Traversable": true,
@@ -291,6 +312,7 @@
         "Col": 1,
         "Visited": false,
         "Scene": {
+          "Type": 1,
           "Description": "An empty field",
           "DisplaySymbol": "...",
           "Traversable": true,
@@ -304,6 +326,7 @@
         "Col": 2,
         "Visited": false,
         "Scene": {
+          "Type": 1,
           "Description": "An empty field",
           "DisplaySymbol": "...",
           "Traversable": true,
@@ -317,6 +340,7 @@
         "Col": 3,
         "Visited": false,
         "Scene": {
+          "Type": 1,
           "Description": "An empty field",
           "DisplaySymbol": "...",
           "Traversable": true,
@@ -330,6 +354,7 @@
         "Col": 4,
         "Visited": false,
         "Scene": {
+          "Type": 1,
           "Description": "An empty field",
           "DisplaySymbol": "...",
           "Traversable": true,

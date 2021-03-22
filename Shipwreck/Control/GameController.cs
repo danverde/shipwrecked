@@ -8,9 +8,16 @@ namespace Shipwreck.Control
 {
     public static class GameController
     {
+
+        public static void WinGame()
+        {
+            Shipwreck.CurrentGame.Status = GameStatus.Over;
+            
+            new GameOverView("YOU WON!").Display();
+        }
         public static void LoseGame()
         {
-            Shipwreck.CurrentGame.Player.Die();
+            Shipwreck.CurrentGame.Player.Die(); // TODO Do I actually need this method?
             Shipwreck.CurrentGame.Status = GameStatus.Over;
 
             new GameOverView().Display();

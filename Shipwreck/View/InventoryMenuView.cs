@@ -15,12 +15,12 @@ namespace Shipwreck.View
             Message = "\n\n----------------------------------"
                       + "\n| Inventory Menu"
                       + "\n----------------------------------"
-                      + "\n A - View All Items"
-                      + "\n G - View Gear"
+                      // + "\n A - View All Items"
+                      // + "\n G - View Gear"
                       + "\n F - View Food"
-                      + "\n R - View Resources"
+                      // + "\n R - View Resources"
                       + "\n E - Eat Food"
-                      + "\n Q - Equip Gear"
+                      // + "\n Q - Equip Gear"
                       + "\n D - Drop Item"
                       + "\n C - View Character"
                       + "\n X - Close Inventory"
@@ -33,24 +33,24 @@ namespace Shipwreck.View
 
             switch(menuItem)
             {
-                case "A":
-                    ShowAllItems();
-                    break;
-                case "G":
-                    ViewGear();
-                    break;
+                // case "A":
+                //     ShowAllItems();
+                //     break;
+                // case "G":
+                //     ViewGear();
+                //     break;
                 case "F":
                     ViewFood();
                     break;
-                case "R":
-                    ViewResources();
-                    break;
+                // case "R":
+                //     ViewResources();
+                //     break;
                 case "E":
                     done = EatFood();
                     break;
-                case "Q":
-                    EquipGear();
-                    break;
+                // case "Q":
+                //     EquipGear();
+                //     break;
                 case "D":
                     DropItem();
                     break;
@@ -147,8 +147,8 @@ namespace Shipwreck.View
             line = new StringBuilder("                                              ");
             line.Insert(1, "ITEM");
             line.Insert(16, "QTY");
-            line.Insert(20, "HLTH");
-            line.Insert(25, "HNGR");
+            // line.Insert(20, "HLTH");
+            line.Insert(20, "HNGR"); // 25 once health is added
             Console.WriteLine(line);
 
             foreach (var foodItem in foodItems)
@@ -156,8 +156,8 @@ namespace Shipwreck.View
                 line = new StringBuilder("                                              ");
                 line.Insert(1, foodItem.InventoryItem.Name);
                 line.Insert(16, foodItem.Quantity);
-                line.Insert(20, ((Food)foodItem.InventoryItem).HealingPower);
-                line.Insert(25, ((Food)foodItem.InventoryItem).FillingPower);
+                // line.Insert(20, ((Food)foodItem.InventoryItem).HealingPower);
+                line.Insert(20, ((Food)foodItem.InventoryItem).FillingPower); // 20 once health is added
                 Console.WriteLine(line);
             }
 

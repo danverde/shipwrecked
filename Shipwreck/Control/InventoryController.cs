@@ -6,35 +6,38 @@ namespace Shipwreck.Control
 {
     public static class InventoryController
     {
+        // TODO Probably doesn't belong as a manager b/c it's only used once...
         public static void AddDefaultItemsToInventory(Inventory inventory)
         {
-            var weaponFactory = Shipwreck.WeaponFactory;
-            var armorFactory = Shipwreck.ArmorFactory;
+            // var weaponFactory = Shipwreck.WeaponFactory;
+            // var armorFactory = Shipwreck.ArmorFactory;
             var foodFactory = Shipwreck.FoodFactory;
-            var resourceFactory = Shipwreck.ResourceFactory;
+            // var resourceFactory = Shipwreck.ResourceFactory;
                                  
-            var spear = weaponFactory.GetWeapon(WeaponType.Spear);
-            var fists = weaponFactory.GetWeapon(WeaponType.Fists);
+            // var spear = weaponFactory.GetWeapon(WeaponType.Spear);
+            // var fists = weaponFactory.GetWeapon(WeaponType.Fists);
+            //
+            // var suit = armorFactory.GetArmor(ArmorType.Suit);
             
-            var suit = armorFactory.GetArmor(ArmorType.Suit);
+            // var fish = foodFactory.GetFood(FoodType.Fish);
+            var meat = foodFactory.GetFood(FoodType.Meat);
+
+            // var match = resourceFactory.GetResource(ResourceType.Match);
+            // var vine = resourceFactory.GetResource(ResourceType.Vine);
+            // var branch = resourceFactory.GetResource(ResourceType.Branch);
+
+            // inventory.AddItem(fists);
+            // inventory.AddItem(spear);
+            // inventory.AddItem(suit);
+            // inventory.ActiveArmor = suit;
+            // inventory.ActiveWeapon = fists;
+
+            // inventory.AddItem(fish, 3);
+            inventory.AddItem(meat, 10);
             
-            var fish = foodFactory.GetFood(FoodType.Fish);
-
-            var match = resourceFactory.GetResource(ResourceType.Match);
-            var vine = resourceFactory.GetResource(ResourceType.Vine);
-            var branch = resourceFactory.GetResource(ResourceType.Branch);
-
-            inventory.AddItem(fists);
-            inventory.AddItem(spear);
-            inventory.AddItem(suit);
-            inventory.ActiveArmor = suit;
-            inventory.ActiveWeapon = fists;
-
-            inventory.AddItem(fish, 3);
-            
-            inventory.AddItem(match, 3);
-            inventory.AddItem(vine, 6);
-            inventory.AddItem(branch, 3);
+            // inventory.AddItem(match, 3);
+            // inventory.AddItem(vine, 6);
+            // inventory.AddItem(branch, 3);
         }
 
         public static Item GetItemFromInventory(Inventory inventory, string itemName)

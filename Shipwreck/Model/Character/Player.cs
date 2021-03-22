@@ -37,15 +37,15 @@ namespace Shipwreck.Model.Character
         
         private void LevelUp()
         {
-            var playerSettings = Shipwreck.CurrentGame.GameSettings.Player;
-            
-            Level++;
-            BaseAttack += playerSettings.AttachGrowth;
-            BaseDefense += playerSettings.DefenseGrowth;
-            MaxHealth += playerSettings.HealthGrowth;
-            Health += playerSettings.HealthGrowth;
-            
-            new LevelUpView().Display();
+            // var playerSettings = Shipwreck.CurrentGame.GameSettings.Player;
+            //
+            // Level++;
+            // BaseAttack += playerSettings.AttachGrowth;
+            // BaseDefense += playerSettings.DefenseGrowth;
+            // MaxHealth += playerSettings.HealthGrowth;
+            // Health += playerSettings.HealthGrowth;
+            //
+            // new LevelUpView().Display();
         }
     }
 }

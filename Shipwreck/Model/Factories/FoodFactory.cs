@@ -56,7 +56,7 @@ namespace Shipwreck.Model.Factories
                         Description = "Red Meat",
                         FoodType = foodType,
                         HealingPower = 2,
-                        FillingPower = 3,
+                        FillingPower = 4,
                         Droppable = true
                     };
                     break;
