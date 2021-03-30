@@ -10,10 +10,5 @@
             Number = 1;
             Weather = new Weather();
         }
-
-        public void IncrementDay()
-        {
-            Number++;
-        }
     }
 }

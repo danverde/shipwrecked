@@ -1,9 +1,10 @@
 ﻿using Shipwreck.Control;
-using Shipwreck.Exceptions;
 using Shipwreck.Model.Items;
 using System;
 using System.Linq;
 using System.Text;
+using Sharprompt;
+using Shipwreck.Helpers;
 
 namespace Shipwreck.View
 {
@@ -29,7 +30,7 @@ namespace Shipwreck.View
 
         protected override bool HandleInput(string menuItem)
         {
-            var done = false;
+            const bool done = false;
 
             switch(menuItem)
             {
@@ -41,18 +42,21 @@ namespace Shipwreck.View
                 //     break;
                 case "F":
                     ViewFood();
+                    Continue();
                     break;
                 // case "R":
                 //     ViewResources();
                 //     break;
                 case "E":
-                    done = EatFood();
+                    EatFood();
+                    Continue();
                     break;
                 // case "Q":
                 //     EquipGear();
                 //     break;
                 case "D":
                     DropItem();
+                    Continue();
                     break;
                 case "C":
                     GameMenuView.ShowPlayerStats();
@@ -145,23 +149,25 @@ namespace Shipwreck.View
             Console.WriteLine("\n-------------------------\n Food:\n-------------------------");
 
             line = new StringBuilder("                                              ");
-            line.Insert(1, "ITEM");
-            line.Insert(16, "QTY");
+            line.Insert(3, "ITEM");
+            line.Insert(18, "QTY");
             // line.Insert(20, "HLTH");
-            line.Insert(20, "HNGR"); // 25 once health is added
+            line.Insert(22, "HNGR"); // 25 once health is added
             Console.WriteLine(line);
 
+            var count = 1;
             foreach (var foodItem in foodItems)
             {
                 line = new StringBuilder("                                              ");
-                line.Insert(1, foodItem.InventoryItem.Name);
-                line.Insert(16, foodItem.Quantity);
+                line.Insert(0, $"{count}.");
+                line.Insert(3, foodItem.InventoryItem.Name);
+                line.Insert(18, foodItem.Quantity);
                 // line.Insert(20, ((Food)foodItem.InventoryItem).HealingPower);
-                line.Insert(20, ((Food)foodItem.InventoryItem).FillingPower); // 20 once health is added
+                line.Insert(22, ((Food)foodItem.InventoryItem).FillingPower); // 25 once health is added
                 Console.WriteLine(line);
-            }
 
-            Continue();
+                count++;
+            }
         }
 
         private void ViewResources()
@@ -190,48 +196,50 @@ namespace Shipwreck.View
             Continue();
         }
 
-        private bool EatFood()
+        private void EatFood()
         { 
-            var closeView = false;
+            ViewFood();
+            Console.WriteLine();
+            
             var player = Shipwreck.CurrentGame.Player;
             var inventory = player.Inventory;
-            var itemToEat = GetInventoryItem("Which item would you like to eat?");
-            if (itemToEat != null)
+            var foodInInventory = InventoryController.GetItemsByType<Food>(inventory);
+
+            var promptItems = foodInInventory.Select(itemRecord => itemRecord.InventoryItem.Name).ToList();
+            promptItems.Add("Exit");
+            
+            var itemToEatName = Prompt.Select("Which item would you like to eat?", promptItems);
+            if (itemToEatName == "Exit") return;
+
+            var itemToEatRecord = foodInInventory.FirstOrDefault(record => record.InventoryItem.Name == itemToEatName);
+            if (itemToEatRecord == null) return; // todo better way to do this...
+            
+            if (itemToEatRecord.InventoryItem.Droppable == false)
             {
-                if (itemToEat.Droppable == false)
-                {
-                    Console.WriteLine($"You can't eat your {itemToEat.Name}");
-                }
-                else if (itemToEat.GetType() == typeof(Food))
-                {
-                    // should this be happening in a controller?
-                    player.Eat((Food)itemToEat);
-                    inventory.DropItem(itemToEat);
-
-                    Console.WriteLine("Delicious!");
-
-                }
-                else
-                {
-                    Console.WriteLine("Oops. That wasn't edible...");
-                    GameController.LoseGame();
-                    closeView = true;
-                }
+                Console.WriteLine($"You can't eat your {itemToEatName}");
             }
             else
             {
-                Console.WriteLine($"That is not an item that exists in your inventory");
+                var quantity = ViewHelpers.GetQuantity($"You have {itemToEatRecord.Quantity} {itemToEatName}(s). How many would you like to eat?",
+                    itemToEatRecord.Quantity);
+
+                if (quantity == 0) return;
+
+                var previousHealth = player.Health;
+                var previousHunger = player.Hunger;
+                
+                PlayerController.Eat((Food) itemToEatRecord.InventoryItem, quantity);
+
+                Console.WriteLine("Delicious!");
+                Console.WriteLine($"Health +{player.Health - previousHealth}");
+                Console.WriteLine($"Hunger +{player.Hunger - previousHunger}\n");
             }
-
-            Continue();
-
-            return closeView;
         }
 
         private void EquipGear()
         {
             var inventory = Shipwreck.CurrentGame.Player.Inventory;
-            var itemToEquip = GetInventoryItem("Which item would you like to equip?");
+            var itemToEquip = ViewHelpers.GetInventoryItem("Which item would you like to equip?");
             if (itemToEquip != null)
             {
                 if (itemToEquip.GetType().IsSubclassOf(typeof(Weapon)))
@@ -255,38 +263,21 @@ namespace Shipwreck.View
         private void DropItem()
         {
             var inventory = Shipwreck.CurrentGame.Player.Inventory;
-            var itemToDrop = GetInventoryItem("Which item would you like to drop?");
-            if (itemToDrop != null)
-            {
-                Console.WriteLine("how many would you like to drop?");
-                var sQuantity = Console.ReadLine();
-                int.TryParse(sQuantity, out var quantity);
+            var droppableItemRecords = inventory.Items.Where(itemRecord => itemRecord.InventoryItem.Droppable).ToList();
+            var promptItems = droppableItemRecords.Select(record => record.InventoryItem.Name).ToList();
+            promptItems.Add("Exit");
+            
+            var itemToDropName = Prompt.Select("Which item would you like to drop?", promptItems);
+            if (itemToDropName == "Exit") return;
 
-                try
-                {
-                    var numDropped = inventory.DropItem(itemToDrop, quantity);
-                    Console.WriteLine($"You dropped {numDropped} {itemToDrop.Name}(s)");
-                }
-                catch(InventoryRecordNotFoundException e)
-                {
-                    Console.WriteLine(e.Message);
-                }
-            }
-            else
-            {
-                Console.WriteLine($"That is not an item that exists in your inventory");
-            }
+            var itemRecordToDrop =
+                droppableItemRecords.FirstOrDefault(record => record.InventoryItem.Name == itemToDropName);
+            if (itemRecordToDrop == null) return; // todo there's a better way to do this...
+            
+            var quantity = ViewHelpers.GetQuantity($"You have {itemRecordToDrop.Quantity} {itemToDropName}(s). How Many would you like to drop?");
 
-            Continue();
-        }
-
-        private Item GetInventoryItem(string message)
-        {
-            var inventory = Shipwreck.CurrentGame.Player.Inventory;
-            Console.WriteLine(message);
-            var itemName = Console.ReadLine();
-
-            return InventoryController.GetItemFromInventory(inventory, itemName);
+            var numDropped = InventoryController.RemoveItems(inventory, itemRecordToDrop?.InventoryItem, quantity);
+            Console.WriteLine($"You dropped {numDropped} {itemToDropName}(s)");
         }
     }
 }
