@@ -19,7 +19,7 @@ namespace Shipwreck.View
                       + "\n M - View Map"
                       + "\n L - Move"
                       + "\n W - Wait for rescue"
-                      + "\n F - Tend Signal Fire"
+                      // + "\n F - Tend Signal Fire"
                       + "\n S - Save Game"
                       + "\n H - Help Menu"
                       + "\n X - End it all (Exit Game)"
@@ -42,6 +42,7 @@ namespace Shipwreck.View
             for (var rowIndex = 0; rowIndex < map.NumRows; rowIndex++)
             {
                 var line = new StringBuilder("                             ");
+                var playerLocation = MapController.GetPlayerLocation();
                 
                 for (var colIndex = 0; colIndex < map.NumCols; colIndex++)
                 {
@@ -49,7 +50,7 @@ namespace Shipwreck.View
                     var displaySymbol = location.Scene.DisplaySymbol;
                     if (Shipwreck.CurrentGame.GameSettings.Map.EnableFow && !location.Visited) displaySymbol = " ? ";
                     
-                    if (MapController.GetPlayerLocation() == location) displaySymbol = " X ";
+                    if (playerLocation == location) displaySymbol = $"X{displaySymbol.Trim()} ";
                         
                     var lineLocation = colIndex * 4 + 1;
                     line.Insert(lineLocation, displaySymbol);
@@ -67,12 +68,12 @@ namespace Shipwreck.View
 
             Console.WriteLine("\n-------------------------\n Character Stats:");
             Console.WriteLine($" Name: {player.Name}");
-            Console.WriteLine($" level: {player.Level}");
-            Console.WriteLine($" Exp: {player.Exp} / 100");
-            Console.WriteLine($" Heath: {player.Health} / {player.MaxHealth}");
+            // Console.WriteLine($" level: {player.Level}");
+            // Console.WriteLine($" Exp: {player.Exp} / 100");
+            // Console.WriteLine($" Heath: {player.Health} / {player.MaxHealth}");
             Console.WriteLine($" Hunger: {player.Hunger} / {Player.HungerLimit}");
-            Console.WriteLine($" Base Attack: {player.BaseAttack}");
-            Console.WriteLine($" Base Defense: {player.BaseDefense}");
+            // Console.WriteLine($" Base Attack: {player.BaseAttack}");
+            // Console.WriteLine($" Base Defense: {player.BaseDefense}");
             Console.WriteLine("-------------------------");
 
             // Console.SetCursorPosition(0, Console.CursorTop - 1);

@@ -2,19 +2,20 @@
   "NumRows": 5,
   "NumCols": 5,
   "StartingRow": 0,
-  "StartingCol": 1,
+  "StartingCol": 0,
   "Locations": [
     [
       {
         "Row": 0,
         "Col": 0,
-        "Visited": false,
+        "Visited": true,
         "Scene": {
+          "Type": 0,
           "Description": "Base Camp",
           "DisplaySymbol": " ⛺ ",
           "Traversable": true,
           "Items": [],
-          "DaysToTraverse": 1
+          "DaysToTraverse": 0
         },
         "Characters": []
       },
@@ -23,8 +24,9 @@
         "Col": 1,
         "Visited": false,
         "Scene": {
-          "Description": "An empty field",
-          "DisplaySymbol": "...",
+          "Type": 1,
+          "Description": "A lush forest",
+          "DisplaySymbol": " 🌳 ",
           "Traversable": true,
           "Items": [],
           "DaysToTraverse": 1
@@ -36,6 +38,7 @@
         "Col": 2,
         "Visited": false,
         "Scene": {
+          "Type": 3,
           "Description": "A snow-capped mountain",
           "DisplaySymbol": " 🏔 ",
           "Traversable": false,
@@ -49,8 +52,9 @@
         "Col": 3,
         "Visited": false,
         "Scene": {
-          "Description": "An empty field",
-          "DisplaySymbol": "...",
+          "Type": 1,
+          "Description": "A lush forest",
+          "DisplaySymbol": " 🌳 ",
           "Traversable": true,
           "Items": [],
           "DaysToTraverse": 1
@@ -62,8 +66,9 @@
         "Col": 4,
         "Visited": false,
         "Scene": {
-          "Description": "An empty field",
-          "DisplaySymbol": "...",
+          "Type": 1,
+          "Description": "A lush forest",
+          "DisplaySymbol": " 🌳 ",
           "Traversable": true,
           "Items": [],
           "DaysToTraverse": 1
@@ -77,8 +82,9 @@
         "Col": 0,
         "Visited": false,
         "Scene": {
-          "Description": "An empty field",
-          "DisplaySymbol": "...",
+          "Type": 1,
+          "Description": "A lush forest",
+          "DisplaySymbol": " 🌳 ",
           "Traversable": true,
           "Items": [],
           "DaysToTraverse": 1
@@ -90,6 +96,7 @@
         "Col": 1,
         "Visited": false,
         "Scene": {
+          "Type": 2,
           "Description": "a mountain",
           "DisplaySymbol": " ⛰ ",
           "Traversable": true,
@@ -103,8 +110,9 @@
         "Col": 2,
         "Visited": false,
         "Scene": {
-          "Description": "An empty field",
-          "DisplaySymbol": "...",
+          "Type": 4,
+          "Description": "A Town!",
+          "DisplaySymbol": " 🏘 ",
           "Traversable": true,
           "Items": [],
           "DaysToTraverse": 1
@@ -116,8 +124,9 @@
         "Col": 3,
         "Visited": false,
         "Scene": {
-          "Description": "An empty field",
-          "DisplaySymbol": "...",
+          "Type": 1,
+          "Description": "A lush forest",
+          "DisplaySymbol": " 🌳 ",
           "Traversable": true,
           "Items": [],
           "DaysToTraverse": 1
@@ -129,8 +138,9 @@
         "Col": 4,
         "Visited": false,
         "Scene": {
-          "Description": "An empty field",
-          "DisplaySymbol": "...",
+          "Type": 1,
+          "Description": "A lush forest",
+          "DisplaySymbol": " 🌳 ",
           "Traversable": true,
           "Items": [],
           "DaysToTraverse": 1
@@ -144,8 +154,9 @@
         "Col": 0,
         "Visited": false,
         "Scene": {
-          "Description": "An empty field",
-          "DisplaySymbol": "...",
+          "Type": 1,
+          "Description": "A lush forest",
+          "DisplaySymbol": " 🌳 ",
           "Traversable": true,
           "Items": [],
           "DaysToTraverse": 1
@@ -157,8 +168,9 @@
         "Col": 1,
         "Visited": false,
         "Scene": {
-          "Description": "An empty field",
-          "DisplaySymbol": "...",
+          "Type": 1,
+          "Description": "A lush forest",
+          "DisplaySymbol": " 🌳 ",
           "Traversable": true,
           "Items": [],
           "DaysToTraverse": 1
@@ -170,8 +182,9 @@
         "Col": 2,
         "Visited": false,
         "Scene": {
-          "Description": "An empty field",
-          "DisplaySymbol": "...",
+          "Type": 1,
+          "Description": "A lush forest",
+          "DisplaySymbol": " 🌳 ",
           "Traversable": true,
           "Items": [],
           "DaysToTraverse": 1
@@ -183,8 +196,9 @@
         "Col": 3,
         "Visited": false,
         "Scene": {
-          "Description": "An empty field",
-          "DisplaySymbol": "...",
+          "Type": 1,
+          "Description": "A lush forest",
+          "DisplaySymbol": " 🌳 ",
           "Traversable": true,
           "Items": [],
           "DaysToTraverse": 1
@@ -196,8 +210,9 @@
         "Col": 4,
         "Visited": false,
         "Scene": {
-          "Description": "An empty field",
-          "DisplaySymbol": "...",
+          "Type": 1,
+          "Description": "A lush forest",
+          "DisplaySymbol": " 🌳 ",
           "Traversable": true,
           "Items": [],
           "DaysToTraverse": 1
@@ -211,8 +226,9 @@
         "Col": 0,
         "Visited": false,
         "Scene": {
-          "Description": "An empty field",
-          "DisplaySymbol": "...",
+          "Type": 1,
+          "Description": "A lush forest",
+          "DisplaySymbol": " 🌳 ",
           "Traversable": true,
           "Items": [],
           "DaysToTraverse": 1
@@ -224,8 +240,9 @@
         "Col": 1,
         "Visited": false,
         "Scene": {
-          "Description": "An empty field",
-          "DisplaySymbol": "...",
+          "Type": 1,
+          "Description": "A lush forest",
+          "DisplaySymbol": " 🌳 ",
           "Traversable": true,
           "Items": [],
           "DaysToTraverse": 1
@@ -237,8 +254,9 @@
         "Col": 2,
         "Visited": false,
         "Scene": {
-          "Description": "An empty field",
-          "DisplaySymbol": "...",
+          "Type": 1,
+          "Description": "A lush forest",
+          "DisplaySymbol": " 🌳 ",
           "Traversable": true,
           "Items": [],
           "DaysToTraverse": 1
@@ -250,8 +268,9 @@
         "Col": 3,
         "Visited": false,
         "Scene": {
-          "Description": "An empty field",
-          "DisplaySymbol": "...",
+          "Type": 1,
+          "Description": "A lush forest",
+          "DisplaySymbol": " 🌳 ",
           "Traversable": true,
           "Items": [],
           "DaysToTraverse": 1
@@ -263,8 +282,9 @@
         "Col": 4,
         "Visited": false,
         "Scene": {
-          "Description": "An empty field",
-          "DisplaySymbol": "...",
+          "Type": 1,
+          "Description": "A lush forest",
+          "DisplaySymbol": " 🌳 ",
           "Traversable": true,
           "Items": [],
           "DaysToTraverse": 1
@@ -278,8 +298,9 @@
         "Col": 0,
         "Visited": false,
         "Scene": {
-          "Description": "An empty field",
-          "DisplaySymbol": "...",
+          "Type": 1,
+          "Description": "A lush forest",
+          "DisplaySymbol": " 🌳 ",
           "Traversable": true,
           "Items": [],
           "DaysToTraverse": 1
@@ -291,8 +312,9 @@
         "Col": 1,
         "Visited": false,
         "Scene": {
-          "Description": "An empty field",
-          "DisplaySymbol": "...",
+          "Type": 1,
+          "Description": "A lush forest",
+          "DisplaySymbol": " 🌳 ",
           "Traversable": true,
           "Items": [],
           "DaysToTraverse": 1
@@ -304,8 +326,9 @@
         "Col": 2,
         "Visited": false,
         "Scene": {
-          "Description": "An empty field",
-          "DisplaySymbol": "...",
+          "Type": 1,
+          "Description": "A lush forest",
+          "DisplaySymbol": " 🌳 ",
           "Traversable": true,
           "Items": [],
           "DaysToTraverse": 1
@@ -317,8 +340,9 @@
         "Col": 3,
         "Visited": false,
         "Scene": {
-          "Description": "An empty field",
-          "DisplaySymbol": "...",
+          "Type": 1,
+          "Description": "A lush forest",
+          "DisplaySymbol": " 🌳 ",
           "Traversable": true,
           "Items": [],
           "DaysToTraverse": 1
@@ -330,8 +354,9 @@
         "Col": 4,
         "Visited": false,
         "Scene": {
-          "Description": "An empty field",
-          "DisplaySymbol": "...",
+          "Type": 1,
+          "Description": "A lush forest",
+          "DisplaySymbol": " 🌳 ",
           "Traversable": true,
           "Items": [],
           "DaysToTraverse": 1

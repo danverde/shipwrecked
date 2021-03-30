@@ -1,5 +1,6 @@
 using System;
 using Shipwreck.Control;
+using Shipwreck.Model.Game;
 
 namespace Shipwreck.View
 {
@@ -49,6 +50,12 @@ namespace Shipwreck.View
         private void Move(string direction, string fullDirection)
         {
             var success = MapController.TryMove(direction, out var location);
+            
+            // check if the game ended (found town or ran out of hunger) 
+            if (Shipwreck.CurrentGame.Status != GameStatus.Playing)
+            {
+                return;
+            }
             
             GameMenuView.ShowMap();
             

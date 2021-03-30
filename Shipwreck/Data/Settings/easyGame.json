@@ -7,7 +7,7 @@
   "Player": {
     "baseExpPerDay": 25,
     "hungerPerDay": 3,
-    "InitialHunger": 5,
+    "InitialHunger": 15,
     "HealthGrowth": 1,
     "AttackGrowth": 1,
     "DefenseGrowth": 1

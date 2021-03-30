@@ -1,6 +1,5 @@
 ﻿using Shipwreck.Model.Items;
 using Shipwreck.Model.Map;
-using Shipwreck.View;
 
 namespace Shipwreck.Model.Character
 {
@@ -8,7 +7,7 @@ namespace Shipwreck.Model.Character
     {
         public int Exp { get; set; }
         public int Hunger { get; set; }
-        public const int HungerLimit = 20; 
+        public static int HungerLimit => 20; // TODO pull from game settings 
         public int Col { get; set; }
         public int Row { get; set; }
 
@@ -28,24 +27,17 @@ namespace Shipwreck.Model.Character
             }
         }
 
-        // TODO move this to a controller
-        public void Eat(Food food)
-        {
-            Health = Health + food.HealingPower < MaxHealth ? Health + food.HealingPower : MaxHealth;
-            Hunger = Hunger - food.FillingPower > 0 ? Hunger - food.FillingPower : 0;
-        }
-        
         private void LevelUp()
         {
-            var playerSettings = Shipwreck.CurrentGame.GameSettings.Player;
-            
-            Level++;
-            BaseAttack += playerSettings.AttachGrowth;
-            BaseDefense += playerSettings.DefenseGrowth;
-            MaxHealth += playerSettings.HealthGrowth;
-            Health += playerSettings.HealthGrowth;
-            
-            new LevelUpView().Display();
+            // var playerSettings = Shipwreck.CurrentGame.GameSettings.Player;
+            //
+            // Level++;
+            // BaseAttack += playerSettings.AttachGrowth;
+            // BaseDefense += playerSettings.DefenseGrowth;
+            // MaxHealth += playerSettings.HealthGrowth;
+            // Health += playerSettings.HealthGrowth;
+            //
+            // new LevelUpView().Display();
         }
     }
 }

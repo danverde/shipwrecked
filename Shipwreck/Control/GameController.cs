@@ -1,16 +1,22 @@
 ﻿using Shipwreck.Model;
 using Shipwreck.View;
 using System;
-using Shipwreck.Model.Character;
 using Shipwreck.Model.Game;
 
 namespace Shipwreck.Control
 {
     public static class GameController
     {
+
+        public static void WinGame()
+        {
+            Shipwreck.CurrentGame.Status = GameStatus.Over;
+            
+            new GameOverView("YOU WON!").Display();
+        }
         public static void LoseGame()
         {
-            Shipwreck.CurrentGame.Player.Die();
+            Shipwreck.CurrentGame.Player.Die(); // TODO Do I actually need this method?
             Shipwreck.CurrentGame.Status = GameStatus.Over;
 
             new GameOverView().Display();
@@ -41,8 +47,11 @@ namespace Shipwreck.Control
             var player = Shipwreck.CurrentGame.Player;
             var exp = Shipwreck.CurrentGame.GameSettings.Player.BaseExpPerDay;
             
+            player.Hunger -= Shipwreck.CurrentGame.GameSettings.Player.HungerPerDay;
+            if (player.Hunger < 0) player.Hunger = 0;
+            
             // let the player know the next day has started
-            Shipwreck.CurrentGame.Day.IncrementDay();
+            Shipwreck.CurrentGame.Day.Number++;
             new ShowDayView().Display();
 
             
@@ -51,9 +60,8 @@ namespace Shipwreck.Control
              ***************************/
             // ENHANCEMENT implement potential weather deaths
             
-            // Hunger
-            player.Hunger += Shipwreck.CurrentGame.GameSettings.Player.HungerPerDay;
-            if (Shipwreck.CurrentGame.Player.Hunger > Player.HungerLimit)
+            // Hunger -> calc before new day starts
+            if (Shipwreck.CurrentGame.Player.Hunger <= 0)
             {
                 LoseGame();
                 return;

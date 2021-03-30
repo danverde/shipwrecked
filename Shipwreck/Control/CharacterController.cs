@@ -17,8 +17,6 @@ namespace Shipwreck.Control
             return damageAmount;
         }
 
-        
-        
         public static void KillPlayer(Player player, Game game)
         {
             player.Die();

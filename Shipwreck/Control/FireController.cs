@@ -1,4 +1,5 @@
-﻿using Shipwreck.Exceptions;
+﻿using System.Linq;
+using Shipwreck.Exceptions;
 using Shipwreck.Model;
 using Shipwreck.Model.Items;
 
@@ -13,11 +14,14 @@ namespace Shipwreck.Control
                 return;
             }
 
-            // TODO improve null checking
-            var wood = fire.Inventory.Items.Find(x => x.InventoryItem.Name == "Branch");
+            var wood = fire.Inventory.Items.FirstOrDefault(record => record.InventoryItem.Name == "Branch");
+            if (wood == null) return;
+            
+            // TODO address edge cases where a partial number of wood was removed...
             try
             {
-                fire.Inventory.RemoveItems(wood.InventoryItem, Shipwreck.CurrentGame.GameSettings.Fire.WoodBurnPerDay, true);
+                InventoryController.RemoveItems(fire.Inventory, wood.InventoryItem,
+                    Shipwreck.CurrentGame.GameSettings.Fire.WoodBurnPerDay);
             }
             catch (InventoryRecordNotFoundException)
             {
@@ -28,21 +32,22 @@ namespace Shipwreck.Control
         public static int AddWood(int quantityToAdd)
         {
             var inventory = Shipwreck.CurrentGame.Player.Inventory;
-            // TODO fix null checking
-            var woodRecord = inventory.Items.Find(x => x.InventoryItem.Name == "Branch");
-            // var inventoryQuantity = woodRecord?.Quantity ?? 0;
+            var woodRecord = inventory.Items.FirstOrDefault(itemRecord => itemRecord.InventoryItem.Name == "Branch");
+            if (woodRecord == null) return 0;
 
-            var numRemoved = inventory.RemoveItems(woodRecord.InventoryItem, quantityToAdd);
+            var numRemoved = InventoryController.RemoveItems(inventory, woodRecord.InventoryItem, quantityToAdd);
             Shipwreck.CurrentGame?.Fire.AddWood(quantityToAdd);
             return numRemoved;
         }
 
         public static void StartFire()
         {
-            var inventory = Shipwreck.CurrentGame.Player.Inventory;
+            // TODO why am I generating a match in order to remove one?
             var match = Shipwreck.ResourceFactory.GetResource(ResourceType.Match);
-            inventory.RemoveItems(match, 1, true);
-            Shipwreck.CurrentGame?.Fire.StartFire();
+            if (InventoryController.RemoveItems(Shipwreck.CurrentGame.Player.Inventory, match) >= 1)
+            {
+                Shipwreck.CurrentGame?.Fire.StartFire();
+            }
         }
     }
 }

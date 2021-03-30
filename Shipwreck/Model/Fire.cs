@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Shipwreck.Control;
 using Shipwreck.Model.Items;
 
 namespace Shipwreck.Model
@@ -29,13 +30,9 @@ namespace Shipwreck.Model
 
         public void AddWood(int quantity)
         {
-            if (quantity == 0)
-            {
-                return;
-            }
-            var resourceFactory = Shipwreck.ResourceFactory;
-            var wood = resourceFactory.GetResource(ResourceType.Branch);
-            Inventory.AddItem(wood, quantity);
+            if (quantity == 0) return;
+            var wood = Shipwreck.ResourceFactory.GetResource(ResourceType.Branch);
+            InventoryController.AddItem(Inventory, wood, quantity);
         }
     }
 }
