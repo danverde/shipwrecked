@@ -1,21 +1,21 @@
 {
   "NumRows": 5,
   "NumCols": 5,
-  "StartingRow": 0,
-  "StartingCol": 0,
+  "StartingRow": 1,
+  "StartingCol": 1,
   "Locations": [
     [
       {
         "Row": 0,
         "Col": 0,
-        "Visited": true,
+        "Visited": false,
         "Scene": {
-          "Type": 0,
-          "Description": "Base Camp",
-          "DisplaySymbol": " ⛺ ",
+          "Type": 5,
+          "Description": "Beach",
+          "DisplaySymbol": " 🏝 ",
           "Traversable": true,
           "Items": [],
-          "DaysToTraverse": 0
+          "DaysToTraverse": 1
         },
         "Characters": []
       },
@@ -24,9 +24,9 @@
         "Col": 1,
         "Visited": false,
         "Scene": {
-          "Type": 1,
-          "Description": "A lush forest",
-          "DisplaySymbol": " 🌳 ",
+          "Type": 5,
+          "Description": "Beach",
+          "DisplaySymbol": " 🏝 ",
           "Traversable": true,
           "Items": [],
           "DaysToTraverse": 1
@@ -38,12 +38,12 @@
         "Col": 2,
         "Visited": false,
         "Scene": {
-          "Type": 3,
-          "Description": "A snow-capped mountain",
-          "DisplaySymbol": " 🏔 ",
-          "Traversable": false,
+          "Type": 2,
+          "Description": "a mountain",
+          "DisplaySymbol": " ⛰ ",
+          "Traversable": true,
           "Items": [],
-          "DaysToTraverse": 1
+          "DaysToTraverse": 3
         },
         "Characters": []
       },
@@ -52,12 +52,12 @@
         "Col": 3,
         "Visited": false,
         "Scene": {
-          "Type": 1,
-          "Description": "A lush forest",
-          "DisplaySymbol": " 🌳 ",
-          "Traversable": true,
+          "Type": 3,
+          "Description": "A snow-capped mountain",
+          "DisplaySymbol": " 🏔 ",
+          "Traversable": false,
           "Items": [],
-          "DaysToTraverse": 1
+          "DaysToTraverse": 100
         },
         "Characters": []
       },
@@ -71,7 +71,7 @@
           "DisplaySymbol": " 🌳 ",
           "Traversable": true,
           "Items": [],
-          "DaysToTraverse": 1
+          "DaysToTraverse": 2
         },
         "Characters": []
       }
@@ -82,9 +82,9 @@
         "Col": 0,
         "Visited": false,
         "Scene": {
-          "Type": 1,
-          "Description": "A lush forest",
-          "DisplaySymbol": " 🌳 ",
+          "Type": 5,
+          "Description": "Beach",
+          "DisplaySymbol": " 🏝 ",
           "Traversable": true,
           "Items": [],
           "DaysToTraverse": 1
@@ -94,20 +94,34 @@
       {
         "Row": 1,
         "Col": 1,
-        "Visited": false,
+        "Visited": true,
         "Scene": {
-          "Type": 2,
-          "Description": "a mountain",
-          "DisplaySymbol": " ⛰ ",
+          "Type": 0,
+          "Description": "Base Camp",
+          "DisplaySymbol": " ⛺ ",
           "Traversable": true,
           "Items": [],
-          "DaysToTraverse": 3
+          "DaysToTraverse": 0
         },
         "Characters": []
       },
       {
         "Row": 1,
         "Col": 2,
+        "Visited": false,
+        "Scene": {
+          "Type": 3,
+          "Description": "A snow-capped mountain",
+          "DisplaySymbol": " 🏔 ",
+          "Traversable": false,
+          "Items": [],
+          "DaysToTraverse": 100
+        },
+        "Characters": []
+      },
+      {
+        "Row": 1,
+        "Col": 3,
         "Visited": false,
         "Scene": {
           "Type": 4,
@@ -121,20 +135,6 @@
       },
       {
         "Row": 1,
-        "Col": 3,
-        "Visited": false,
-        "Scene": {
-          "Type": 1,
-          "Description": "A lush forest",
-          "DisplaySymbol": " 🌳 ",
-          "Traversable": true,
-          "Items": [],
-          "DaysToTraverse": 1
-        },
-        "Characters": []
-      },
-      {
-        "Row": 1,
         "Col": 4,
         "Visited": false,
         "Scene": {
@@ -143,7 +143,7 @@
           "DisplaySymbol": " 🌳 ",
           "Traversable": true,
           "Items": [],
-          "DaysToTraverse": 1
+          "DaysToTraverse": 2
         },
         "Characters": []
       }
@@ -154,9 +154,9 @@
         "Col": 0,
         "Visited": false,
         "Scene": {
-          "Type": 1,
-          "Description": "A lush forest",
-          "DisplaySymbol": " 🌳 ",
+          "Type": 6,
+          "Description": "Plains",
+          "DisplaySymbol": " 🌾 ",
           "Traversable": true,
           "Items": [],
           "DaysToTraverse": 1
@@ -173,7 +173,7 @@
           "DisplaySymbol": " 🌳 ",
           "Traversable": true,
           "Items": [],
-          "DaysToTraverse": 1
+          "DaysToTraverse": 2
         },
         "Characters": []
       },
@@ -182,12 +182,12 @@
         "Col": 2,
         "Visited": false,
         "Scene": {
-          "Type": 1,
-          "Description": "A lush forest",
-          "DisplaySymbol": " 🌳 ",
-          "Traversable": true,
+          "Type": 3,
+          "Description": "A snow-capped mountain",
+          "DisplaySymbol": " 🏔 ",
+          "Traversable": false,
           "Items": [],
-          "DaysToTraverse": 1
+          "DaysToTraverse": 100
         },
         "Characters": []
       },
@@ -201,7 +201,7 @@
           "DisplaySymbol": " 🌳 ",
           "Traversable": true,
           "Items": [],
-          "DaysToTraverse": 1
+          "DaysToTraverse": 2
         },
         "Characters": []
       },
@@ -215,7 +215,7 @@
           "DisplaySymbol": " 🌳 ",
           "Traversable": true,
           "Items": [],
-          "DaysToTraverse": 1
+          "DaysToTraverse": 2
         },
         "Characters": []
       }
@@ -226,9 +226,9 @@
         "Col": 0,
         "Visited": false,
         "Scene": {
-          "Type": 1,
-          "Description": "A lush forest",
-          "DisplaySymbol": " 🌳 ",
+          "Type": 6,
+          "Description": "Plains",
+          "DisplaySymbol": " 🌾 ",
           "Traversable": true,
           "Items": [],
           "DaysToTraverse": 1
@@ -240,9 +240,9 @@
         "Col": 1,
         "Visited": false,
         "Scene": {
-          "Type": 1,
-          "Description": "A lush forest",
-          "DisplaySymbol": " 🌳 ",
+          "Type": 6,
+          "Description": "Plains",
+          "DisplaySymbol": " 🌾 ",
           "Traversable": true,
           "Items": [],
           "DaysToTraverse": 1
@@ -254,12 +254,12 @@
         "Col": 2,
         "Visited": false,
         "Scene": {
-          "Type": 1,
-          "Description": "A lush forest",
-          "DisplaySymbol": " 🌳 ",
+          "Type": 2,
+          "Description": "a mountain",
+          "DisplaySymbol": " ⛰ ",
           "Traversable": true,
           "Items": [],
-          "DaysToTraverse": 1
+          "DaysToTraverse": 3
         },
         "Characters": []
       },
@@ -268,12 +268,12 @@
         "Col": 3,
         "Visited": false,
         "Scene": {
-          "Type": 1,
-          "Description": "A lush forest",
-          "DisplaySymbol": " 🌳 ",
-          "Traversable": true,
+          "Type": 3,
+          "Description": "A snow-capped mountain",
+          "DisplaySymbol": " 🏔 ",
+          "Traversable": false,
           "Items": [],
-          "DaysToTraverse": 1
+          "DaysToTraverse": 100
         },
         "Characters": []
       },
@@ -282,12 +282,12 @@
         "Col": 4,
         "Visited": false,
         "Scene": {
-          "Type": 1,
-          "Description": "A lush forest",
-          "DisplaySymbol": " 🌳 ",
+          "Type": 2,
+          "Description": "a mountain",
+          "DisplaySymbol": " ⛰ ",
           "Traversable": true,
           "Items": [],
-          "DaysToTraverse": 1
+          "DaysToTraverse": 3
         },
         "Characters": []
       }
@@ -298,9 +298,9 @@
         "Col": 0,
         "Visited": false,
         "Scene": {
-          "Type": 1,
-          "Description": "A lush forest",
-          "DisplaySymbol": " 🌳 ",
+          "Type": 6,
+          "Description": "Plains",
+          "DisplaySymbol": " 🌾 ",
           "Traversable": true,
           "Items": [],
           "DaysToTraverse": 1
@@ -312,9 +312,9 @@
         "Col": 1,
         "Visited": false,
         "Scene": {
-          "Type": 1,
-          "Description": "A lush forest",
-          "DisplaySymbol": " 🌳 ",
+          "Type": 6,
+          "Description": "Plains",
+          "DisplaySymbol": " 🌾 ",
           "Traversable": true,
           "Items": [],
           "DaysToTraverse": 1
@@ -331,7 +331,7 @@
           "DisplaySymbol": " 🌳 ",
           "Traversable": true,
           "Items": [],
-          "DaysToTraverse": 1
+          "DaysToTraverse": 2
         },
         "Characters": []
       },
@@ -340,12 +340,12 @@
         "Col": 3,
         "Visited": false,
         "Scene": {
-          "Type": 1,
-          "Description": "A lush forest",
-          "DisplaySymbol": " 🌳 ",
+          "Type": 2,
+          "Description": "a mountain",
+          "DisplaySymbol": " ⛰ ",
           "Traversable": true,
           "Items": [],
-          "DaysToTraverse": 1
+          "DaysToTraverse": 3
         },
         "Characters": []
       },
@@ -359,7 +359,7 @@
           "DisplaySymbol": " 🌳 ",
           "Traversable": true,
           "Items": [],
-          "DaysToTraverse": 1
+          "DaysToTraverse": 2
         },
         "Characters": []
       }

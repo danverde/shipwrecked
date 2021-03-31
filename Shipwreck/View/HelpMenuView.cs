@@ -12,7 +12,7 @@ namespace Shipwreck.View
                       + "\n| Help Menu"
                       + "\n----------------------------------"
                       + "\n P - Purpose of the Game"
-                      + "\n M - Map Terminology"
+                      + "\n M - Map Legend"
                       // + "\n R - Resource Help"
                       // + "\n C - Combat Help"
                       + "\n X - Exit Help Menu"
@@ -24,9 +24,11 @@ namespace Shipwreck.View
             switch (menuOption) {
                 case "P":
                     PurposeHelp();
+                    Continue();
                     break;
                 case "M":
                     MapHelp();
+                    Continue();
                     break;
                 // case "R":
                 //     ResourceHelp();
@@ -49,18 +51,24 @@ namespace Shipwreck.View
                 + "\n wait patiently till someone comes to find you. I mean, after such a big"
                 + "\n ship went down SOMEONE's bound to come looking for survivors, Right?"
                 + "\n***************************************************************************");
-            Continue();
         }
 
-        private void MapHelp()  
+        private void MapHelp()
         {
-            Console.WriteLine("\n************************************************************************"
-                + "\n While in the game you can move your character by entering 'L'."
-                + "\n You will then be prompted to enter a direction (N,E,S,W)."
-                + "\n Time will elapse while you travel, increasing your hunger."
-                + "\n Be aware that some types of terrain are easier to traverse than others"
-                + "\n************************************************************************");
-            Continue();
+            Console.WriteLine("\n**************************** MAP LEGEND ***********************************"
+                + "\n ⛺️ - Base Camp"
+                + "\n\t Days to Travel: 0"
+                + "\n\n ⛰ - Mountain"
+                + "\n\t Days to Travel: 3"
+                + "\n\n 🏔 - Snow-Capped Mountain"
+                + "\n\t Days to Travel: -"
+                + "\n\n 🌳 - Forest"
+                + "\n\t Days to Travel: 2"
+                + "\n\n 🏝 - Beach"
+                + "\n\t Days to Travel: 1"
+                + "\n\n 🌾 - Plains"
+                + "\n\t Days to Travel: 1"
+                + "\n***************************************************************************");
         }
 
         private void ResourceHelp()

@@ -48,7 +48,7 @@ namespace Shipwreck.View
 
         private void StartNewGame()
         {
-            ShipwreckController.StartNewGame();
+            ShipwreckController.SetupNewGame();
         }
 
         private void LoadGame()

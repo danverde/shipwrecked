@@ -4,7 +4,6 @@ using System;
 using System.Linq;
 using System.Text;
 using Sharprompt;
-using Shipwreck.Helpers;
 
 namespace Shipwreck.View
 {
@@ -48,6 +47,8 @@ namespace Shipwreck.View
                 //     ViewResources();
                 //     break;
                 case "E":
+                    ViewFood();
+                    Console.WriteLine();
                     EatFood();
                     Continue();
                     break;
@@ -198,9 +199,6 @@ namespace Shipwreck.View
 
         private void EatFood()
         { 
-            ViewFood();
-            Console.WriteLine();
-            
             var player = Shipwreck.CurrentGame.Player;
             var inventory = player.Inventory;
             var foodInInventory = InventoryController.GetItemsByType<Food>(inventory);
@@ -220,7 +218,7 @@ namespace Shipwreck.View
             }
             else
             {
-                var quantity = ViewHelpers.GetQuantity($"You have {itemToEatRecord.Quantity} {itemToEatName}(s). How many would you like to eat?",
+                var quantity = GetQuantity($"You have {itemToEatRecord.Quantity} {itemToEatName}(s). How many would you like to eat?",
                     itemToEatRecord.Quantity);
 
                 if (quantity == 0) return;
@@ -239,7 +237,7 @@ namespace Shipwreck.View
         private void EquipGear()
         {
             var inventory = Shipwreck.CurrentGame.Player.Inventory;
-            var itemToEquip = ViewHelpers.GetInventoryItem("Which item would you like to equip?");
+            var itemToEquip = GetInventoryItem("Which item would you like to equip?");
             if (itemToEquip != null)
             {
                 if (itemToEquip.GetType().IsSubclassOf(typeof(Weapon)))
@@ -274,7 +272,7 @@ namespace Shipwreck.View
                 droppableItemRecords.FirstOrDefault(record => record.InventoryItem.Name == itemToDropName);
             if (itemRecordToDrop == null) return; // todo there's a better way to do this...
             
-            var quantity = ViewHelpers.GetQuantity($"You have {itemRecordToDrop.Quantity} {itemToDropName}(s). How Many would you like to drop?");
+            var quantity = GetQuantity($"You have {itemRecordToDrop.Quantity} {itemToDropName}(s). How Many would you like to drop?");
 
             var numDropped = InventoryController.RemoveItems(inventory, itemRecordToDrop?.InventoryItem, quantity);
             Console.WriteLine($"You dropped {numDropped} {itemToDropName}(s)");

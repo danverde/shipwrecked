@@ -18,10 +18,11 @@ namespace Shipwreck.Model.Map
 
     public enum SceneType
     {
-        Camp,
-        Forest,
-        Mountain,
-        IceCappedMountain,
-        Town,
+        Camp = 0,
+        Forest = 1,
+        Mountain = 2,
+        IceCappedMountain = 3,
+        Town = 4,
+        Beach = 5
     }
 }

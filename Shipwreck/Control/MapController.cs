@@ -17,26 +17,18 @@ namespace Shipwreck.Control
 
         public static Location GetPlayerLocation()
         {
+            // TODO breaks single responsibility...
             var player = Shipwreck.CurrentGame.Player;
             return Shipwreck.CurrentGame.Map.Locations[player.Row, player.Col];
         }
 
-        public static List<AdjacentCoordinate> GetAdjacentCoordinates()
-        {
-            var currentLocation = GetPlayerLocation();
-            return new List<AdjacentCoordinate>
-            {
-                new AdjacentCoordinate { Direction = "N", Row = currentLocation.Row - 1, Col = currentLocation.Col},
-                new AdjacentCoordinate { Direction = "E", Row = currentLocation.Row, Col = currentLocation.Col + 1},
-                new AdjacentCoordinate { Direction = "S", Row = currentLocation.Row + 1, Col = currentLocation.Col},
-                new AdjacentCoordinate { Direction = "W", Row = currentLocation.Row, Col = currentLocation.Col - 1},
-            };
-        }
-
         public static bool TryMove(string direction, out Location newLocation)
         {
+            // TODO maybe this ought to take a current direction & a new direction?
             var player = Shipwreck.CurrentGame.Player;
-            var adjacentLocation = GetAdjacentCoordinates().FirstOrDefault(location => location.Direction == direction) ?? new AdjacentCoordinate();
+            var adjacentLocation =
+                GetAdjacentCoordinates(GetPlayerLocation())
+                    .FirstOrDefault(location => location.Direction == direction) ?? new AdjacentCoordinate();
             
             // get the new location safely
             if (!Shipwreck.CurrentGame.Map.TryGetLocation(adjacentLocation.Row, adjacentLocation.Col, out newLocation)) return false;
@@ -68,7 +60,7 @@ namespace Shipwreck.Control
         {
             var validDirections = new List<string>();
             var map = Shipwreck.CurrentGame.Map;
-            var adjacentLocations = GetAdjacentCoordinates();
+            var adjacentLocations = GetAdjacentCoordinates(GetPlayerLocation());
 
             foreach (var adjacentLocation in adjacentLocations)
             {
@@ -76,6 +68,30 @@ namespace Shipwreck.Control
             }
             
             return validDirections;
+        }
+
+        public static bool TryExploreAdjacentLocations(Map map, Location location)
+        {
+            if (map == null || location == null) return false;
+            
+            var adjacentCoordinates = GetAdjacentCoordinates(location);
+            foreach (var adjacentCoordinate in adjacentCoordinates)
+            {
+                map.Locations[adjacentCoordinate.Row, adjacentCoordinate.Col].Visited = true;
+            }
+
+            return true;
+        }
+        
+        public static List<AdjacentCoordinate> GetAdjacentCoordinates(Location location)
+        {
+            return new List<AdjacentCoordinate>
+            {
+                new AdjacentCoordinate { Direction = "N", Row = location.Row - 1, Col = location.Col},
+                new AdjacentCoordinate { Direction = "E", Row = location.Row, Col = location.Col + 1},
+                new AdjacentCoordinate { Direction = "S", Row = location.Row + 1, Col = location.Col},
+                new AdjacentCoordinate { Direction = "W", Row = location.Row, Col = location.Col - 1},
+            };
         }
     }
 }

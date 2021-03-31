@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Shipwreck.Control;
 using Shipwreck.Model.Game;
 
@@ -49,6 +50,12 @@ namespace Shipwreck.View
 
         private void Move(string direction, string fullDirection)
         {
+            var newCoordinate = MapController.GetAdjacentCoordinates(MapController.GetPlayerLocation())
+                .Find(coordinate => coordinate.Direction == direction);
+            if (newCoordinate == null) return;
+            
+            var newLocationVisited = Shipwreck.CurrentGame.Map.Locations[newCoordinate.Row, newCoordinate.Col].Visited;
+            
             var success = MapController.TryMove(direction, out var location);
             
             // check if the game ended (found town or ran out of hunger) 
@@ -64,7 +71,7 @@ namespace Shipwreck.View
                 var successMsg = $"You successfully moved moved {fullDirection}";
                 // TODO I need a try explore method. just b/c FOW is on doesn't mean I just discovered it.
                 // It would also be good to give more details about the new location
-                if (Shipwreck.CurrentGame.GameSettings.Map.EnableFow) successMsg += $" and discovered: {location.Scene.Description}";
+                if (Shipwreck.CurrentGame.GameSettings.Map.EnableFow && !newLocationVisited) successMsg += $" and discovered {location.Scene.Description}";
                 
                 Console.WriteLine(successMsg);
             }

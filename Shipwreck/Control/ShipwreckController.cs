@@ -21,7 +21,7 @@ namespace Shipwreck.Control
             new GameMenuView().Display();
         }
 
-        public static void StartNewGame()
+        public static void SetupNewGame()
         {
             // get character name
             var playerName = MainMenuView.GetPlayerName();
@@ -31,6 +31,7 @@ namespace Shipwreck.Control
             // setup map
             var map = MapController.LoadMapFromJson(game.GameSettings.Map.MapPath);
             var startingLocation = map.Locations[map.StartingRow, map.StartingCol];
+            MapController.TryExploreAdjacentLocations(map, startingLocation);
             
             // setup player
             var player = new Player

@@ -18,10 +18,11 @@ namespace Shipwreck.View
                       + "\n I - View Inventory"
                       + "\n M - View Map"
                       + "\n L - Move"
+                      + "\n E - Explore Area" // useless w/out FOW
                       + "\n W - Wait for rescue"
                       // + "\n F - Tend Signal Fire"
                       + "\n S - Save Game"
-                      + "\n H - Help Menu"
+                      + "\n H - Help"
                       + "\n X - End it all (Exit Game)"
                       + "\n----------------------------------";
         }
@@ -110,7 +111,14 @@ namespace Shipwreck.View
                     Continue();
                     break;
                 case "L":
+                    ShowMap();
+                    Console.WriteLine();
                     new MoveView().Display();
+                    break;
+                case "E":
+                    ExploreArea();
+                    ShowMap();
+                    Continue();
                     break;
                 case "W":
                     new WaitView().Display();
@@ -130,6 +138,18 @@ namespace Shipwreck.View
                     break;
             }
             return closeView;
+        }
+
+        private void ExploreArea()
+        {
+            var map = Shipwreck.CurrentGame.Map;
+            var currentLocation = MapController.GetPlayerLocation();
+            if (!MapController.TryExploreAdjacentLocations(map, currentLocation)) return;
+            
+            Console.WriteLine("\nYou begin searching the nearby area as the sun starts to fade into the horizon");
+            Console.ReadLine();
+            GameController.AdvanceDays(1);
+            Console.WriteLine("After a day of exploration, adjacent locations on the map are now visible!");
         }
         
         private void SaveGame()
