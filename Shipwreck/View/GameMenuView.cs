@@ -8,25 +8,22 @@ namespace Shipwreck.View
 {
     class GameMenuView : View
     {
-        public GameMenuView()
-        {
-            InGameView = true;
-            Message = "\n"
-                      + "\n----------------------------------"
-                      + "\n| Game Menu"
-                      + "\n----------------------------------"
-                      + "\n C - View Character"
-                      + "\n I - View Inventory"
-                      + "\n M - View Map"
-                      + "\n L - Move"
-                      + "\n E - Explore Area" // useless w/out FOW
-                      + "\n W - Wait for rescue"
-                      // + "\n F - Tend Signal Fire"
-                      + "\n S - Save Game"
-                      + "\n H - Help"
-                      + "\n X - End it all (Exit Game)"
-                      + "\n----------------------------------";
-        }
+        protected override string Message => "\n"
+                                             + "\n----------------------------------"
+                                             + "\n| Game Menu"
+                                             + "\n----------------------------------"
+                                             + "\n C - View Character"
+                                             + "\n I - View Inventory"
+                                             + "\n M - View Map"
+                                             + "\n L - Move"
+                                             + "\n E - Explore Area" // useless w/out FOW
+                                             + "\n W - Wait for rescue"
+                                             // + "\n F - Tend Signal Fire"
+                                             + "\n S - Save Game"
+                                             + "\n H - Help"
+                                             + "\n X - End it all (Exit Game)"
+                                             + "\n----------------------------------";
+
 
         public static bool OverwriteFileName(string fileName)
         {
@@ -132,7 +129,12 @@ namespace Shipwreck.View
                     Continue();
                     break;
                 case "H":
-                    new HelpMenuView(InGameView).Display();
+                    // new HelpMenuView(InGameView).Display();
+                    var helpMenu = new HelpMenuView
+                    {
+                        InGameView = InGameView
+                    };
+                    helpMenu.Display();
                     break;
                 case "QUIT":
                     GameController.QuitGame();

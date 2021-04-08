@@ -7,14 +7,15 @@ namespace Shipwreck.View
 {
     public class MoveView: View
     {
-        public MoveView()
+        protected override string Message
         {
-            var validDirections = MapController.GetValidMovableDirections();
-            
-            InGameView = true;
-            Message = $"Which direction would you like to travel? ({string.Join(", ", validDirections.ToArray())})";
+            get
+            {
+                var validDirections = MapController.GetValidMovableDirections();
+                return $"Which direction would you like to travel? ({string.Join(", ", validDirections.ToArray())})";
+            }
         }
-        
+
         protected override bool HandleInput(string input)
         {
             var validDirections = MapController.GetValidMovableDirections();

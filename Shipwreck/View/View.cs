@@ -7,9 +7,9 @@ namespace Shipwreck.View
 {
     public abstract class View
     {
-        protected string Message { get; set; }
-        protected bool InGameView { get; set; }
-        
+        protected virtual string Message => "";
+        public virtual bool InGameView { get; set; }
+
         public void Display()
         {
             var closeView = false;

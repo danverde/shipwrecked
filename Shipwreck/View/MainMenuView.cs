@@ -7,20 +7,16 @@ namespace Shipwreck.View
 {
     class MainMenuView : View
     {
-        public MainMenuView()
-        {
-            InGameView = false;
-            Message = "\n\n----------------------------------"
-                      + "\n| Main Menu"
-                      + "\n----------------------------------"
-                      + "\n N - New Game"
-                      + "\n L - Load Game"
-                      + "\n H - Help Menu"
-                      + "\n X - Close Shipwreck"
-                      + "\n----------------------------------";
-        }
-
-
+        public override bool InGameView => false;
+        protected override string Message => "\n\n----------------------------------"
+                                             + "\n| Main Menu"
+                                             + "\n----------------------------------"
+                                             + "\n N - New Game"
+                                             + "\n L - Load Game"
+                                             + "\n H - Help Menu"
+                                             + "\n X - Close Shipwreck"
+                                             + "\n----------------------------------";
+        
         public static string GetPlayerName()
         {
             Console.WriteLine("\nPlease Enter Your Character's Name:\n");

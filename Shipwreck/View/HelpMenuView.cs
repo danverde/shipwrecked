@@ -4,20 +4,18 @@ namespace Shipwreck.View
 {
     class HelpMenuView : View
     {
-        public HelpMenuView(bool inGameView = false)
-        {
-            InGameView = inGameView;
-            Message = "\n"
-                      + "\n----------------------------------"
-                      + "\n| Help Menu"
-                      + "\n----------------------------------"
-                      + "\n P - Purpose of the Game"
-                      + "\n M - Map Legend"
-                      // + "\n R - Resource Help"
-                      // + "\n C - Combat Help"
-                      + "\n X - Exit Help Menu"
-                      + "\n----------------------------------";
-        }
+        public override bool InGameView { get; set; }
+        protected override string Message => "\n"
+                                             + "\n----------------------------------"
+                                             + "\n| Help Menu"
+                                             + "\n----------------------------------"
+                                             + "\n P - Purpose of the Game"
+                                             + "\n M - Map Legend"
+                                             // + "\n R - Resource Help"
+                                             // + "\n C - Combat Help"
+                                             + "\n X - Exit Help Menu"
+                                             + "\n----------------------------------";
+
         protected override bool HandleInput(string menuOption)
         {
             var closeView = false;

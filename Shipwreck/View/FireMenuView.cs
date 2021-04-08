@@ -5,19 +5,15 @@ namespace Shipwreck.View
 {
     class FireMenuView : View
     {
-        public FireMenuView()
-        {
-            InGameView = true;
-            Message = "\n\n----------------------------------"
-                      + "\n| Fire Menu"
-                      + "\n----------------------------------"
-                      + "\n F - Fire Status"
-                      + "\n A - Add Wood"
-                      + "\n E - Extinguish Fire"
-                      + "\n S - Start Fire"
-                      + "\n X - Close Fire Menu"
-                      + "\n----------------------------------";
-        }
+        protected override string Message => "\n\n----------------------------------"
+                                             + "\n| Fire Menu"
+                                             + "\n----------------------------------"
+                                             + "\n F - Fire Status"
+                                             + "\n A - Add Wood"
+                                             + "\n E - Extinguish Fire"
+                                             + "\n S - Start Fire"
+                                             + "\n X - Close Fire Menu"
+                                             + "\n----------------------------------";
 
         protected override bool HandleInput(string menuItem)
         {

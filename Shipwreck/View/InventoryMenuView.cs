@@ -9,23 +9,19 @@ namespace Shipwreck.View
 {
     class InventoryMenuView : View
     {
-        public InventoryMenuView()
-        {
-            InGameView = true;
-            Message = "\n\n----------------------------------"
-                      + "\n| Inventory Menu"
-                      + "\n----------------------------------"
-                      // + "\n A - View All Items"
-                      // + "\n G - View Gear"
-                      + "\n F - View Food"
-                      // + "\n R - View Resources"
-                      + "\n E - Eat Food"
-                      // + "\n Q - Equip Gear"
-                      + "\n D - Drop Item"
-                      + "\n C - View Character"
-                      + "\n X - Close Inventory"
-                      + "\n----------------------------------";
-        }
+        protected override string Message => "\n\n----------------------------------"
+                                             + "\n| Inventory Menu"
+                                             + "\n----------------------------------"
+                                             // + "\n A - View All Items"
+                                             // + "\n G - View Gear"
+                                             + "\n F - View Food"
+                                             // + "\n R - View Resources"
+                                             + "\n E - Eat Food"
+                                             // + "\n Q - Equip Gear"
+                                             + "\n D - Drop Item"
+                                             + "\n C - View Character"
+                                             + "\n X - Close Inventory"
+                                             + "\n----------------------------------";
 
         protected override bool HandleInput(string menuItem)
         {
