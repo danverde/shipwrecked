@@ -14,6 +14,7 @@ namespace Shipwreck.Model.Game
         public GameStatus Status { get; set; }
         public Map.Map Map { get; set; }
         public GameSettings GameSettings { get; set; }
+        public string SaveFileName { get; set; }
 
         public Game()
         {

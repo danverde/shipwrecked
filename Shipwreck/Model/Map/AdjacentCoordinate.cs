@@ -1,6 +1,6 @@
 namespace Shipwreck.Model.Map
 {
-    // TODO convert to adjacent location
+    // TODO convert to adjacent location ?
     public class AdjacentCoordinate
     {
         public string Direction { get; set; } // TODO should this be an enum or something?

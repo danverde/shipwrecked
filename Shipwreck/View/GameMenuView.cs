@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using Sharprompt;
 using Shipwreck.Control;
 using Shipwreck.Model.Character;
 
@@ -128,6 +129,7 @@ namespace Shipwreck.View
                     break;
                 case "S":
                     SaveGame();
+                    Continue();
                     break;
                 case "H":
                     new HelpMenuView(InGameView).Display();
@@ -154,18 +156,23 @@ namespace Shipwreck.View
         
         private void SaveGame()
         {
-            Console.WriteLine("File name:");
-            var fileName = Console.ReadLine() ?? "";
-
-            if (fileName == "x" || fileName == "X") return;
+            string fileName;
+            
+            if (string.IsNullOrEmpty(Shipwreck.CurrentGame.SaveFileName))
+            {
+                fileName = Prompt.Input<string>("File name");
+                if (fileName == "x" || fileName == "X") return;
+            }
+            else
+            {
+                fileName = Shipwreck.CurrentGame.SaveFileName;
+            }
 
             var success = ShipwreckController.TrySaveGame(fileName);
-
+            
             Console.WriteLine(success
                 ? "Your game was successfully saved"
                 : "There was an error while trying to save your game");
-            
-            Continue();
         }
     }
 }

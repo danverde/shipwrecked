@@ -1,4 +1,5 @@
 ﻿using System;
+using Sharprompt;
 using Shipwreck.Control;
 using Shipwreck.Helpers;
 
@@ -39,7 +40,7 @@ namespace Shipwreck.View
                     LoadGame();
                     break;
                 case "H":
-                    OpenHelpView();
+                    new HelpMenuView().Display();
                     break;
             }
 
@@ -54,30 +55,19 @@ namespace Shipwreck.View
         private void LoadGame()
         {
             // list available save files
-            var existingFiles = FileHelper.GetFilesInDir(Shipwreck.Settings.SavePath);
+            var existingFiles = ShipwreckController.GetExistingSaveFileNames();
             if (existingFiles.Count == 0)
             {
-                Console.WriteLine("There are no save files");
+                Console.WriteLine("There are no saved games");
+                Continue();
                 return;
             }
             
-            Console.WriteLine("Existing Save files:");
-            foreach (var existingFile in existingFiles)
-            {
-                Console.WriteLine(existingFile);
-            }
+            existingFiles.Add("Exit");
             
-            // get desired save file
-            Console.WriteLine("\nWhich file would you like to load?");
-            var fileToLoad = Console.ReadLine() ?? "";
-            if (fileToLoad == "x" || fileToLoad.ToUpper() == "X") return;
+            var fileToLoad = Prompt.Select("Which game would you like to load?", existingFiles);
+            if (fileToLoad == "Exit") return;
             fileToLoad = FileHelper.AddExtension(fileToLoad, ".json");
-
-            if (!existingFiles.Contains(fileToLoad))
-            {
-                Console.WriteLine("That file does not exist");
-                return;
-            }
             
             // try load file
             if (ShipwreckController.TryLoadGame(fileToLoad, out var game))
@@ -88,11 +78,6 @@ namespace Shipwreck.View
             {
                 Console.WriteLine($"Unable to load {fileToLoad}");
             }
-        }
-
-        private void OpenHelpView()
-        {
-            new HelpMenuView().Display();
         }
     }
 }
