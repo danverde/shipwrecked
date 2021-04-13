@@ -1,29 +1,68 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using Sharprompt;
 using Shipwreck.Control;
 using Shipwreck.Model.Character;
+using Shipwreck.Model.Views;
 
 namespace Shipwreck.View
 {
-    class GameMenuView : View
+    class GameMenuView : MenuView
     {
-        protected override string Message => "\n"
-                                             + "\n----------------------------------"
-                                             + "\n| Game Menu"
-                                             + "\n----------------------------------"
-                                             + "\n C - View Character"
-                                             + "\n I - View Inventory"
-                                             + "\n M - View Map"
-                                             + "\n L - Move"
-                                             + "\n E - Explore Area" // useless w/out FOW
-                                             + "\n W - Wait for rescue"
-                                             // + "\n F - Tend Signal Fire"
-                                             + "\n S - Save Game"
-                                             + "\n H - Help"
-                                             + "\n X - End it all (Exit Game)"
-                                             + "\n----------------------------------";
-
+        protected override string Title => "Game Menu";
+        
+        // TODO menu items could be stored on a global list & pulled in as a view is created?
+        // TODO inefficient...
+        protected override List<MenuItem> MenuItems => new List<MenuItem>
+        {
+            new MenuItem
+            {
+                DisplayName = "C - View Character",
+                Character = 'C'
+            },
+            new MenuItem
+            {
+                DisplayName = "I - View Inventory",
+                Character = 'I'
+            },
+            new MenuItem
+            {
+                DisplayName = "M - View Map",
+                Character = 'M'
+            },
+            new MenuItem
+            {
+                DisplayName = "L - Move",
+                Character = 'M'
+            },
+            new MenuItem
+            {
+                DisplayName = "E - Explore",
+                Character = 'E',
+                IsActive  = () => false
+            },
+            new MenuItem
+            {
+                DisplayName = "W - Wait for rescue",
+                Character = 'W'
+            },
+            new MenuItem
+            {
+                DisplayName = "S - Save Game",
+                Character = 'S'
+            },
+            new MenuItem
+            {
+                DisplayName = "H - Help",
+                Character = 'H'
+            },
+            new MenuItem
+            {
+                DisplayName = "X - End Game",
+                Character = 'X'
+            },
+        };
 
         public static bool OverwriteFileName(string fileName)
         {
@@ -79,56 +118,46 @@ namespace Shipwreck.View
             // Console.Write(new string(' ', Console.WindowWidth));
         }
 
-        protected override string GetInput()
+        protected override bool HandleInput(MenuItem menuItem)
         {
-            // get input
-            var input = Console.ReadLine();
+            const bool closeView = false;
 
-            // format input 
-            input = FormatInput(input);
-
-            input = input == "X" ? "QUIT" : input;
+            if (!menuItem.IsActive()) return closeView;
             
-            return input;
-        }
-        
-        protected override bool HandleInput(string input)
-        {
-            var closeView = false;
-            switch(input)
+            switch(menuItem.Character)
             {
-                case "C":
+                case 'C':
                     ShowPlayerStats();
                     Continue();
                     break;
-                case "I":
+                case 'I':
                     new InventoryMenuView().Display();
                     break;
-                case "M":
+                case 'M':
                     ShowMap();
                     Continue();
                     break;
-                case "L":
+                case 'L':
                     ShowMap();
                     Console.WriteLine();
                     new MoveView().Display();
                     break;
-                case "E":
+                case 'E':
                     ExploreArea();
                     ShowMap();
                     Continue();
                     break;
-                case "W":
+                case 'W':
                     new WaitView().Display();
                     break;
-                case "F":
+                case 'F':
                     new FireMenuView().Display();
                     break;
-                case "S":
+                case 'S':
                     SaveGame();
                     Continue();
                     break;
-                case "H":
+                case 'H':
                     // new HelpMenuView(InGameView).Display();
                     var helpMenu = new HelpMenuView
                     {
@@ -136,14 +165,13 @@ namespace Shipwreck.View
                     };
                     helpMenu.Display();
                     break;
-                case "QUIT":
+                case 'X':
                     GameController.QuitGame();
-                    closeView = true;
-                    break;
+                    return true;
             }
             return closeView;
         }
-
+        
         private void ExploreArea()
         {
             var map = Shipwreck.CurrentGame.Map;

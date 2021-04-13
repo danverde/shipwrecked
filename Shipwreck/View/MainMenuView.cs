@@ -5,7 +5,7 @@ using Shipwreck.Helpers;
 
 namespace Shipwreck.View
 {
-    class MainMenuView : View
+    class MainMenuView : Model.Views.View
     {
         public override bool InGameView => false;
         protected override string Message => "\n\n----------------------------------"

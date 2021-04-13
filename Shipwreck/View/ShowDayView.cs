@@ -2,7 +2,7 @@
 
 namespace Shipwreck.View
 {
-    class ShowDayView : View
+    class ShowDayView : Model.Views.View
     {
         protected override string Message => "\n---------------------" +
                                              $"\n Day {Shipwreck.CurrentGame.Day.Number}" +

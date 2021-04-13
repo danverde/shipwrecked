@@ -3,7 +3,7 @@ using Shipwreck.Control;
 using Shipwreck.Model.Game;
 using Shipwreck.Model.Items;
 
-namespace Shipwreck.View
+namespace Shipwreck.Model.Views
 {
     public abstract class View
     {

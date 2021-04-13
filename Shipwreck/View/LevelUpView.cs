@@ -1,6 +1,6 @@
 namespace Shipwreck.View
 {
-    public class LevelUpView : View
+    public class LevelUpView : Model.Views.View
     {
         protected override string Message => "\n\n----------------------------------"
                                              + "\n| Level Up"

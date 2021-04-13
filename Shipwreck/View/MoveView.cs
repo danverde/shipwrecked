@@ -1,11 +1,10 @@
 using System;
-using System.Linq;
 using Shipwreck.Control;
 using Shipwreck.Model.Game;
 
 namespace Shipwreck.View
 {
-    public class MoveView: View
+    public class MoveView: Model.Views.View
     {
         protected override string Message
         {

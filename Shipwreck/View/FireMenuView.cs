@@ -3,7 +3,7 @@ using System;
 
 namespace Shipwreck.View
 {
-    class FireMenuView : View
+    class FireMenuView : Model.Views.View
     {
         protected override string Message => "\n\n----------------------------------"
                                              + "\n| Fire Menu"

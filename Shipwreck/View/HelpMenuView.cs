@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using Shipwreck.Model.Views;
 
 namespace Shipwreck.View
 {
-    class HelpMenuView : View
+    class HelpMenuView : Model.Views.View
     {
         public override bool InGameView { get; set; }
         protected override string Message => "\n"

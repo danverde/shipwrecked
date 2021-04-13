@@ -3,7 +3,7 @@ using System;
 
 namespace Shipwreck.View
 {
-    class WaitView : View
+    class WaitView : Model.Views.View
     {
         protected override string Message => "How many days would you like to wait for?";
 

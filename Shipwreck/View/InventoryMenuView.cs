@@ -7,7 +7,7 @@ using Sharprompt;
 
 namespace Shipwreck.View
 {
-    class InventoryMenuView : View
+    class InventoryMenuView : Model.Views.View
     {
         protected override string Message => "\n\n----------------------------------"
                                              + "\n| Inventory Menu"
