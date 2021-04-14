@@ -35,9 +35,7 @@ namespace Shipwreck
                 Log.Error("Unable to start game. Please don't break me.");
             }
             
-            new MainMenuView().Display();
-
-            Console.WriteLine(StartMessage());
+            Console.WriteLine(StartMessage);
 
             new MainMenuView().Display();
         }
@@ -55,7 +53,7 @@ namespace Shipwreck
             // ArmorFactory = new ArmorFactory();
         }
 
-        private static string StartMessage() =>
+        private static string StartMessage =>
                 "======================================================================="
                 + "\n Congratulations!! You just washed up on the shore of a tropical "
                 + "\n Island after your cruise ship sunk. Your goal is survive however you"
@@ -64,6 +62,6 @@ namespace Shipwreck
                 + "\n will attract help. Maybe your best bet is to simply wait patiently"
                 + "\n till someone comes to find you. I mean, after such a big ship"
                 + "\n went down SOMEONE's bound to come looking for survivors, Right?"
-                + "\n=======================================================================";
+                + "\n=======================================================================\n";
     }
 }

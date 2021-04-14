@@ -31,7 +31,10 @@ namespace Shipwreck.Control
             // setup map
             var map = MapController.LoadMapFromJson(game.GameSettings.Map.MapPath);
             var startingLocation = map.Locations[map.StartingRow, map.StartingCol];
-            MapController.TryExploreAdjacentLocations(map, startingLocation);
+            if (game.GameSettings.Map.EnableFow)
+            {
+                MapController.TryExploreAdjacentLocations(map, startingLocation);
+            }
             
             // setup player
             var player = new Player
