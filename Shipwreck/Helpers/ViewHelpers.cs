@@ -16,7 +16,8 @@ namespace Shipwreck.Helpers
         
         public static bool OverwriteFileName(string fileName)
         {
-            return Prompt.Confirm($"{fileName} already exists. Would you like to overwrite it?", true);
+            return fileName == Shipwreck.CurrentGame.SaveFileName ||
+                   Prompt.Confirm($"{fileName} already exists. Would you like to overwrite it?", true);
         }
         
         public static int GetQuantity(string message, int maxQuantity)

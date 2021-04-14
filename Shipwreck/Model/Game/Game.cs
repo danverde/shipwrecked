@@ -27,7 +27,7 @@ namespace Shipwreck.Model.Game
         {
             Status = GameStatus.Over;
             // TODO shouldn't console write line here 
-            Console.WriteLine("The game is over");
+            Log.Error("The game is over");
         }
 
     }

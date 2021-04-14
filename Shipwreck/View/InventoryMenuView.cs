@@ -227,7 +227,7 @@ namespace Shipwreck.View
             
             if (itemToEatRecord.InventoryItem.Droppable == false)
             {
-                Console.WriteLine($"You can't eat your {itemToEatName}");
+                Log.Warning($"You can't eat your {itemToEatName}");
             }
             else
             {
@@ -241,9 +241,8 @@ namespace Shipwreck.View
                 
                 PlayerController.Eat((Food) itemToEatRecord.InventoryItem, quantity);
 
-                Console.WriteLine("Delicious!");
-                Console.WriteLine($"Health +{player.Health - previousHealth}");
-                Console.WriteLine($"Hunger +{player.Hunger - previousHunger}\n");
+                Log.Success("Delicious!");
+                Log.Info($"Health +{player.Health - previousHealth} \nHunger +{player.Hunger - previousHunger}\n");
             }
         }
 
@@ -286,7 +285,7 @@ namespace Shipwreck.View
             var quantity = ViewHelpers.GetQuantity($"You have {itemRecordToDrop.Quantity} {itemToDropName}(s). How Many would you like to drop?", itemRecordToDrop.Quantity);
 
             var numDropped = InventoryController.RemoveItems(inventory, itemRecordToDrop?.InventoryItem, quantity);
-            Console.WriteLine($"You dropped {numDropped} {itemToDropName}(s)");
+            Log.Success($"You dropped {numDropped} {itemToDropName}(s)");
         }
     }
 }

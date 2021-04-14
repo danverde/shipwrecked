@@ -32,7 +32,7 @@ namespace Shipwreck
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Unable to start game. Please don't break me.");
+                Log.Error("Unable to start game. Please don't break me.");
             }
             
             Console.WriteLine("======================================================================="
@@ -46,8 +46,6 @@ namespace Shipwreck
                 + "\n=======================================================================");
 
             new MainMenuView().Display();
-            
-            Console.WriteLine("DONE");
         }
 
         private static void LoadSettings()

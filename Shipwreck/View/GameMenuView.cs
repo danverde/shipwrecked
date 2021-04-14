@@ -189,11 +189,11 @@ namespace Shipwreck.View
                 // It would also be good to give more details about the new location
                 if (Shipwreck.CurrentGame.GameSettings.Map.EnableFow && !newLocationVisited) successMsg += $" and discovered {location.Scene.Description}";
                 
-                Console.WriteLine(successMsg);
+                Log.Success(successMsg);
             }
             else
             {
-                Console.WriteLine($"You were unable to move {direction.ToString()}");
+                Log.Warning($"You were unable to move {direction.ToString()}");
             }
         }
         
@@ -206,28 +206,25 @@ namespace Shipwreck.View
             Console.WriteLine("\nYou begin searching the nearby area as the sun starts to fade into the horizon");
             Console.ReadKey();
             GameController.AdvanceDays(1);
-            Console.WriteLine("After a day of exploration, adjacent locations on the map are now visible!");
+            // TODO what if you die while exploring?
+            Log.Success("After a day of exploration, adjacent locations on the map are now visible!");
         }
         
         private void SaveGame()
         {
-            string fileName;
+            var fileName = Prompt.Input<string>("File Name", Shipwreck.CurrentGame.SaveFileName);
+            if (string.IsNullOrEmpty(fileName)) return;
             
-            if (string.IsNullOrEmpty(Shipwreck.CurrentGame.SaveFileName))
+            var success = ShipwreckController.TrySaveGame(fileName);
+
+            if (success)
             {
-                fileName = Prompt.Input<string>("File name");
-                if (fileName == "x" || fileName == "X") return;
+                Log.Success("Your game was successfully saved");
             }
             else
             {
-                fileName = Shipwreck.CurrentGame.SaveFileName;
+                Log.Warning("The game was not saved");
             }
-
-            var success = ShipwreckController.TrySaveGame(fileName);
-            
-            Console.WriteLine(success
-                ? "Your game was successfully saved"
-                : "There was an error while trying to save your game");
         }
 
         private void Wait()

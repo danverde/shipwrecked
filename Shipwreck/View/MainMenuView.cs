@@ -71,7 +71,7 @@ namespace Shipwreck.View
             var existingFiles = ShipwreckController.GetExistingSaveFileNames();
             if (existingFiles.Count == 0)
             {
-                Console.WriteLine("There are no saved games");
+                Log.Warning("There are no saved games");
                 ViewHelpers.Continue();
                 return;
             }
@@ -89,7 +89,7 @@ namespace Shipwreck.View
             }
             else
             {
-                Console.WriteLine($"Unable to load {fileToLoad}");
+                Log.Error($"Unable to load {fileToLoad}");
             }
         }
     }
