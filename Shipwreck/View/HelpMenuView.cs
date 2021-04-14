@@ -1,34 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
+using Shipwreck.Helpers;
 using Shipwreck.Model.Views;
 
 namespace Shipwreck.View
 {
-    class HelpMenuView : Model.Views.View
+    class HelpMenuView : MenuView
     {
-        public override bool InGameView { get; set; }
-        protected override string Message => "\n"
-                                             + "\n----------------------------------"
-                                             + "\n| Help Menu"
-                                             + "\n----------------------------------"
-                                             + "\n P - Purpose of the Game"
-                                             + "\n M - Map Legend"
-                                             // + "\n R - Resource Help"
-                                             // + "\n C - Combat Help"
-                                             + "\n X - Exit Help Menu"
-                                             + "\n----------------------------------";
+        protected override string Title => "Help Menu";
+        protected override List<MenuItem> MenuItems => new List<MenuItem>
+        {
+            new MenuItem
+            {
+                DisplayName = "Purpose of the Game",
+                Type = MenuItemType.PurposeHelp
+            },
+            new MenuItem
+            {
+                DisplayName = "Map Legend",
+                Type = MenuItemType.MapHelp
+            },
+            new MenuItem
+            {
+                DisplayName = "Exit Help Menu",
+                Type = MenuItemType.Close
+            }
+        };
 
-        protected override bool HandleInput(string menuOption)
+        public override bool InGameView { get; set; }
+
+        protected override bool HandleInput(MenuItem menuItem)
         {
             var closeView = false;
-            switch (menuOption) {
-                case "P":
+            switch (menuItem.Type) {
+                case MenuItemType.PurposeHelp:
                     PurposeHelp();
-                    Continue();
+                    ViewHelpers.Continue();
                     break;
-                case "M":
+                case MenuItemType.MapHelp:
                     MapHelp();
-                    Continue();
+                    ViewHelpers.Continue();
                     break;
                 // case "R":
                 //     ResourceHelp();

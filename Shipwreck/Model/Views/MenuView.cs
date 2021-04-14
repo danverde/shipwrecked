@@ -19,21 +19,18 @@ namespace Shipwreck.Model.Views
             var closeView = false;
             while(closeView == false && (!InGameView || Shipwreck.CurrentGame.Status != GameStatus.Over))
             {
+                closeView = true;
                 var menuItems = MenuItems.Where(x => x.IsActive()).Select(x => x.DisplayName).ToList();
                 var input = Prompt.Select($"| {Title}", menuItems);
                 var selectedMenuItem = MenuItems.Find(x => x.DisplayName == input);
-                closeView = HandleInput(selectedMenuItem);
+                if (selectedMenuItem == null || !selectedMenuItem.IsActive()) {continue;}
+                if (selectedMenuItem.Type != MenuItemType.Close)
+                {
+                    closeView = HandleInput(selectedMenuItem);
+                }
             }
         }
         
         protected abstract bool HandleInput(MenuItem menuItem);
-
-        /* Helpers */
-        
-        protected void Continue()
-        {
-            Console.WriteLine("Press any key to continue");
-            Console.ReadKey();
-        }
     }
 }

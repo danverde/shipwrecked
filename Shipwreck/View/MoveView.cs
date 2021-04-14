@@ -1,5 +1,6 @@
 using System;
 using Shipwreck.Control;
+using Shipwreck.Helpers;
 using Shipwreck.Model.Game;
 
 namespace Shipwreck.View
@@ -29,19 +30,19 @@ namespace Shipwreck.View
             {
                 case "N":
                     Move("N", "north");
-                    Continue();
+                    ViewHelpers.Continue();
                     break;
                 case "E":
                     Move("E", "east");
-                    Continue();
+                    ViewHelpers.Continue();
                     break;
                 case "S":
                     Move("S", "south");
-                    Continue();
+                    ViewHelpers.Continue();
                     break;
                 case "W":
                     Move("W", "west");
-                    Continue();
+                    ViewHelpers.Continue();
                     break;
             }
             

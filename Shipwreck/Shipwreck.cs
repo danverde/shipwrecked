@@ -15,8 +15,8 @@ namespace Shipwreck
         // TODO should these really be singletons?
         public static FoodFactory FoodFactory;
         public static ResourceFactory ResourceFactory;
-        public static WeaponFactory WeaponFactory;
-        public static ArmorFactory ArmorFactory;
+        // public static WeaponFactory WeaponFactory;
+        // public static ArmorFactory ArmorFactory;
         
         public static ShipwreckSettings Settings;
 
@@ -37,7 +37,7 @@ namespace Shipwreck
             
             Console.WriteLine("======================================================================="
                 + "\n Congratulations!! You just washed up on the shore of a tropical "
-                + "\n Island after your cruise ship sunk. Your goal is survive however you"
+                + "\n island after your cruise ship sunk. Your goal is survive however you"
                 + "\n can! You can either try and escape on your own by building a raft &"
                 + "\n floating to safety. Or maybe building a large signal fire on the beach"
                 + "\n will attract help. Maybe your best bet is to simply wait patiently"
@@ -59,8 +59,8 @@ namespace Shipwreck
         {
             FoodFactory = new FoodFactory();
             ResourceFactory = new ResourceFactory();
-            WeaponFactory = new WeaponFactory();
-            ArmorFactory = new ArmorFactory();
+            // WeaponFactory = new WeaponFactory();
+            // ArmorFactory = new ArmorFactory();
         }
     }
 }

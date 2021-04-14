@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Sharprompt;
 using Shipwreck.Control;
+using Shipwreck.Helpers;
 using Shipwreck.Model.Character;
 using Shipwreck.Model.Views;
 
@@ -12,56 +13,54 @@ namespace Shipwreck.View
     {
         protected override string Title => "Game Menu";
         
-        // TODO menu items could be stored on a global list & pulled in as a view is created?
-        // TODO inefficient...
         protected override List<MenuItem> MenuItems => new List<MenuItem>
         {
             new MenuItem
             {
-                DisplayName = "C - View Character",
-                Character = 'C'
+                DisplayName = "View Character",
+                Type = MenuItemType.ViewCharacter
             },
             new MenuItem
             {
-                DisplayName = "I - View Inventory",
-                Character = 'I'
+                DisplayName = "View Inventory",
+                Type = MenuItemType.ViewInventory
             },
             new MenuItem
             {
-                DisplayName = "M - View Map",
-                Character = 'M'
+                DisplayName = "View Map",
+                Type = MenuItemType.ViewMap
             },
             new MenuItem
             {
-                DisplayName = "L - Move",
-                Character = 'M'
+                DisplayName = "Move",
+                Type = MenuItemType.Move
             },
             new MenuItem
             {
-                DisplayName = "E - Explore",
-                Character = 'E',
+                DisplayName = "Explore",
+                Type = MenuItemType.Explore,
                 IsActive  = () => false
             },
             new MenuItem
             {
-                DisplayName = "W - Wait for rescue",
-                Character = 'W'
+                DisplayName = "Wait for rescue",
+                Type = MenuItemType.Wait
             },
             new MenuItem
             {
-                DisplayName = "S - Save Game",
-                Character = 'S'
+                DisplayName = "Save Game",
+                Type = MenuItemType.SaveGame
             },
             new MenuItem
             {
-                DisplayName = "H - Help",
-                Character = 'H'
+                DisplayName = "Help",
+                Type = MenuItemType.HelpMenu
             },
             new MenuItem
             {
-                DisplayName = "X - End Game",
-                Character = 'X'
-            },
+                DisplayName = "Close",
+                Type = MenuItemType.Close
+            }
         };
 
         public static bool OverwriteFileName(string fileName)
@@ -122,52 +121,46 @@ namespace Shipwreck.View
         {
             const bool closeView = false;
 
-            if (!menuItem.IsActive()) return closeView;
-            
-            switch(menuItem.Character)
+            switch(menuItem.Type)
             {
-                case 'C':
+                case MenuItemType.ViewCharacter:
                     ShowPlayerStats();
-                    Continue();
+                    ViewHelpers.Continue();
                     break;
-                case 'I':
+                case MenuItemType.ViewInventory:
                     new InventoryMenuView().Display();
                     break;
-                case 'M':
+                case MenuItemType.ViewMap:
                     ShowMap();
-                    Continue();
+                    ViewHelpers.Continue();
                     break;
-                case 'L':
+                case MenuItemType.Move:
                     ShowMap();
                     Console.WriteLine();
                     new MoveView().Display();
                     break;
-                case 'E':
+                case MenuItemType.Explore:
                     ExploreArea();
                     ShowMap();
-                    Continue();
+                    ViewHelpers.Continue();
                     break;
-                case 'W':
+                case MenuItemType.Wait:
                     new WaitView().Display();
                     break;
-                case 'F':
-                    new FireMenuView().Display();
-                    break;
-                case 'S':
+                // case 'F':
+                //     new FireMenuView().Display();
+                //     break;
+                case MenuItemType.SaveGame:
                     SaveGame();
-                    Continue();
+                    ViewHelpers.Continue();
                     break;
-                case 'H':
-                    // new HelpMenuView(InGameView).Display();
+                case MenuItemType.HelpMenu:
                     var helpMenu = new HelpMenuView
                     {
                         InGameView = InGameView
                     };
                     helpMenu.Display();
                     break;
-                case 'X':
-                    GameController.QuitGame();
-                    return true;
             }
             return closeView;
         }

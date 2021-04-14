@@ -1,5 +1,6 @@
 ﻿using Shipwreck.Control;
 using System;
+using Shipwreck.Helpers;
 
 namespace Shipwreck.View
 {
@@ -47,7 +48,7 @@ namespace Shipwreck.View
             Console.WriteLine($" {fireStatus}");
             Console.WriteLine($" Remaining Wood: {woodQuantity}");
             Console.WriteLine("-------------------------");
-            Continue();
+            ViewHelpers.Continue();
         }
 
         private void AddWood()
@@ -61,13 +62,13 @@ namespace Shipwreck.View
                 int.TryParse(sQuantity, out var quantityToAdd);
                 var numRemoved = FireController.AddWood(quantityToAdd);
                 Console.WriteLine($"Successfully added {numRemoved} wood to the fire");
-                Continue();
+                ViewHelpers.Continue();
             }
             catch (Exception e)
             {
                 // TODO was a custom exception. Will need to be cleaned up
                 Console.WriteLine(e.Message);
-                Continue();
+                ViewHelpers.Continue();
             }
         }
 
@@ -75,7 +76,7 @@ namespace Shipwreck.View
         {
             Shipwreck.CurrentGame?.Fire.ExtinguishFire();
             Console.WriteLine("The Fire was extinguished");
-            Continue();
+            ViewHelpers.Continue();
         }
 
         private void StartFire()
@@ -84,13 +85,13 @@ namespace Shipwreck.View
             {
                 FireController.StartFire();
                 Console.WriteLine("The Fire was started");
-                Continue();
+                ViewHelpers.Continue();
             } 
             catch(Exception e)
             {
                 // TODO was a custom exception. Will need to be cleaned up
                 Console.WriteLine("You can't start the fire without a match!");
-                Continue();
+                ViewHelpers.Continue();
             }
         }
     }

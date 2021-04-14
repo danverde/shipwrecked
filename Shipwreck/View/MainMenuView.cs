@@ -1,41 +1,59 @@
 ﻿using System;
+using System.Collections.Generic;
 using Sharprompt;
 using Shipwreck.Control;
 using Shipwreck.Helpers;
+using Shipwreck.Model.Views;
 
 namespace Shipwreck.View
 {
-    class MainMenuView : Model.Views.View
+    class MainMenuView : MenuView
     {
         public override bool InGameView => false;
-        protected override string Message => "\n\n----------------------------------"
-                                             + "\n| Main Menu"
-                                             + "\n----------------------------------"
-                                             + "\n N - New Game"
-                                             + "\n L - Load Game"
-                                             + "\n H - Help Menu"
-                                             + "\n X - Close Shipwreck"
-                                             + "\n----------------------------------";
+        protected override string Title => "Main Menu";
+
+        protected override List<MenuItem> MenuItems => new List<MenuItem>
+        {
+            new MenuItem
+            {
+                DisplayName = "New Game",
+                Type = MenuItemType.NewGame
+            },
+            new MenuItem
+            {
+                DisplayName = "Load Game",
+                Type = MenuItemType.LoadGame
+            },
+            new MenuItem
+            {
+                DisplayName = "Help Menu",
+                Type = MenuItemType.HelpMenu
+            },
+            new MenuItem
+            {
+                DisplayName = "Close Shipwreck",
+                Type = MenuItemType.Close
+            },
+        };
         
         public static string GetPlayerName()
         {
-            Console.WriteLine("\nPlease Enter Your Character's Name:\n");
-            var name = Console.ReadLine() ?? "";
+            var name = Prompt.Input<string>("Please Enter Your Character's Name");
             
             return string.IsNullOrEmpty(name) ? GetPlayerName() : name;
         }
 
-        protected override bool HandleInput(string input)
+        protected override bool HandleInput(MenuItem menuItem)
         {
-            switch (input) 
+            switch (menuItem.Type) 
             {
-                case "N":
+                case MenuItemType.NewGame:
                     StartNewGame();
                     break;
-                case "L":
+                case MenuItemType.LoadGame:
                     LoadGame();
                     break;
-                case "H":
+                case MenuItemType.HelpMenu:
                     new HelpMenuView().Display();
                     break;
             }
@@ -55,7 +73,7 @@ namespace Shipwreck.View
             if (existingFiles.Count == 0)
             {
                 Console.WriteLine("There are no saved games");
-                Continue();
+                ViewHelpers.Continue();
                 return;
             }
             
