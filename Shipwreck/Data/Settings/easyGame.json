@@ -1,7 +1,7 @@
 {
   "waitSuccessRate": 100000,
   "Map": {
-    "enableFow": false,
+    "enableFow": true,
     "mapPath": "Data/Maps/map1.json"
   },
   "Player": {

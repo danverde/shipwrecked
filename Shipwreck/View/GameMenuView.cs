@@ -1,39 +1,138 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
+using Sharprompt;
 using Shipwreck.Control;
+using Shipwreck.Helpers;
 using Shipwreck.Model.Character;
+using Shipwreck.Model.Game;
+using Shipwreck.Model.Views;
 
 namespace Shipwreck.View
 {
-    class GameMenuView : View
+    class GameMenuView : MenuView
     {
-        public GameMenuView()
+        protected override string Title => "Game Menu";
+        
+        protected override List<MenuItem> MenuItems => new List<MenuItem>
         {
-            InGameView = true;
-            Message = "\n"
-                      + "\n----------------------------------"
-                      + "\n| Game Menu"
-                      + "\n----------------------------------"
-                      + "\n C - View Character"
-                      + "\n I - View Inventory"
-                      + "\n M - View Map"
-                      + "\n L - Move"
-                      + "\n W - Wait for rescue"
-                      // + "\n F - Tend Signal Fire"
-                      + "\n S - Save Game"
-                      + "\n H - Help Menu"
-                      + "\n X - End it all (Exit Game)"
-                      + "\n----------------------------------";
+            new MenuItem
+            {
+                DisplayName = "View Character",
+                Type = MenuItemType.ViewCharacter
+            },
+            new MenuItem
+            {
+                DisplayName = "View Inventory",
+                Type = MenuItemType.ViewInventory
+            },
+            new MenuItem
+            {
+                DisplayName = "View Map",
+                Type = MenuItemType.ViewMap
+            },
+            new MenuItem
+            {
+                DisplayName = "Move",
+                Type = MenuItemType.Move
+            },
+            new MenuItem
+            {
+                DisplayName = "Explore",
+                Type = MenuItemType.Explore,
+                IsActive  = () => false
+            },
+            new MenuItem
+            {
+                DisplayName = "Wait for rescue",
+                Type = MenuItemType.Wait
+            },
+            new MenuItem
+            {
+                DisplayName = "Save Game",
+                Type = MenuItemType.SaveGame
+            },
+            new MenuItem
+            {
+                DisplayName = "Help",
+                Type = MenuItemType.HelpMenu
+            },
+            new MenuItem
+            {
+                DisplayName = "Close",
+                Type = MenuItemType.Close
+            }
+        };
+
+        public static void ShowPlayerStats()
+        {
+            var player = Shipwreck.CurrentGame.Player;
+
+            Console.WriteLine("\n-------------------------\n Character Stats:");
+            Console.WriteLine($" Name: {player.Name}");
+            // Console.WriteLine($" level: {player.Level}");
+            // Console.WriteLine($" Exp: {player.Exp} / 100");
+            // Console.WriteLine($" Heath: {player.Health} / {player.MaxHealth}");
+            Console.WriteLine($" Hunger: {player.Hunger} / {Player.HungerLimit}");
+            // Console.WriteLine($" Base Attack: {player.BaseAttack}");
+            // Console.WriteLine($" Base Defense: {player.BaseDefense}");
+            Console.WriteLine("-------------------------");
+
+            // Console.SetCursorPosition(0, Console.CursorTop - 1);
+            // Console.Write(new string(' ', Console.WindowWidth));
         }
 
-        public static bool OverwriteFileName(string fileName)
+        protected override bool HandleInput(MenuItem menuItem)
         {
-            Console.WriteLine($"{fileName} already exists. Would you like to overwrite it? (Y/n)");
-            var input = Console.ReadLine() ?? "n";
-            return input == "y" || input.ToUpper() == "Y";
+            const bool closeView = false;
+
+            switch(menuItem.Type)
+            {
+                case MenuItemType.ViewCharacter:
+                    ShowPlayerStats();
+                    ViewHelpers.Continue();
+                    break;
+                case MenuItemType.ViewInventory:
+                    new InventoryMenuView().Display();
+                    break;
+                case MenuItemType.ViewMap:
+                    ShowMap();
+                    ViewHelpers.Continue();
+                    break;
+                case MenuItemType.Move:
+                    ShowMap();
+                    Console.WriteLine();
+                    Move();
+                    ViewHelpers.Continue();
+                    break;
+                case MenuItemType.Explore:
+                    ExploreArea();
+                    ShowMap();
+                    ViewHelpers.Continue();
+                    break;
+                case MenuItemType.Wait:
+                    Wait();
+                    ViewHelpers.Continue();
+                    break;
+                // case 'F':
+                //     new FireMenuView().Display();
+                //     break;
+                case MenuItemType.SaveGame:
+                    SaveGame();
+                    ViewHelpers.Continue();
+                    break;
+                case MenuItemType.HelpMenu:
+                    var helpMenu = new HelpMenuView
+                    {
+                        InGameView = InGameView
+                    };
+                    helpMenu.Display();
+                    break;
+            }
+            return closeView;
         }
 
-        public static void ShowMap()
+        private static void ShowMap()
         {
             var map = Shipwreck.CurrentGame.Map;
             
@@ -62,90 +161,78 @@ namespace Shipwreck.View
             Console.WriteLine("\n-----------------------------------");
         }
         
-        public static void ShowPlayerStats()
+        private void Move()
         {
-            var player = Shipwreck.CurrentGame.Player;
-
-            Console.WriteLine("\n-------------------------\n Character Stats:");
-            Console.WriteLine($" Name: {player.Name}");
-            // Console.WriteLine($" level: {player.Level}");
-            // Console.WriteLine($" Exp: {player.Exp} / 100");
-            // Console.WriteLine($" Heath: {player.Health} / {player.MaxHealth}");
-            Console.WriteLine($" Hunger: {player.Hunger} / {Player.HungerLimit}");
-            // Console.WriteLine($" Base Attack: {player.BaseAttack}");
-            // Console.WriteLine($" Base Defense: {player.BaseDefense}");
-            Console.WriteLine("-------------------------");
-
-            // Console.SetCursorPosition(0, Console.CursorTop - 1);
-            // Console.Write(new string(' ', Console.WindowWidth));
-        }
-
-        protected override string GetInput()
-        {
-            // get input
-            var input = Console.ReadLine();
-
-            // format input 
-            input = FormatInput(input);
-
-            input = input == "X" ? "QUIT" : input;
+            var validDirections = MapController.GetValidMovableDirections();
+            var direction = Prompt.Select("Which direction would you like to travel?", validDirections);
             
-            return input;
+            var newCoordinate = MapController.GetAdjacentCoordinates(MapController.GetPlayerLocation())
+                .Find(coordinate => coordinate.Direction == direction);
+            if (newCoordinate == null) return;
+            
+            var newLocationVisited = Shipwreck.CurrentGame.Map.Locations[newCoordinate.Row, newCoordinate.Col].Visited;
+            
+            var success = MapController.TryMove(direction, out var location);
+            
+            // check if the game ended (found town or ran out of hunger) 
+            if (Shipwreck.CurrentGame.Status != GameStatus.Playing)
+            {
+                return;
+            }
+            
+            ShowMap();
+            
+            if (success)
+            {
+                var successMsg = $"You successfully moved moved {direction.ToString()}";
+                // TODO I need a try explore method. just b/c FOW is on doesn't mean I just discovered it.
+                // It would also be good to give more details about the new location
+                if (Shipwreck.CurrentGame.GameSettings.Map.EnableFow && !newLocationVisited) successMsg += $" and discovered {location.Scene.Description}";
+                
+                Log.Success(successMsg);
+            }
+            else
+            {
+                Log.Warning($"You were unable to move {direction.ToString()}");
+            }
         }
         
-        protected override bool HandleInput(string input)
+        private void ExploreArea()
         {
-            var closeView = false;
-            switch(input)
-            {
-                case "C":
-                    ShowPlayerStats();
-                    Continue();
-                    break;
-                case "I":
-                    new InventoryMenuView().Display();
-                    break;
-                case "M":
-                    ShowMap();
-                    Continue();
-                    break;
-                case "L":
-                    new MoveView().Display();
-                    break;
-                case "W":
-                    new WaitView().Display();
-                    break;
-                case "F":
-                    new FireMenuView().Display();
-                    break;
-                case "S":
-                    SaveGame();
-                    break;
-                case "H":
-                    new HelpMenuView(InGameView).Display();
-                    break;
-                case "QUIT":
-                    GameController.QuitGame();
-                    closeView = true;
-                    break;
-            }
-            return closeView;
+            var map = Shipwreck.CurrentGame.Map;
+            var currentLocation = MapController.GetPlayerLocation();
+            if (!MapController.TryExploreAdjacentLocations(map, currentLocation)) return;
+            
+            Console.WriteLine("\nYou begin searching the nearby area as the sun starts to fade into the horizon");
+            Console.ReadKey();
+            GameController.AdvanceDays(1);
+            // TODO what if you die while exploring?
+            Log.Success("After a day of exploration, adjacent locations on the map are now visible!");
         }
         
         private void SaveGame()
         {
-            Console.WriteLine("File name:");
-            var fileName = Console.ReadLine() ?? "";
-
-            if (fileName == "x" || fileName == "X") return;
-
+            var fileName = Prompt.Input<string>("File Name", Shipwreck.CurrentGame.SaveFileName);
+            if (string.IsNullOrEmpty(fileName)) return;
+            
             var success = ShipwreckController.TrySaveGame(fileName);
 
-            Console.WriteLine(success
-                ? "Your game was successfully saved"
-                : "There was an error while trying to save your game");
+            if (success)
+            {
+                Log.Success("Your game was successfully saved");
+            }
+            else
+            {
+                Log.Warning("The game was not saved");
+            }
+        }
+
+        private void Wait()
+        {
+            var numDays = Prompt.Input<int>("How many days would you like to wait for?", 0);
+            if (numDays == 0) return;
             
-            Continue();
+            GameController.AdvanceDays(numDays, true);
         }
     }
 }

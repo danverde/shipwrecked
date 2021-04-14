@@ -12,20 +12,26 @@ namespace Shipwreck.Control
         {
             Shipwreck.CurrentGame.Status = GameStatus.Over;
             
-            new GameOverView("YOU WON!").Display();
+            var view = new SimpleView();
+            view.Message = "YOU WON!";
+            view.Display();
         }
         public static void LoseGame()
         {
             Shipwreck.CurrentGame.Player.Die(); // TODO Do I actually need this method?
             Shipwreck.CurrentGame.Status = GameStatus.Over;
 
-            new GameOverView().Display();
+            var view = new SimpleView();
+            view.Message = "You Died. Sucks to suck\n GAME OVER";
+            view.Display();
         }
 
         public static void QuitGame()
         {
             Shipwreck.CurrentGame.Status = GameStatus.Over;
-            new GameOverView("GAME OVER").Display();
+            var view = new SimpleView();
+            view.Message = "GAME OVER";
+            view.Display();
         }
 
         public static void AdvanceDays(int numDays, bool waiting = false)
@@ -39,7 +45,9 @@ namespace Shipwreck.Control
         private static void WinGame(string message)
         {
             Shipwreck.CurrentGame.Status = GameStatus.Over;
-            new GameOverView(message).Display();
+            var view = new SimpleView();
+            view.Message = message;
+            view.Display();
         }
 
         private static void AdvanceDay(bool waiting = false)

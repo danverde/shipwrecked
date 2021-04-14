@@ -14,6 +14,7 @@ namespace Shipwreck.Model.Game
         public GameStatus Status { get; set; }
         public Map.Map Map { get; set; }
         public GameSettings GameSettings { get; set; }
+        public string SaveFileName { get; set; }
 
         public Game()
         {
@@ -26,7 +27,7 @@ namespace Shipwreck.Model.Game
         {
             Status = GameStatus.Over;
             // TODO shouldn't console write line here 
-            Console.WriteLine("The game is over");
+            Log.Error("The game is over");
         }
 
     }

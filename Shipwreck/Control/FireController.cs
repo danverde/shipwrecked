@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using Shipwreck.Exceptions;
+﻿using System;
+using System.Linq;
 using Shipwreck.Model;
 using Shipwreck.Model.Items;
 
@@ -23,8 +23,9 @@ namespace Shipwreck.Control
                 InventoryController.RemoveItems(fire.Inventory, wood.InventoryItem,
                     Shipwreck.CurrentGame.GameSettings.Fire.WoodBurnPerDay);
             }
-            catch (InventoryRecordNotFoundException)
+            catch (Exception e)
             {
+                // TODO was a custom exception. put out the fire another way
                 fire.ExtinguishFire();
             }
         }

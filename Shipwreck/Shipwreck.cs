@@ -15,9 +15,9 @@ namespace Shipwreck
         // TODO should these really be singletons?
         public static FoodFactory FoodFactory;
         public static ResourceFactory ResourceFactory;
-        public static WeaponFactory WeaponFactory;
-        public static ArmorFactory ArmorFactory;
-
+        // public static WeaponFactory WeaponFactory;
+        // public static ArmorFactory ArmorFactory;
+        
         public static ShipwreckSettings Settings;
 
         private static string SettingsFilePath =>
@@ -32,14 +32,14 @@ namespace Shipwreck
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Unable to start game. Please don't break me.");
+                Log.Error("Unable to start game. Please don't break me.");
             }
+            
+            new MainMenuView().Display();
 
             Console.WriteLine(StartMessage());
 
             new MainMenuView().Display();
-
-            Console.WriteLine("DONE");
         }
 
         private static void LoadSettings()
@@ -51,8 +51,8 @@ namespace Shipwreck
         {
             FoodFactory = new FoodFactory();
             ResourceFactory = new ResourceFactory();
-            WeaponFactory = new WeaponFactory();
-            ArmorFactory = new ArmorFactory();
+            // WeaponFactory = new WeaponFactory();
+            // ArmorFactory = new ArmorFactory();
         }
 
         private static string StartMessage() =>

@@ -21,7 +21,7 @@ namespace Shipwreck.Control
             new GameMenuView().Display();
         }
 
-        public static void StartNewGame()
+        public static void SetupNewGame()
         {
             // get character name
             var playerName = MainMenuView.GetPlayerName();
@@ -31,6 +31,7 @@ namespace Shipwreck.Control
             // setup map
             var map = MapController.LoadMapFromJson(game.GameSettings.Map.MapPath);
             var startingLocation = map.Locations[map.StartingRow, map.StartingCol];
+            MapController.TryExploreAdjacentLocations(map, startingLocation);
             
             // setup player
             var player = new Player
@@ -56,14 +57,20 @@ namespace Shipwreck.Control
 
             StartGame(game);
         }
+        
+        public static List<string> GetExistingSaveFileNames()
+        {
+                var saveDir = FileHelper.GetSaveFileDirectory();
+                return FileHelper.GetFilesInDir(saveDir);
+        }
 
         public static bool TrySaveGame(string fileName)
         {
             try
             {
                 if (string.IsNullOrEmpty(fileName)) return false;
-                
-                var savePath = Shipwreck.Settings.SavePath;
+
+                var savePath = FileHelper.GetSaveFileDirectory();
             
                 // validate name & extension
                 fileName = FileHelper.AddExtension(fileName, ".json");
@@ -72,10 +79,14 @@ namespace Shipwreck.Control
                 var fileExists = FileHelper.FileExists(savePath, fileName);
                 if (fileExists)
                 {
-                    var overwrite = GameMenuView.OverwriteFileName(fileName);
+                    var overwrite = ViewHelpers.OverwriteFileName(fileName);
+                    // TODO view reports an error when overwrite is false
                     if (!overwrite) return false;
                 }
 
+                // save filename to game
+                Shipwreck.CurrentGame.SaveFileName = fileName;
+                
                 // write the file
                 var gameString = JsonConvert.SerializeObject(Shipwreck.CurrentGame);
                 var filePath =  Path.Combine(savePath, fileName);
@@ -94,7 +105,7 @@ namespace Shipwreck.Control
             game = null;
             try
             {
-                var filePath = Path.Combine(Shipwreck.Settings.SavePath, fileName);
+                var filePath = Path.Combine(FileHelper.GetSaveFileDirectory(), fileName);
                 game = FileHelper.LoadJson<Game>(filePath);
                 Shipwreck.CurrentGame = game;
                 return true;

@@ -1,32 +1,45 @@
 ﻿using System;
+using System.Collections.Generic;
+using Shipwreck.Helpers;
+using Shipwreck.Model.Views;
 
 namespace Shipwreck.View
 {
-    class HelpMenuView : View
+    class HelpMenuView : MenuView
     {
-        public HelpMenuView(bool inGameView = false)
+        protected override string Title => "Help Menu";
+        protected override List<MenuItem> MenuItems => new List<MenuItem>
         {
-            InGameView = inGameView;
-            Message = "\n"
-                      + "\n----------------------------------"
-                      + "\n| Help Menu"
-                      + "\n----------------------------------"
-                      + "\n P - Purpose of the Game"
-                      + "\n M - Map Terminology"
-                      // + "\n R - Resource Help"
-                      // + "\n C - Combat Help"
-                      + "\n X - Exit Help Menu"
-                      + "\n----------------------------------";
-        }
-        protected override bool HandleInput(string menuOption)
+            new MenuItem
+            {
+                DisplayName = "Purpose of the Game",
+                Type = MenuItemType.PurposeHelp
+            },
+            new MenuItem
+            {
+                DisplayName = "Map Legend",
+                Type = MenuItemType.MapHelp
+            },
+            new MenuItem
+            {
+                DisplayName = "Exit Help Menu",
+                Type = MenuItemType.Close
+            }
+        };
+
+        public override bool InGameView { get; set; }
+
+        protected override bool HandleInput(MenuItem menuItem)
         {
             var closeView = false;
-            switch (menuOption) {
-                case "P":
+            switch (menuItem.Type) {
+                case MenuItemType.PurposeHelp:
                     PurposeHelp();
+                    ViewHelpers.Continue();
                     break;
-                case "M":
+                case MenuItemType.MapHelp:
                     MapHelp();
+                    ViewHelpers.Continue();
                     break;
                 // case "R":
                 //     ResourceHelp();
@@ -49,18 +62,24 @@ namespace Shipwreck.View
                 + "\n wait patiently till someone comes to find you. I mean, after such a big"
                 + "\n ship went down SOMEONE's bound to come looking for survivors, Right?"
                 + "\n***************************************************************************");
-            Continue();
         }
 
-        private void MapHelp()  
+        private void MapHelp()
         {
-            Console.WriteLine("\n************************************************************************"
-                + "\n While in the game you can move your character by entering 'L'."
-                + "\n You will then be prompted to enter a direction (N,E,S,W)."
-                + "\n Time will elapse while you travel, increasing your hunger."
-                + "\n Be aware that some types of terrain are easier to traverse than others"
-                + "\n************************************************************************");
-            Continue();
+            Console.WriteLine("\n**************************** MAP LEGEND ***********************************"
+                + "\n ⛺️ - Base Camp"
+                + "\n\t Days to Travel: 0"
+                + "\n\n ⛰ - Mountain"
+                + "\n\t Days to Travel: 3"
+                + "\n\n 🏔 - Snow-Capped Mountain"
+                + "\n\t Days to Travel: -"
+                + "\n\n 🌳 - Forest"
+                + "\n\t Days to Travel: 2"
+                + "\n\n 🏝 - Beach"
+                + "\n\t Days to Travel: 1"
+                + "\n\n 🌾 - Plains"
+                + "\n\t Days to Travel: 1"
+                + "\n***************************************************************************");
         }
 
         private void ResourceHelp()

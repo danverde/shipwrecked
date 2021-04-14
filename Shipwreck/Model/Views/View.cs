@@ -1,17 +1,17 @@
 ﻿using System;
 using Shipwreck.Model.Game;
 
-namespace Shipwreck.View
+namespace Shipwreck.Model.Views
 {
     public abstract class View
     {
-        protected string Message { get; set; }
-        protected bool InGameView { get; set; }
-        
+        protected virtual string Message => "";
+        public virtual bool InGameView { get; set; }
+
         public void Display()
         {
             var closeView = false;
-            while(closeView == false && (!InGameView || Shipwreck.CurrentGame.Status != GameStatus.Over))
+            while (closeView == false && (!InGameView || Shipwreck.CurrentGame.Status != GameStatus.Over))
             {
                 closeView = true;
                 Console.WriteLine(Message);
@@ -28,7 +28,7 @@ namespace Shipwreck.View
             var input = Console.ReadLine();
 
             input = FormatInput(input);
-            
+
             return input;
         }
 
@@ -38,11 +38,5 @@ namespace Shipwreck.View
         }
 
         protected abstract bool HandleInput(string input);
-
-        protected void Continue()
-        {
-            Console.WriteLine("Press any key to continue");
-            Console.ReadKey();
-        }
     }
 }

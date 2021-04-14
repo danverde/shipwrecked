@@ -1,45 +1,59 @@
 ﻿using System;
+using System.Collections.Generic;
+using Sharprompt;
+using Sharprompt.Validations;
 using Shipwreck.Control;
 using Shipwreck.Helpers;
+using Shipwreck.Model.Views;
 
 namespace Shipwreck.View
 {
-    class MainMenuView : View
+    class MainMenuView : MenuView
     {
-        public MainMenuView()
+        public override bool InGameView => false;
+        protected override string Title => "Main Menu";
+
+        protected override List<MenuItem> MenuItems => new List<MenuItem>
         {
-            InGameView = false;
-            Message = "\n\n----------------------------------"
-                      + "\n| Main Menu"
-                      + "\n----------------------------------"
-                      + "\n N - New Game"
-                      + "\n L - Load Game"
-                      + "\n H - Help Menu"
-                      + "\n X - Close Shipwreck"
-                      + "\n----------------------------------";
-        }
-
-
+            new MenuItem
+            {
+                DisplayName = "New Game",
+                Type = MenuItemType.NewGame
+            },
+            new MenuItem
+            {
+                DisplayName = "Load Game",
+                Type = MenuItemType.LoadGame
+            },
+            new MenuItem
+            {
+                DisplayName = "Help Menu",
+                Type = MenuItemType.HelpMenu
+            },
+            new MenuItem
+            {
+                DisplayName = "Close Shipwreck",
+                Type = MenuItemType.Close
+            },
+        };
+        
         public static string GetPlayerName()
         {
-            Console.WriteLine("\nPlease Enter Your Character's Name:\n");
-            var name = Console.ReadLine() ?? "";
-            
-            return string.IsNullOrEmpty(name) ? GetPlayerName() : name;
+            return Prompt.Input<string>("Please Enter Your Character's Name", null, new[] {Validators.Required()});
         }
 
-        protected override bool HandleInput(string input)
+        protected override bool HandleInput(MenuItem menuItem)
         {
-            switch (input) 
+            switch (menuItem.Type) 
             {
-                case "N":
+                case MenuItemType.NewGame:
                     StartNewGame();
                     break;
-                case "L":
+                case MenuItemType.LoadGame:
                     LoadGame();
                     break;
-                case "H":
-                    OpenHelpView();
+                case MenuItemType.HelpMenu:
+                    new HelpMenuView().Display();
                     break;
             }
 
@@ -48,36 +62,25 @@ namespace Shipwreck.View
 
         private void StartNewGame()
         {
-            ShipwreckController.StartNewGame();
+            ShipwreckController.SetupNewGame();
         }
 
         private void LoadGame()
         {
             // list available save files
-            var existingFiles = FileHelper.GetFilesInDir(Shipwreck.Settings.SavePath);
+            var existingFiles = ShipwreckController.GetExistingSaveFileNames();
             if (existingFiles.Count == 0)
             {
-                Console.WriteLine("There are no save files");
+                Log.Warning("There are no saved games");
+                ViewHelpers.Continue();
                 return;
             }
             
-            Console.WriteLine("Existing Save files:");
-            foreach (var existingFile in existingFiles)
-            {
-                Console.WriteLine(existingFile);
-            }
+            existingFiles.Add("Exit");
             
-            // get desired save file
-            Console.WriteLine("\nWhich file would you like to load?");
-            var fileToLoad = Console.ReadLine() ?? "";
-            if (fileToLoad == "x" || fileToLoad.ToUpper() == "X") return;
+            var fileToLoad = Prompt.Select("Which game would you like to load?", existingFiles);
+            if (fileToLoad == "Exit") return;
             fileToLoad = FileHelper.AddExtension(fileToLoad, ".json");
-
-            if (!existingFiles.Contains(fileToLoad))
-            {
-                Console.WriteLine("That file does not exist");
-                return;
-            }
             
             // try load file
             if (ShipwreckController.TryLoadGame(fileToLoad, out var game))
@@ -86,13 +89,8 @@ namespace Shipwreck.View
             }
             else
             {
-                Console.WriteLine($"Unable to load {fileToLoad}");
+                Log.Error($"Unable to load {fileToLoad}");
             }
-        }
-
-        private void OpenHelpView()
-        {
-            new HelpMenuView().Display();
         }
     }
 }

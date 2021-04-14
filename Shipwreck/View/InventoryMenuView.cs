@@ -1,66 +1,86 @@
 ﻿using Shipwreck.Control;
 using Shipwreck.Model.Items;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Sharprompt;
 using Shipwreck.Helpers;
+using Shipwreck.Model.Views;
 
 namespace Shipwreck.View
 {
-    class InventoryMenuView : View
+    class InventoryMenuView : MenuView
     {
-        public InventoryMenuView()
+        protected override string Title => "Inventory Menu";
+        protected override List<MenuItem> MenuItems => new List<MenuItem>
         {
-            InGameView = true;
-            Message = "\n\n----------------------------------"
-                      + "\n| Inventory Menu"
-                      + "\n----------------------------------"
-                      // + "\n A - View All Items"
-                      // + "\n G - View Gear"
-                      + "\n F - View Food"
-                      // + "\n R - View Resources"
-                      + "\n E - Eat Food"
-                      // + "\n Q - Equip Gear"
-                      + "\n D - Drop Item"
-                      + "\n C - View Character"
-                      + "\n X - Close Inventory"
-                      + "\n----------------------------------";
-        }
+            new MenuItem
+            {
+                DisplayName = "View Food",
+                Type = MenuItemType.ViewFood
+            },
+            new MenuItem
+            {
+                DisplayName = "Eat Food",
+                Type = MenuItemType.EatFood
+            },
+            new MenuItem
+            {
+                DisplayName = "Drop Item",
+                Type = MenuItemType.DropItem
+            },
+            new MenuItem
+            {
+                DisplayName = "View Character",
+                Type = MenuItemType.ViewCharacter
+            },
+            new MenuItem
+            {
+                DisplayName = "Close Inventory",
+                Type = MenuItemType.Close
+            },
+        };
 
-        protected override bool HandleInput(string menuItem)
+        protected override bool HandleInput(MenuItem menuItem)
         {
             const bool done = false;
 
-            switch(menuItem)
+            switch(menuItem.Type)
             {
                 // case "A":
                 //     ShowAllItems();
+                //     ViewHelpers.Continue();
                 //     break;
                 // case "G":
                 //     ViewGear();
+                //     ViewHelpers.Continue();
                 //     break;
-                case "F":
+                case MenuItemType.ViewFood:
                     ViewFood();
-                    Continue();
+                    ViewHelpers.Continue();
                     break;
                 // case "R":
                 //     ViewResources();
+                //     ViewHelpers.Continue();
                 //     break;
-                case "E":
+                case MenuItemType.EatFood:
+                    ViewFood();
+                    Console.WriteLine();
                     EatFood();
-                    Continue();
+                    ViewHelpers.Continue();
                     break;
                 // case "Q":
                 //     EquipGear();
+                //     ViewHelpers.Continue();
                 //     break;
-                case "D":
+                case MenuItemType.DropItem:
                     DropItem();
-                    Continue();
+                    ViewHelpers.Continue();
                     break;
-                case "C":
+                case MenuItemType.ViewCharacter:
                     GameMenuView.ShowPlayerStats();
-                    Continue();
+                    ViewHelpers.Continue();
                     break;
             }
             return done;
@@ -91,8 +111,6 @@ namespace Shipwreck.View
                 Console.WriteLine(line);
             }
             Console.WriteLine("-------------------------");
-
-            Continue();
         }
 
         private void ViewGear()
@@ -136,8 +154,6 @@ namespace Shipwreck.View
                 line.Insert(23, $"+{itemBonus}");
                 Console.WriteLine(line);
             }
-
-            Continue();
         }
 
         private void ViewFood()
@@ -192,15 +208,10 @@ namespace Shipwreck.View
                 line.Insert(20, (resource.InventoryItem).Description);
                 Console.WriteLine(line);
             }
-
-            Continue();
         }
 
         private void EatFood()
         { 
-            ViewFood();
-            Console.WriteLine();
-            
             var player = Shipwreck.CurrentGame.Player;
             var inventory = player.Inventory;
             var foodInInventory = InventoryController.GetItemsByType<Food>(inventory);
@@ -216,7 +227,7 @@ namespace Shipwreck.View
             
             if (itemToEatRecord.InventoryItem.Droppable == false)
             {
-                Console.WriteLine($"You can't eat your {itemToEatName}");
+                Log.Warning($"You can't eat your {itemToEatName}");
             }
             else
             {
@@ -230,35 +241,32 @@ namespace Shipwreck.View
                 
                 PlayerController.Eat((Food) itemToEatRecord.InventoryItem, quantity);
 
-                Console.WriteLine("Delicious!");
-                Console.WriteLine($"Health +{player.Health - previousHealth}");
-                Console.WriteLine($"Hunger +{player.Hunger - previousHunger}\n");
+                Log.Success("Delicious!");
+                Log.Info($"Health +{player.Health - previousHealth} \nHunger +{player.Hunger - previousHunger}\n");
             }
         }
 
-        private void EquipGear()
-        {
-            var inventory = Shipwreck.CurrentGame.Player.Inventory;
-            var itemToEquip = ViewHelpers.GetInventoryItem("Which item would you like to equip?");
-            if (itemToEquip != null)
-            {
-                if (itemToEquip.GetType().IsSubclassOf(typeof(Weapon)))
-                {
-                    inventory.ActiveWeapon = (Weapon)itemToEquip;
-                }
-                else if (itemToEquip.GetType() == typeof(Armor))
-                {
-                    inventory.ActiveArmor = (Armor)itemToEquip;
-                }
-                Console.WriteLine($"Your {itemToEquip.Name} has been equipped");
-            }
-            else
-            {
-                Console.WriteLine($"That is not an item that exists in your inventory");
-            }
-
-            Continue();
-        }
+        // private void EquipGear()
+        // {
+        //     var inventory = Shipwreck.CurrentGame.Player.Inventory;
+        //     var itemToEquip = ViewHelpers.GetInventoryItem("Which item would you like to equip?");
+        //     if (itemToEquip != null)
+        //     {
+        //         if (itemToEquip.GetType().IsSubclassOf(typeof(Weapon)))
+        //         {
+        //             inventory.ActiveWeapon = (Weapon)itemToEquip;
+        //         }
+        //         else if (itemToEquip.GetType() == typeof(Armor))
+        //         {
+        //             inventory.ActiveArmor = (Armor)itemToEquip;
+        //         }
+        //         Console.WriteLine($"Your {itemToEquip.Name} has been equipped");
+        //     }
+        //     else
+        //     {
+        //         Console.WriteLine($"That is not an item that exists in your inventory");
+        //     }
+        // }
 
         private void DropItem()
         {
@@ -272,12 +280,12 @@ namespace Shipwreck.View
 
             var itemRecordToDrop =
                 droppableItemRecords.FirstOrDefault(record => record.InventoryItem.Name == itemToDropName);
-            if (itemRecordToDrop == null) return; // todo there's a better way to do this...
+            if (itemRecordToDrop == null) return; // todo there's gotta be a better way to do this...
             
-            var quantity = ViewHelpers.GetQuantity($"You have {itemRecordToDrop.Quantity} {itemToDropName}(s). How Many would you like to drop?");
+            var quantity = ViewHelpers.GetQuantity($"You have {itemRecordToDrop.Quantity} {itemToDropName}(s). How Many would you like to drop?", itemRecordToDrop.Quantity);
 
             var numDropped = InventoryController.RemoveItems(inventory, itemRecordToDrop?.InventoryItem, quantity);
-            Console.WriteLine($"You dropped {numDropped} {itemToDropName}(s)");
+            Log.Success($"You dropped {numDropped} {itemToDropName}(s)");
         }
     }
 }

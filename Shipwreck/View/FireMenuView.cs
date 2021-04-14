@@ -1,24 +1,20 @@
 ﻿using Shipwreck.Control;
-using Shipwreck.Exceptions;
 using System;
+using Shipwreck.Helpers;
 
 namespace Shipwreck.View
 {
-    class FireMenuView : View
+    class FireMenuView : Model.Views.View
     {
-        public FireMenuView()
-        {
-            InGameView = true;
-            Message = "\n\n----------------------------------"
-                      + "\n| Fire Menu"
-                      + "\n----------------------------------"
-                      + "\n F - Fire Status"
-                      + "\n A - Add Wood"
-                      + "\n E - Extinguish Fire"
-                      + "\n S - Start Fire"
-                      + "\n X - Close Fire Menu"
-                      + "\n----------------------------------";
-        }
+        protected override string Message => "\n\n----------------------------------"
+                                             + "\n| Fire Menu"
+                                             + "\n----------------------------------"
+                                             + "\n F - Fire Status"
+                                             + "\n A - Add Wood"
+                                             + "\n E - Extinguish Fire"
+                                             + "\n S - Start Fire"
+                                             + "\n X - Close Fire Menu"
+                                             + "\n----------------------------------";
 
         protected override bool HandleInput(string menuItem)
         {
@@ -52,7 +48,7 @@ namespace Shipwreck.View
             Console.WriteLine($" {fireStatus}");
             Console.WriteLine($" Remaining Wood: {woodQuantity}");
             Console.WriteLine("-------------------------");
-            Continue();
+            ViewHelpers.Continue();
         }
 
         private void AddWood()
@@ -66,12 +62,13 @@ namespace Shipwreck.View
                 int.TryParse(sQuantity, out var quantityToAdd);
                 var numRemoved = FireController.AddWood(quantityToAdd);
                 Console.WriteLine($"Successfully added {numRemoved} wood to the fire");
-                Continue();
+                ViewHelpers.Continue();
             }
-            catch (InventoryRecordNotFoundException e)
+            catch (Exception e)
             {
+                // TODO was a custom exception. Will need to be cleaned up
                 Console.WriteLine(e.Message);
-                Continue();
+                ViewHelpers.Continue();
             }
         }
 
@@ -79,7 +76,7 @@ namespace Shipwreck.View
         {
             Shipwreck.CurrentGame?.Fire.ExtinguishFire();
             Console.WriteLine("The Fire was extinguished");
-            Continue();
+            ViewHelpers.Continue();
         }
 
         private void StartFire()
@@ -88,12 +85,13 @@ namespace Shipwreck.View
             {
                 FireController.StartFire();
                 Console.WriteLine("The Fire was started");
-                Continue();
+                ViewHelpers.Continue();
             } 
-            catch(InventoryRecordNotFoundException)
+            catch(Exception e)
             {
+                // TODO was a custom exception. Will need to be cleaned up
                 Console.WriteLine("You can't start the fire without a match!");
-                Continue();
+                ViewHelpers.Continue();
             }
         }
     }

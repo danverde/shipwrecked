@@ -1,5 +1,4 @@
-﻿using Shipwreck.Model.Items;
-using Shipwreck.Model.Map;
+﻿using Shipwreck.Model.Map;
 
 namespace Shipwreck.Model.Character
 {
