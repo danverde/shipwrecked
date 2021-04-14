@@ -247,27 +247,27 @@ namespace Shipwreck.View
             }
         }
 
-        private void EquipGear()
-        {
-            var inventory = Shipwreck.CurrentGame.Player.Inventory;
-            var itemToEquip = ViewHelpers.GetInventoryItem("Which item would you like to equip?");
-            if (itemToEquip != null)
-            {
-                if (itemToEquip.GetType().IsSubclassOf(typeof(Weapon)))
-                {
-                    inventory.ActiveWeapon = (Weapon)itemToEquip;
-                }
-                else if (itemToEquip.GetType() == typeof(Armor))
-                {
-                    inventory.ActiveArmor = (Armor)itemToEquip;
-                }
-                Console.WriteLine($"Your {itemToEquip.Name} has been equipped");
-            }
-            else
-            {
-                Console.WriteLine($"That is not an item that exists in your inventory");
-            }
-        }
+        // private void EquipGear()
+        // {
+        //     var inventory = Shipwreck.CurrentGame.Player.Inventory;
+        //     var itemToEquip = ViewHelpers.GetInventoryItem("Which item would you like to equip?");
+        //     if (itemToEquip != null)
+        //     {
+        //         if (itemToEquip.GetType().IsSubclassOf(typeof(Weapon)))
+        //         {
+        //             inventory.ActiveWeapon = (Weapon)itemToEquip;
+        //         }
+        //         else if (itemToEquip.GetType() == typeof(Armor))
+        //         {
+        //             inventory.ActiveArmor = (Armor)itemToEquip;
+        //         }
+        //         Console.WriteLine($"Your {itemToEquip.Name} has been equipped");
+        //     }
+        //     else
+        //     {
+        //         Console.WriteLine($"That is not an item that exists in your inventory");
+        //     }
+        // }
 
         private void DropItem()
         {
@@ -281,9 +281,9 @@ namespace Shipwreck.View
 
             var itemRecordToDrop =
                 droppableItemRecords.FirstOrDefault(record => record.InventoryItem.Name == itemToDropName);
-            if (itemRecordToDrop == null) return; // todo there's a better way to do this...
+            if (itemRecordToDrop == null) return; // todo there's gotta be a better way to do this...
             
-            var quantity = ViewHelpers.GetQuantity($"You have {itemRecordToDrop.Quantity} {itemToDropName}(s). How Many would you like to drop?");
+            var quantity = ViewHelpers.GetQuantity($"You have {itemRecordToDrop.Quantity} {itemToDropName}(s). How Many would you like to drop?", itemRecordToDrop.Quantity);
 
             var numDropped = InventoryController.RemoveItems(inventory, itemRecordToDrop?.InventoryItem, quantity);
             Console.WriteLine($"You dropped {numDropped} {itemToDropName}(s)");

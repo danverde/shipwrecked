@@ -22,9 +22,9 @@ namespace Shipwreck.Control
             return Shipwreck.CurrentGame.Map.Locations[player.Row, player.Col];
         }
 
-        public static bool TryMove(string direction, out Location newLocation)
+        public static bool TryMove(Direction direction, out Location newLocation)
         {
-            // TODO maybe this ought to take a current direction & a new direction?
+            // TODO maybe this ought to take a current location & a new direction?
             var player = Shipwreck.CurrentGame.Player;
             var adjacentLocation =
                 GetAdjacentCoordinates(GetPlayerLocation())
@@ -56,9 +56,9 @@ namespace Shipwreck.Control
             return true;
         }
 
-        public static List<string> GetValidMovableDirections()
+        public static List<Direction> GetValidMovableDirections()
         {
-            var validDirections = new List<string>();
+            var validDirections = new List<Direction>();
             var map = Shipwreck.CurrentGame.Map;
             var adjacentLocations = GetAdjacentCoordinates(GetPlayerLocation());
 
@@ -87,10 +87,10 @@ namespace Shipwreck.Control
         {
             return new List<AdjacentCoordinate>
             {
-                new AdjacentCoordinate { Direction = "N", Row = location.Row - 1, Col = location.Col},
-                new AdjacentCoordinate { Direction = "E", Row = location.Row, Col = location.Col + 1},
-                new AdjacentCoordinate { Direction = "S", Row = location.Row + 1, Col = location.Col},
-                new AdjacentCoordinate { Direction = "W", Row = location.Row, Col = location.Col - 1},
+                new AdjacentCoordinate { Direction = Direction.North, Row = location.Row - 1, Col = location.Col},
+                new AdjacentCoordinate { Direction = Direction.East, Row = location.Row, Col = location.Col + 1},
+                new AdjacentCoordinate { Direction = Direction.South, Row = location.Row + 1, Col = location.Col},
+                new AdjacentCoordinate { Direction = Direction.West, Row = location.Row, Col = location.Col - 1},
             };
         }
     }

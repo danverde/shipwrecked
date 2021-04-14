@@ -1,4 +1,5 @@
 using System;
+using Sharprompt;
 using Shipwreck.Control;
 using Shipwreck.Model.Items;
 
@@ -13,35 +14,23 @@ namespace Shipwreck.Helpers
             Console.WriteLine();
         }
         
-        public static int GetQuantity(string message)
+        public static bool OverwriteFileName(string fileName)
         {
-            var valid = false;
-            var quantity = 0;
-            do
-            {
-                Console.WriteLine(message);
-                var stringQuantity = Console.ReadLine();
-                if (stringQuantity?.ToLower() == "x") continue;
-                if (!int.TryParse(stringQuantity, out quantity)) continue;
-                valid = true;
-
-            } while (!valid);
-
-            return quantity;
+            return Prompt.Confirm($"{fileName} already exists. Would you like to overwrite it?", true);
         }
+        
         public static int GetQuantity(string message, int maxQuantity)
         {
-            var quantity = GetQuantity(message);
-            return quantity > maxQuantity ? maxQuantity : quantity;
+            return Prompt.Input<int>(message, 0, new[] {CustomValidators.IsLessOrEqualTo(maxQuantity)});
         }
 
-        public static Item GetInventoryItem(string message)
-        {
-            var inventory = Shipwreck.CurrentGame.Player.Inventory;
-            Console.WriteLine(message);
-            var itemName = Console.ReadLine();
-
-            return InventoryController.GetItemFromInventory(inventory, itemName);
-        }
+        // public static Item GetInventoryItem(string message)
+        // {
+        //     var inventory = Shipwreck.CurrentGame.Player.Inventory;
+        //     Console.WriteLine(message);
+        //     var itemName = Console.ReadLine();
+        //
+        //     return InventoryController.GetItemFromInventory(inventory, itemName);
+        // }
     }
 }

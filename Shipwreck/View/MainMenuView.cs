@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Sharprompt;
+using Sharprompt.Validations;
 using Shipwreck.Control;
 using Shipwreck.Helpers;
 using Shipwreck.Model.Views;
@@ -38,9 +39,7 @@ namespace Shipwreck.View
         
         public static string GetPlayerName()
         {
-            var name = Prompt.Input<string>("Please Enter Your Character's Name");
-            
-            return string.IsNullOrEmpty(name) ? GetPlayerName() : name;
+            return Prompt.Input<string>("Please Enter Your Character's Name", null, new[] {Validators.Required()});
         }
 
         protected override bool HandleInput(MenuItem menuItem)

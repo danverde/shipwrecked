@@ -1,7 +1,5 @@
 ﻿using System;
-using Shipwreck.Control;
 using Shipwreck.Model.Game;
-using Shipwreck.Model.Items;
 
 namespace Shipwreck.Model.Views
 {

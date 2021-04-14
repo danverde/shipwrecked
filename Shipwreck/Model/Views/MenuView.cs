@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Sharprompt;
-using Shipwreck.Control;
 using Shipwreck.Model.Game;
-using Shipwreck.Model.Items;
 
 namespace Shipwreck.Model.Views
 {

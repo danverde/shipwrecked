@@ -79,7 +79,8 @@ namespace Shipwreck.Control
                 var fileExists = FileHelper.FileExists(savePath, fileName);
                 if (fileExists)
                 {
-                    var overwrite = GameMenuView.OverwriteFileName(fileName);
+                    var overwrite = ViewHelpers.OverwriteFileName(fileName);
+                    // TODO view reports an error when overwrite is false
                     if (!overwrite) return false;
                 }
 
