@@ -11,7 +11,7 @@ namespace Shipwreck
     class Shipwreck
     {
         public static Game CurrentGame;
-        
+
         // TODO should these really be singletons?
         public static FoodFactory FoodFactory;
         public static ResourceFactory ResourceFactory;
@@ -22,7 +22,7 @@ namespace Shipwreck
 
         private static string SettingsFilePath =>
             Path.Combine(Environment.CurrentDirectory, "Data/Settings/shipwreckSettings.json");
-        
+
         static void Main(string[] args)
         {
             try
@@ -35,15 +35,9 @@ namespace Shipwreck
                 Log.Error("Unable to start game. Please don't break me.");
             }
             
-            Console.WriteLine("======================================================================="
-                + "\n Congratulations!! You just washed up on the shore of a tropical "
-                + "\n island after your cruise ship sunk. Your goal is survive however you"
-                + "\n can! You can either try and escape on your own by building a raft &"
-                + "\n floating to safety. Or maybe building a large signal fire on the beach"
-                + "\n will attract help. Maybe your best bet is to simply wait patiently"
-                + "\n till someone comes to find you. I mean, after such a big ship"
-                + "\n went down SOMEONE's bound to come looking for survivors, Right?"
-                + "\n=======================================================================");
+            new MainMenuView().Display();
+
+            Console.WriteLine(StartMessage());
 
             new MainMenuView().Display();
         }
@@ -60,5 +54,16 @@ namespace Shipwreck
             // WeaponFactory = new WeaponFactory();
             // ArmorFactory = new ArmorFactory();
         }
+
+        private static string StartMessage() =>
+                "======================================================================="
+                + "\n Congratulations!! You just washed up on the shore of a tropical "
+                + "\n Island after your cruise ship sunk. Your goal is survive however you"
+                + "\n can! You can either try and escape on your own by building a raft &"
+                + "\n floating to safety. Or maybe building a large signal fire on the beach"
+                + "\n will attract help. Maybe your best bet is to simply wait patiently"
+                + "\n till someone comes to find you. I mean, after such a big ship"
+                + "\n went down SOMEONE's bound to come looking for survivors, Right?"
+                + "\n=======================================================================";
     }
 }
