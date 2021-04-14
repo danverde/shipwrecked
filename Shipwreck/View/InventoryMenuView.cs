@@ -12,6 +12,7 @@ namespace Shipwreck.View
 {
     class InventoryMenuView : MenuView
     {
+        public override bool InGameView => true;
         protected override string Title => "Inventory Menu";
         protected override List<MenuItem> MenuItems => new List<MenuItem>
         {
@@ -186,29 +187,29 @@ namespace Shipwreck.View
             }
         }
 
-        private void ViewResources()
-        {
-            StringBuilder line;
-            var inventory = Shipwreck.CurrentGame?.Player.Inventory;
-            var resources = InventoryController.GetItemsByType<Resource>(inventory);
-
-            Console.WriteLine("\n-------------------------\n Resources:\n-------------------------");
-
-            line = new StringBuilder("                                              ");
-            line.Insert(1, "ITEM");
-            line.Insert(16, "QTY");
-            line.Insert(20, "DESC");
-            Console.WriteLine(line);
-
-            foreach (var resource in resources)
-            {
-                line = new StringBuilder("                                              ");
-                line.Insert(1, resource.InventoryItem.Name);
-                line.Insert(16, resource.Quantity);
-                line.Insert(20, (resource.InventoryItem).Description);
-                Console.WriteLine(line);
-            }
-        }
+        // private void ViewResources()
+        // {
+        //     StringBuilder line;
+        //     var inventory = Shipwreck.CurrentGame?.Player.Inventory;
+        //     var resources = InventoryController.GetItemsByType<Resource>(inventory);
+        //
+        //     Console.WriteLine("\n-------------------------\n Resources:\n-------------------------");
+        //
+        //     line = new StringBuilder("                                              ");
+        //     line.Insert(1, "ITEM");
+        //     line.Insert(16, "QTY");
+        //     line.Insert(20, "DESC");
+        //     Console.WriteLine(line);
+        //
+        //     foreach (var resource in resources)
+        //     {
+        //         line = new StringBuilder("                                              ");
+        //         line.Insert(1, resource.InventoryItem.Name);
+        //         line.Insert(16, resource.Quantity);
+        //         line.Insert(20, (resource.InventoryItem).Description);
+        //         Console.WriteLine(line);
+        //     }
+        // }
 
         private void EatFood()
         { 

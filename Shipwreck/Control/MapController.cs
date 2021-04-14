@@ -17,7 +17,6 @@ namespace Shipwreck.Control
 
         public static Location GetPlayerLocation()
         {
-            // TODO breaks single responsibility...
             var player = Shipwreck.CurrentGame.Player;
             return Shipwreck.CurrentGame.Map.Locations[player.Row, player.Col];
         }
@@ -26,12 +25,13 @@ namespace Shipwreck.Control
         {
             // TODO maybe this ought to take a current location & a new direction?
             var player = Shipwreck.CurrentGame.Player;
+            var map = Shipwreck.CurrentGame.Map;
             var adjacentLocation =
-                GetAdjacentCoordinates(GetPlayerLocation())
+                GetAdjacentCoordinates(GetPlayerLocation(), map)
                     .FirstOrDefault(location => location.Direction == direction) ?? new AdjacentCoordinate();
             
             // get the new location safely
-            if (!Shipwreck.CurrentGame.Map.TryGetLocation(adjacentLocation.Row, adjacentLocation.Col, out newLocation)) return false;
+            if (!map.TryGetLocation(adjacentLocation.Row, adjacentLocation.Col, out newLocation)) return false;
 
             // explore the new location
             newLocation.Visited = true;
@@ -56,11 +56,10 @@ namespace Shipwreck.Control
             return true;
         }
 
-        public static List<Direction> GetValidMovableDirections()
+        public static List<Direction> GetValidMovableDirections(Map map)
         {
             var validDirections = new List<Direction>();
-            var map = Shipwreck.CurrentGame.Map;
-            var adjacentLocations = GetAdjacentCoordinates(GetPlayerLocation());
+            var adjacentLocations = GetAdjacentCoordinates(GetPlayerLocation(), map);
 
             foreach (var adjacentLocation in adjacentLocations)
             {
@@ -72,26 +71,50 @@ namespace Shipwreck.Control
 
         public static bool TryExploreAdjacentLocations(Map map, Location location)
         {
-            if (map == null || location == null) return false;
-            
-            var adjacentCoordinates = GetAdjacentCoordinates(location);
-            foreach (var adjacentCoordinate in adjacentCoordinates)
+            try
             {
-                map.Locations[adjacentCoordinate.Row, adjacentCoordinate.Col].Visited = true;
+
+                if (map == null || location == null) return false;
+
+                var adjacentCoordinates = GetAdjacentCoordinates(location, map);
+                foreach (var adjacentCoordinate in adjacentCoordinates)
+                {
+                    map.Locations[adjacentCoordinate.Row, adjacentCoordinate.Col].Visited = true;
+                }
+            }
+            catch (ArgumentOutOfRangeException ex)
+            { // empty on purpose
             }
 
             return true;
         }
         
-        public static List<AdjacentCoordinate> GetAdjacentCoordinates(Location location)
+        public static List<AdjacentCoordinate> GetAdjacentCoordinates(Location location, Map map)
         {
-            return new List<AdjacentCoordinate>
+            if (map == null) return new List<AdjacentCoordinate>();
+            var coordinates = new List<AdjacentCoordinate>();
+
+            if (location.Row - 1 > -1)
             {
-                new AdjacentCoordinate { Direction = Direction.North, Row = location.Row - 1, Col = location.Col},
-                new AdjacentCoordinate { Direction = Direction.East, Row = location.Row, Col = location.Col + 1},
-                new AdjacentCoordinate { Direction = Direction.South, Row = location.Row + 1, Col = location.Col},
-                new AdjacentCoordinate { Direction = Direction.West, Row = location.Row, Col = location.Col - 1},
-            };
+                coordinates.Add(new AdjacentCoordinate { Direction = Direction.North, Row = location.Row - 1, Col = location.Col});
+            }
+            
+            if (location.Col + 1 < map.NumCols)
+            {
+                coordinates.Add(new AdjacentCoordinate { Direction = Direction.East, Row = location.Row, Col = location.Col + 1});
+            }
+            
+            if (location.Row + 1 < map.NumRows)
+            {
+                coordinates.Add(new AdjacentCoordinate { Direction = Direction.South, Row = location.Row + 1, Col = location.Col});
+            }
+            
+            if (location.Col - 1 > -1)
+            {
+                coordinates.Add(new AdjacentCoordinate { Direction = Direction.West, Row = location.Row, Col = location.Col - 1});
+            }
+
+            return coordinates;
         }
     }
 }

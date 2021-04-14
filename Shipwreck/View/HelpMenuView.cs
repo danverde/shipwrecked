@@ -7,6 +7,7 @@ namespace Shipwreck.View
 {
     class HelpMenuView : MenuView
     {
+        public override bool InGameView { get; set; }
         protected override string Title => "Help Menu";
         protected override List<MenuItem> MenuItems => new List<MenuItem>
         {
@@ -26,8 +27,6 @@ namespace Shipwreck.View
                 Type = MenuItemType.Close
             }
         };
-
-        public override bool InGameView { get; set; }
 
         protected override bool HandleInput(MenuItem menuItem)
         {

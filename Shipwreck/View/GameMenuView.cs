@@ -12,8 +12,8 @@ namespace Shipwreck.View
 {
     class GameMenuView : MenuView
     {
+        public override bool InGameView => true;
         protected override string Title => "Game Menu";
-        
         protected override List<MenuItem> MenuItems => new List<MenuItem>
         {
             new MenuItem
@@ -40,7 +40,7 @@ namespace Shipwreck.View
             {
                 DisplayName = "Explore",
                 Type = MenuItemType.Explore,
-                IsActive  = () => false
+                IsActive  = () => Shipwreck.CurrentGame.GameSettings.Map.EnableFow
             },
             new MenuItem
             {
@@ -107,6 +107,7 @@ namespace Shipwreck.View
                     break;
                 case MenuItemType.Explore:
                     ExploreArea();
+                    if (Shipwreck.CurrentGame.Status == GameStatus.Over) return true;
                     ShowMap();
                     ViewHelpers.Continue();
                     break;
@@ -163,10 +164,10 @@ namespace Shipwreck.View
         
         private void Move()
         {
-            var validDirections = MapController.GetValidMovableDirections();
+            var validDirections = MapController.GetValidMovableDirections(Shipwreck.CurrentGame.Map);
             var direction = Prompt.Select("Which direction would you like to travel?", validDirections);
             
-            var newCoordinate = MapController.GetAdjacentCoordinates(MapController.GetPlayerLocation())
+            var newCoordinate = MapController.GetAdjacentCoordinates(MapController.GetPlayerLocation(), Shipwreck.CurrentGame.Map)
                 .Find(coordinate => coordinate.Direction == direction);
             if (newCoordinate == null) return;
             
@@ -205,8 +206,10 @@ namespace Shipwreck.View
             
             Console.WriteLine("\nYou begin searching the nearby area as the sun starts to fade into the horizon");
             Console.ReadKey();
+            
             GameController.AdvanceDays(1);
-            // TODO what if you die while exploring?
+            if (Shipwreck.CurrentGame.Status == GameStatus.Over) return;
+
             Log.Success("After a day of exploration, adjacent locations on the map are now visible!");
         }
         
