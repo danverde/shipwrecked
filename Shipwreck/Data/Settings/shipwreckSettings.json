@@ -1,5 +1,5 @@
 {
-  "windowsSavePath": "",
+  "windowsSavePath": "AppData\\Local\\Shipwreck\\saves",
   "macSavePath": "Library/Shipwreck/saves",
   "easyGameSettingsPath": "Data/Settings/easyGame.json"
 }
