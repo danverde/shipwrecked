@@ -28,11 +28,14 @@ namespace Shipwreck
             try
             {
                 LoadSettings();
+                InitializeDirectories();
                 InitializeFactories();
             }
             catch (Exception ex)
             {
                 Log.Error("Unable to start game. Please don't break me.");
+                Log.Error(ex.Message);
+                Log.Error(ex.StackTrace);
             }
             
             Console.WriteLine(StartMessage);
@@ -40,6 +43,11 @@ namespace Shipwreck
             new MainMenuView().Display();
         }
 
+        private static void InitializeDirectories()
+        {
+            Directory.CreateDirectory(Settings.SavePath);
+        }
+        
         private static void LoadSettings()
         {
             Settings = FileHelper.LoadJson<ShipwreckSettings>(SettingsFilePath);

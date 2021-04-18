@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,13 +7,6 @@ namespace Shipwreck.Helpers
 {
     public static class FileHelper
     {
-        public static string GetSaveFileDirectory()
-        {
-            var userDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-            var baseSavePath = Shipwreck.Settings.SavePath;
-            return Path.Combine(userDir, baseSavePath);
-        }
-
         public static List<string> GetFilesInDir(string directory)
         {
             return Directory.GetFiles(directory).Select(Path.GetFileName).ToList();
