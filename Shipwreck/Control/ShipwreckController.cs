@@ -63,8 +63,7 @@ namespace Shipwreck.Control
         
         public static List<string> GetExistingSaveFileNames()
         {
-                var saveDir = FileHelper.GetSaveFileDirectory();
-                return FileHelper.GetFilesInDir(saveDir);
+            return FileHelper.GetFilesInDir(Shipwreck.Settings.SavePath);
         }
 
         public static bool TrySaveGame(string fileName)
@@ -73,13 +72,11 @@ namespace Shipwreck.Control
             {
                 if (string.IsNullOrEmpty(fileName)) return false;
 
-                var savePath = FileHelper.GetSaveFileDirectory();
-            
                 // validate name & extension
                 fileName = FileHelper.AddExtension(fileName, ".json");
             
                 // check for existing file & ask to override
-                var fileExists = FileHelper.FileExists(savePath, fileName);
+                var fileExists = FileHelper.FileExists(Shipwreck.Settings.SavePath, fileName);
                 if (fileExists)
                 {
                     var overwrite = ViewHelpers.OverwriteFileName(fileName);
@@ -92,7 +89,7 @@ namespace Shipwreck.Control
                 
                 // write the file
                 var gameString = JsonConvert.SerializeObject(Shipwreck.CurrentGame);
-                var filePath =  Path.Combine(savePath, fileName);
+                var filePath =  Path.Combine(Shipwreck.Settings.SavePath, fileName);
                 File.WriteAllText(filePath, gameString);
                 return true;
             }
@@ -108,7 +105,7 @@ namespace Shipwreck.Control
             game = null;
             try
             {
-                var filePath = Path.Combine(FileHelper.GetSaveFileDirectory(), fileName);
+                var filePath = Path.Combine(Shipwreck.Settings.SavePath, fileName);
                 game = FileHelper.LoadJson<Game>(filePath);
                 Shipwreck.CurrentGame = game;
                 return true;

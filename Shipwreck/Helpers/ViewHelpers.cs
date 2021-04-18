@@ -1,7 +1,5 @@
 using System;
 using Sharprompt;
-using Shipwreck.Control;
-using Shipwreck.Model.Items;
 
 namespace Shipwreck.Helpers
 {

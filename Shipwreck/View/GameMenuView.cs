@@ -14,6 +14,8 @@ namespace Shipwreck.View
     {
         public override bool InGameView => true;
         protected override string Title => "Game Menu";
+        
+        // setup as a singleton & inject via startup file
         protected override List<MenuItem> MenuItems => new List<MenuItem>
         {
             new MenuItem
@@ -59,7 +61,7 @@ namespace Shipwreck.View
             },
             new MenuItem
             {
-                DisplayName = "Close",
+                DisplayName = "Close Game",
                 Type = MenuItemType.Close
             }
         };

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Sharprompt;
 using Sharprompt.Validations;
 using Shipwreck.Control;

@@ -1,12 +1,14 @@
-using System.Runtime.InteropServices;
+using System;
+using System.IO;    
 
 namespace Shipwreck.Model.Settings
 {
     public class ShipwreckSettings
     {
-        public string MacSavePath { get; set; }
-        public string WindowsSavePath { get; set; }
+        public string PartialSavePath { get; set; }
         public string EasyGameSettingsPath { get; set; }
-        public string SavePath => RuntimeInformation.IsOSPlatform(OSPlatform.OSX) ? MacSavePath : WindowsSavePath;
+
+        public string SavePath =>
+            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), PartialSavePath);
     }
 }
