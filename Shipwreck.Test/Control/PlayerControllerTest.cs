@@ -1,14 +1,16 @@
-using Shipwreck;
 using Shipwreck.Control;
 using Shipwreck.Model.Character;
-using Shipwreck.Model.Game;
 using Shipwreck.Model.Items;
+using Shipwreck.Model.Settings;
+using Shipwreck.Test.Fixtures;
 using Xunit;
 
 namespace Shipwreck.Test.Control
 {
-    public class PlayerControllerTest
+    public class PlayerControllerTest : IClassFixture<ShipwreckFixture>
     {
+        private Shipwreck Shipwreck;
+        
         [Fact]
         public void TestEat()
         {
@@ -36,10 +38,16 @@ namespace Shipwreck.Test.Control
         }
         
         [Theory]
+        [InlineData(1, 0, 0, 1)]
+        [InlineData(1, -50, 0, 1)]
         [InlineData(1, 50, 50, 1)]
-        // [InlineData(1, 150, 50, 2)] // TODO breaks b/c level up depends on Shipwreck.CurrentGame.GameSettings.Player
+        [InlineData(1, 100, 0, 2)]
+        [InlineData(1, 150, 50, 2)]
+        [InlineData(1, 1500, 0, 16)]
         public void TestGainExp(int level, int exp, int expectedExp, int expectedLevel)
         {
+            Shipwreck.CurrentGame.GameSettings.Player = new PlayerSettings();
+            
             var player = new Player
             {
                 Level = level,

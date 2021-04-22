@@ -16,6 +16,8 @@ namespace Shipwreck.Control
         
         public static void GainExp(Player player, int experience)
         {
+            if (experience <= 0) return;
+            
             player.Exp += experience;
             while (player.Exp >= 100)
             {
@@ -29,7 +31,7 @@ namespace Shipwreck.Control
             var playerSettings = Shipwreck.CurrentGame.GameSettings.Player;
             
             player.Level++;
-            player.BaseAttack += playerSettings.AttachGrowth;
+            player.BaseAttack += playerSettings.AttackGrowth;
             player.BaseDefense += playerSettings.DefenseGrowth;
             player.MaxHealth += playerSettings.HealthGrowth;
             player.Health += playerSettings.HealthGrowth;

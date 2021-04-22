@@ -1,6 +1,4 @@
-﻿using Shipwreck.Model.Character;
-
-namespace Shipwreck.View
+﻿namespace Shipwreck.View
 {
     class ShowDayView : Model.Views.View
     {

@@ -7,6 +7,7 @@ using Shipwreck.Model;
 using Shipwreck.Model.Character;
 using Shipwreck.Model.Game;
 using Shipwreck.Model.Items;
+using Shipwreck.Model.Settings;
 using Shipwreck.View;
 
 namespace Shipwreck.Control
@@ -15,6 +16,7 @@ namespace Shipwreck.Control
     {
         public static void StartGame(Game game)
         {
+            game.Status = Game.GameStatus.Playing;
             Shipwreck.CurrentGame = game;
             
             new ShowDayView().Display();
@@ -26,7 +28,15 @@ namespace Shipwreck.Control
             // get character name
             var playerName = MainMenuView.GetPlayerName();
             
-            var game = new Game();
+            // get game settings
+            var easyGameSettingsPath = Path.Combine(Environment.CurrentDirectory, Shipwreck.Settings.EasyGameSettingsPath);
+            var gameSettings = FileHelper.LoadJson<GameSettings>(easyGameSettingsPath);
+            
+            // setup the game
+            var game = new Game
+            {
+                GameSettings = gameSettings
+            };
             
             // setup map
             var map = MapController.LoadMapFromJson(game.GameSettings.Map.MapPath);

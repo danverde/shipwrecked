@@ -4,7 +4,6 @@ using System.Text;
 using Sharprompt;
 using Shipwreck.Control;
 using Shipwreck.Helpers;
-using Shipwreck.Model.Character;
 using Shipwreck.Model.Game;
 using Shipwreck.Model.Views;
 

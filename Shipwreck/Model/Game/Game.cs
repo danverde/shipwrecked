@@ -18,16 +18,27 @@ namespace Shipwreck.Model.Game
 
         public Game()
         {
-            Status = GameStatus.Setup;
-            var easyGamePath = Path.Combine(Environment.CurrentDirectory, Shipwreck.Settings.EasyGameSettingsPath);
-            GameSettings = FileHelper.LoadJson<GameSettings>(easyGamePath);
+            Status = GameStatus.PendingSetup;
         }
+
+        // public Game(GameSettings settings)
+        // {
+        //     if (string.IsNullOrEmpty(settingsPath))
+        //     {
+        //         Status = GameStatus.PendingSetup;
+        //         return;
+        //     }
+        //     
+        //     Status = GameStatus.Setup;
+        //     GameSettings = FileHelper.LoadJson<GameSettings>(settingsPath);
+        // }
         
         public enum GameStatus
         {
-            Over = 0,
-            Setup = 1,
-            Playing = 2,
+            Over,
+            PendingSetup,
+            Setup,
+            Playing,
         }
     }
 }

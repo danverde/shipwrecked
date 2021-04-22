@@ -8,7 +8,7 @@ using Shipwreck.Model.Settings;
 
 namespace Shipwreck
 {
-    class Shipwreck
+    public class Shipwreck
     {
         public static Game CurrentGame;
 
