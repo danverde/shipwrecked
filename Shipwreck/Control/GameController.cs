@@ -7,7 +7,6 @@ namespace Shipwreck.Control
 {
     public static class GameController
     {
-
         public static void WinGame()
         {
             Shipwreck.CurrentGame.Status = Game.GameStatus.Over;
@@ -96,7 +95,7 @@ namespace Shipwreck.Control
             /**********************************
              * Gain Exp for living another day
              **********************************/
-            PlayerController.GainExperience(player, exp);
+            PlayerController.GainExp(player, exp);
         }
     }
 }

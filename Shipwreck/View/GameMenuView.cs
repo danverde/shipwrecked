@@ -75,7 +75,7 @@ namespace Shipwreck.View
             // Console.WriteLine($" level: {player.Level}");
             // Console.WriteLine($" Exp: {player.Exp} / 100");
             // Console.WriteLine($" Heath: {player.Health} / {player.MaxHealth}");
-            Console.WriteLine($" Hunger: {player.Hunger} / {Player.HungerLimit}");
+            Console.WriteLine($" Hunger: {player.Hunger} / {player.HungerLimit}");
             // Console.WriteLine($" Base Attack: {player.BaseAttack}");
             // Console.WriteLine($" Base Defense: {player.BaseDefense}");
             Console.WriteLine("-------------------------");

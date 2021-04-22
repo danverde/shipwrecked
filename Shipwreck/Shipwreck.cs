@@ -12,7 +12,6 @@ namespace Shipwreck
     {
         public static Game CurrentGame;
 
-        // TODO should these really be singletons?
         public static FoodFactory FoodFactory;
         public static ResourceFactory ResourceFactory;
         // public static WeaponFactory WeaponFactory;

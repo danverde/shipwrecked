@@ -41,6 +41,7 @@ namespace Shipwreck.Control
             {
                 Name = playerName,
                 Hunger = game.GameSettings.Player.InitialHunger,
+                HungerLimit = game.GameSettings.Player.MaxHunger,
                 Row = startingLocation.Row,
                 Col = startingLocation.Col,
                 Inventory = new Inventory

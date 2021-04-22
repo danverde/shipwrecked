@@ -1,4 +1,5 @@
-﻿using Shipwreck.Model.Items;
+﻿using System;
+using Shipwreck.Model.Items;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -30,6 +31,19 @@ namespace Shipwreck.Control
             }
         }
 
+        public static bool TryRemoveItems(Inventory inventory, Item item, int quantity = 1)
+        {
+            try
+            {
+                RemoveItems(inventory, item, quantity);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        
         public static int RemoveItems(Inventory inventory, Item item, int quantity = 1)
         {
             int quantityRemoved;

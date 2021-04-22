@@ -22,6 +22,7 @@ namespace Shipwreck.Model.Settings
         public int HealthGrowth { get; set; } 
         public int AttachGrowth { get; set; } 
         public int DefenseGrowth { get; set; } 
+        public int MaxHunger { get; set; }
     }
 
     public class FireSettings

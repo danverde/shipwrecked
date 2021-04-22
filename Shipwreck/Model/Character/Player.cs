@@ -2,8 +2,9 @@
 {
     public class Player : Character
     {
-        public int Exp { get; set; }
         public int Hunger { get; set; }
-        public static int HungerLimit => 20; // TODO pull from game settings 
+        public int HungerLimit { get; set; }
+        public int Level { get; set; }
+        public int Exp { get; set; }
     }
 }

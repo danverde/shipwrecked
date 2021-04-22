@@ -14,7 +14,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Control" />
+      <ProjectReference Include="..\Shipwreck\Shipwreck.csproj" />
     </ItemGroup>
 
 </Project>

@@ -27,11 +27,5 @@ namespace Shipwreck.Control
         {
             character.Status = CharacterStatus.Dead;
         }
-
-        // public static void KillCharacter(Character character, Game game)
-        // {
-        //     character.Status == CharacterStatus.Dead;
-        //     game.EndGame();
-        // }
     }
 }
