@@ -10,7 +10,7 @@ namespace Shipwreck.Control
 
         public static void WinGame()
         {
-            Shipwreck.CurrentGame.Status = GameStatus.Over;
+            Shipwreck.CurrentGame.Status = Game.GameStatus.Over;
             
             var view = new SimpleView();
             view.Message = "YOU WON!";
@@ -18,8 +18,8 @@ namespace Shipwreck.Control
         }
         public static void LoseGame()
         {
-            Shipwreck.CurrentGame.Player.Die(); // TODO Do I actually need this method?
-            Shipwreck.CurrentGame.Status = GameStatus.Over;
+            CharacterController.Die(Shipwreck.CurrentGame.Player);
+            Shipwreck.CurrentGame.Status = Game.GameStatus.Over;
 
             var view = new SimpleView();
             view.Message = "You Died. Sucks to suck\n GAME OVER";
@@ -28,7 +28,7 @@ namespace Shipwreck.Control
 
         public static void QuitGame()
         {
-            Shipwreck.CurrentGame.Status = GameStatus.Over;
+            Shipwreck.CurrentGame.Status = Game.GameStatus.Over;
             var view = new SimpleView();
             view.Message = "GAME OVER";
             view.Display();
@@ -36,7 +36,7 @@ namespace Shipwreck.Control
 
         public static void AdvanceDays(int numDays, bool waiting = false)
         {
-            for (var i = 0; i < numDays && Shipwreck.CurrentGame.Status == GameStatus.Playing; i++)
+            for (var i = 0; i < numDays && Shipwreck.CurrentGame.Status == Game.GameStatus.Playing; i++)
             {
                 AdvanceDay(waiting);
             }
@@ -44,7 +44,7 @@ namespace Shipwreck.Control
         
         private static void WinGame(string message)
         {
-            Shipwreck.CurrentGame.Status = GameStatus.Over;
+            Shipwreck.CurrentGame.Status = Game.GameStatus.Over;
             var view = new SimpleView();
             view.Message = message;
             view.Display();
@@ -96,7 +96,7 @@ namespace Shipwreck.Control
             /**********************************
              * Gain Exp for living another day
              **********************************/
-            player.GainExperience(exp);
+            PlayerController.GainExperience(player, exp);
         }
     }
 }

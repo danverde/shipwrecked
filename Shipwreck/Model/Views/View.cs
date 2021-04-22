@@ -1,5 +1,4 @@
 ﻿using System;
-using Shipwreck.Model.Game;
 
 namespace Shipwreck.Model.Views
 {
@@ -11,7 +10,7 @@ namespace Shipwreck.Model.Views
         public void Display()
         {
             var closeView = false;
-            while (closeView == false && (!InGameView || Shipwreck.CurrentGame.Status != GameStatus.Over))
+            while (closeView == false && (!InGameView || Shipwreck.CurrentGame.Status != Game.Game.GameStatus.Over))
             {
                 closeView = true;
                 Console.WriteLine(Message);

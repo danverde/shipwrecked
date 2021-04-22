@@ -20,6 +20,11 @@ namespace Shipwreck.Helpers
             return fileName;
         }
 
+        public static bool ValidFileName(string fileName)
+        {
+            return fileName.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0;
+        } 
+
         public static bool FileExists(string directory, string fileName)
         {
             var existingFileNames = GetFilesInDir(directory);

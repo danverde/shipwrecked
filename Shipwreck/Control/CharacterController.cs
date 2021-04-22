@@ -1,10 +1,16 @@
 ﻿using Shipwreck.Model.Character;
-using Shipwreck.Model.Game;
+using Shipwreck.Model.Map;
 
 namespace Shipwreck.Control
 {
     public static class CharacterController
     {
+        public static void SetLocationCoordinates(Character character, Location location)
+        {
+            character.Row = location.Row;
+            character.Col = location.Col;
+        }
+        
         public static int Attack(Character defendingCharacter, Character attackingCharacter)
         {
             var damageAmount = attackingCharacter.CalculatedAttack - defendingCharacter.CalculatedDefense;
@@ -16,11 +22,16 @@ namespace Shipwreck.Control
             defendingCharacter.Health -= damageAmount;
             return damageAmount;
         }
-
-        public static void KillPlayer(Player player, Game game)
+        
+        public static void Die(Character character)
         {
-            player.Die();
-            game.EndGame();
+            character.Status = CharacterStatus.Dead;
         }
+
+        // public static void KillCharacter(Character character, Game game)
+        // {
+        //     character.Status == CharacterStatus.Dead;
+        //     game.EndGame();
+        // }
     }
 }

@@ -53,7 +53,7 @@ namespace Shipwreck.Control
             
             // setup game
             game.Player = player;
-            game.Status = GameStatus.Playing;
+            game.Status = Game.GameStatus.Playing;
             game.Fire = new Fire();
             game.Day = new Day();
             game.Map = map;
@@ -68,22 +68,13 @@ namespace Shipwreck.Control
 
         public static bool TrySaveGame(string fileName)
         {
+            if (string.IsNullOrEmpty(fileName)) return false;
+            
             try
             {
-                if (string.IsNullOrEmpty(fileName)) return false;
-
-                // validate name & extension
+                // add extension
                 fileName = FileHelper.AddExtension(fileName, ".json");
-            
-                // check for existing file & ask to override
-                var fileExists = FileHelper.FileExists(Shipwreck.Settings.SavePath, fileName);
-                if (fileExists)
-                {
-                    var overwrite = ViewHelpers.OverwriteFileName(fileName);
-                    // TODO view reports an error when overwrite is false
-                    if (!overwrite) return false;
-                }
-
+                
                 // save filename to game
                 Shipwreck.CurrentGame.SaveFileName = fileName;
                 
@@ -97,7 +88,6 @@ namespace Shipwreck.Control
             {
                 return false;
             }
-            
         }
 
         public static bool TryLoadGame(string fileName, out Game game)

@@ -35,4 +35,11 @@ namespace Shipwreck.Model
             InventoryController.AddItem(Inventory, wood, quantity);
         }
     }
+    
+    public enum FireStatus
+    {
+        NotStarted = 0,
+        Burning = 1,
+        Extinguished = 2
+    }
 }

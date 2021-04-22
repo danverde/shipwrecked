@@ -23,12 +23,11 @@ namespace Shipwreck.Model.Game
             GameSettings = FileHelper.LoadJson<GameSettings>(easyGamePath);
         }
         
-        public void EndGame()
+        public enum GameStatus
         {
-            Status = GameStatus.Over;
-            // TODO shouldn't console write line here 
-            Log.Error("The game is over");
+            Over = 0,
+            Setup = 1,
+            Playing = 2,
         }
-
     }
 }

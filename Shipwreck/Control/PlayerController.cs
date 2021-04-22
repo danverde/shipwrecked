@@ -18,5 +18,26 @@ namespace Shipwreck.Control
             // remove item from inventory
             return InventoryController.RemoveItems(player.Inventory, food, quantity);
         }
+        
+        public static void GainExperience(Player player, int experience)
+        {
+            player.Exp += experience;
+            while (player.Exp >= 100)
+            {
+                LevelUp(player);
+                player.Exp -= 100;
+            }
+        }
+        
+        private static void LevelUp(Player player)
+        {
+            var playerSettings = Shipwreck.CurrentGame.GameSettings.Player;
+            
+            player.Level++;
+            player.BaseAttack += playerSettings.AttachGrowth;
+            player.BaseDefense += playerSettings.DefenseGrowth;
+            player.MaxHealth += playerSettings.HealthGrowth;
+            player.Health += playerSettings.HealthGrowth;
+        }
     }
 }
