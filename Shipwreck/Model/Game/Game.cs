@@ -9,6 +9,7 @@ namespace Shipwreck.Model.Game
         public Day Day { get; set; }
         public Fire Fire { get; set; }
         public GameStatus Status { get; set; }
+        public string StatusDescription { get; set; }
         public Map.Map Map { get; set; }
         public GameSettings GameSettings { get; set; }
         public string SaveFileName { get; set; }
@@ -18,24 +19,14 @@ namespace Shipwreck.Model.Game
             Status = GameStatus.PendingSetup;
         }
 
-        // public Game(GameSettings settings)
-        // {
-        //     if (string.IsNullOrEmpty(settingsPath))
-        //     {
-        //         Status = GameStatus.PendingSetup;
-        //         return;
-        //     }
-        //     
-        //     Status = GameStatus.Setup;
-        //     GameSettings = FileHelper.LoadJson<GameSettings>(settingsPath);
-        // }
-        
         public enum GameStatus
         {
-            Over,
+            // Over,
             PendingSetup,
-            Setup,
             Playing,
+            Lost,
+            Won,
+            Quit,
         }
     }
 }

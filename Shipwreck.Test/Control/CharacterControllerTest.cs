@@ -32,16 +32,18 @@ namespace Shipwreck.Test.Control
         }
         
         [Fact]
-        public void TestDie()
+        public void TestKillCharacter()
         {
             var character = new Character
             {
                 Status = CharacterStatus.Alive
             };
             
-            CharacterController.Die(character);
+            CharacterController.KillCharacter(character);
             
             Assert.Equal(CharacterStatus.Dead, character.Status);
+            
+            // TODO test is lose game called if player is passed in instead of a character
         }
     }
 }

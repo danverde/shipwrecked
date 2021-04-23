@@ -1,38 +1,29 @@
 ﻿using Shipwreck.Model;
 using Shipwreck.View;
 using System;
+using Shipwreck.Model.Character;
 using Shipwreck.Model.Game;
 
 namespace Shipwreck.Control
 {
     public static class GameController
     {
-        public static void WinGame()
+        public static void WinGame(string message = "YOU WON")
         {
-            Shipwreck.CurrentGame.Status = Game.GameStatus.Over;
-            
-            var view = new SimpleView();
-            view.Message = "YOU WON!";
-            view.Display();
+            Shipwreck.CurrentGame.Status = Game.GameStatus.Won;
+            Shipwreck.CurrentGame.StatusDescription = message;
         }
-        public static void LoseGame()
+        
+        public static void LoseGame(string message = "You Died. Sucks to suck")
         {
-            CharacterController.Die(Shipwreck.CurrentGame.Player);
-            Shipwreck.CurrentGame.Status = Game.GameStatus.Over;
-
-            var view = new SimpleView();
-            view.Message = "You Died. Sucks to suck\n GAME OVER";
-            view.Display();
+            Shipwreck.CurrentGame.Status = Game.GameStatus.Lost;
+            Shipwreck.CurrentGame.StatusDescription = message;
         }
 
-        public static void QuitGame()
-        {
-            Shipwreck.CurrentGame.Status = Game.GameStatus.Over;
-            var view = new SimpleView();
-            view.Message = "GAME OVER";
-            view.Display();
-        }
-
+        /* Advance Days *******************************************************
+         * This method can end the game. you HAVE to check the game status after
+         * calling this method and kick out of the game loop if the game ended
+        */
         public static void AdvanceDays(int numDays, bool waiting = false)
         {
             for (var i = 0; i < numDays && Shipwreck.CurrentGame.Status == Game.GameStatus.Playing; i++)
@@ -41,14 +32,6 @@ namespace Shipwreck.Control
             }
         }
         
-        private static void WinGame(string message)
-        {
-            Shipwreck.CurrentGame.Status = Game.GameStatus.Over;
-            var view = new SimpleView();
-            view.Message = message;
-            view.Display();
-        }
-
         private static void AdvanceDay(bool waiting = false)
         {
             var player = Shipwreck.CurrentGame.Player;
@@ -70,7 +53,7 @@ namespace Shipwreck.Control
             // Hunger -> calc before new day starts
             if (Shipwreck.CurrentGame.Player.Hunger <= 0)
             {
-                LoseGame();
+                CharacterController.KillCharacter(player);
                 return;
             }
             

@@ -104,16 +104,18 @@ namespace Shipwreck.View
                     ShowMap();
                     Console.WriteLine();
                     Move();
+                    if (Shipwreck.CurrentGame.Status != Game.GameStatus.Playing) return true;
                     ViewHelpers.Continue();
                     break;
                 case MenuItemType.Explore:
                     ExploreArea();
-                    if (Shipwreck.CurrentGame.Status == Game.GameStatus.Over) return true;
+                    if (Shipwreck.CurrentGame.Status != Game.GameStatus.Playing) return true;
                     ShowMap();
                     ViewHelpers.Continue();
                     break;
                 case MenuItemType.Wait:
                     Wait();
+                    if (Shipwreck.CurrentGame.Status != Game.GameStatus.Playing) return true;
                     ViewHelpers.Continue();
                     break;
                 // case 'F':
@@ -149,7 +151,7 @@ namespace Shipwreck.View
                 {
                     var location = map.Locations[rowIndex, colIndex];
                     var displaySymbol = location.Scene.DisplaySymbol;
-                    if (Shipwreck.CurrentGame.GameSettings.Map.EnableFow && !location.Visited) displaySymbol = " ? ";
+                    if (Shipwreck.CurrentGame.GameSettings.Map.EnableFow && !location.Explored) displaySymbol = " ? ";
                     
                     if (playerLocation == location) displaySymbol = $"X{displaySymbol.Trim()} ";
                         
@@ -173,15 +175,11 @@ namespace Shipwreck.View
                 .Find(coordinate => coordinate.Direction == direction);
             if (newCoordinate == null) return;
             
-            var newLocationVisited = Shipwreck.CurrentGame.Map.Locations[newCoordinate.Row, newCoordinate.Col].Visited;
+            var newLocationVisited = Shipwreck.CurrentGame.Map.Locations[newCoordinate.Row, newCoordinate.Col].Explored;
             
             var success = MapController.TryMove(Shipwreck.CurrentGame.Map, Shipwreck.CurrentGame.Player, direction, out var location);
-            
             // check if the game ended (found town or ran out of hunger) 
-            if (Shipwreck.CurrentGame.Status != Game.GameStatus.Playing)
-            {
-                return;
-            }
+            if (Shipwreck.CurrentGame.Status != Game.GameStatus.Playing) return;
             
             ShowMap();
             
@@ -209,7 +207,7 @@ namespace Shipwreck.View
             Console.ReadKey();
             
             GameController.AdvanceDays(1);
-            if (Shipwreck.CurrentGame.Status == Game.GameStatus.Over) return;
+            if (Shipwreck.CurrentGame.Status != Game.GameStatus.Playing) return;
 
             Log.Success("After a day of exploration, nearby locations are now visible on the map!");
         }

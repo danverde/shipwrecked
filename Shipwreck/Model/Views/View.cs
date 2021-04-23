@@ -10,7 +10,8 @@ namespace Shipwreck.Model.Views
         public void Display()
         {
             var closeView = false;
-            while (closeView == false && (!InGameView || Shipwreck.CurrentGame.Status != Game.Game.GameStatus.Over))
+            
+            while (!closeView)
             {
                 closeView = true;
                 Console.WriteLine(Message);
@@ -19,6 +20,12 @@ namespace Shipwreck.Model.Views
                 {
                     closeView = HandleInput(input);
                 }
+            }
+
+            if (InGameView && Shipwreck.CurrentGame.Status != Game.Game.GameStatus.Playing)
+            {
+                Console.WriteLine(Shipwreck.CurrentGame.StatusDescription);
+                Console.ReadLine();
             }
         }
 

@@ -6,11 +6,11 @@ namespace Shipwreck.Model.Map
     {
         public int Row { get; set; }
         public int Col { get; set; }
-        public bool Visited { get; set; }
+        public bool Explored { get; set; }
         public Scene Scene { get; set; }
         public List<Character.Character> Characters { get; set; }
 
-        public bool IsTraversable => !Visited && Shipwreck.CurrentGame.GameSettings.Map.EnableFow || Scene.Traversable;
+        public bool IsTraversable => !Explored && Shipwreck.CurrentGame.GameSettings.Map.EnableFow || Scene.Traversable;
         
     }
 }

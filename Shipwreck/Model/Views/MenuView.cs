@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Sharprompt;
 
@@ -13,7 +14,8 @@ namespace Shipwreck.Model.Views
         public void Display()
         {
             var closeView = false;
-            while(closeView == false && (!InGameView || Shipwreck.CurrentGame.Status != Game.Game.GameStatus.Over))
+            
+            while(!closeView)
             {
                 closeView = true;
                 var menuItems = MenuItems.Where(x => x.IsActive()).Select(x => x.DisplayName).ToList();
@@ -24,6 +26,12 @@ namespace Shipwreck.Model.Views
                 {
                     closeView = HandleInput(selectedMenuItem);
                 }
+            }
+            
+            if (InGameView && Shipwreck.CurrentGame.Status != Game.Game.GameStatus.Playing)
+            {
+                Console.WriteLine(Shipwreck.CurrentGame.StatusDescription);
+                Console.ReadLine();
             }
         }
         
