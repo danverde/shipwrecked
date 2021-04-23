@@ -8,10 +8,7 @@ namespace Shipwreck.Test.Fixtures
     {
         public ShipwreckFixture()
         {
-            Shipwreck.Settings = new ShipwreckSettings
-            {
-                EasyGameSettingsPath = ""
-            };
+            Shipwreck.Settings = new ShipwreckSettings();
             
             Shipwreck.CurrentGame = new Game
             {

@@ -42,7 +42,7 @@ namespace Shipwreck.Control
             // move character
             GetCharacterLocation(character).Characters.Remove(character);
             newLocation.Characters.Add(character);
-            CharacterController.SetLocationCoordinates(character, newLocation);
+            CharacterController.SetCharacterLocation(character, newLocation);
             
             // win if necessary
             if (newLocation.Scene.Type == SceneType.Town)
