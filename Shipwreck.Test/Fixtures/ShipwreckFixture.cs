@@ -17,16 +17,7 @@ namespace Shipwreck.Test.Fixtures
             {
                 GameSettings = new GameSettings
                 {
-                    Player = new PlayerSettings
-                    {
-                        BaseExpPerDay = 25,
-                        HungerPerDay = 3,
-                        InitialHunger = 15,
-                        HealthGrowth = 1,
-                        AttackGrowth = 1,
-                        DefenseGrowth = 1,
-                        MaxHunger = 20
-                    }
+                    Player = new PlayerSettings()
                 }
             };
         }

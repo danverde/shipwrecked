@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-using Shipwreck.Helpers;
-using Shipwreck.Model.Character;
+﻿using Shipwreck.Model.Character;
 using Shipwreck.Model.Settings;
 
 namespace Shipwreck.Model.Game
