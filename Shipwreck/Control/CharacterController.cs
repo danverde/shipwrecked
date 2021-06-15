@@ -1,5 +1,4 @@
 ﻿using Shipwreck.Model.Character;
-using Shipwreck.Model.Game;
 using Shipwreck.Model.Map;
 
 namespace Shipwreck.Control

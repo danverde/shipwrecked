@@ -6,7 +6,7 @@ namespace Shipwreck.Model.Game
     public class Game
     {
         public Player Player { get; set; }
-        public Day Day { get; set; }
+        public int Day { get; set; }
         public Fire Fire { get; set; }
         public GameStatus Status { get; set; }
         public string StatusDescription { get; set; }

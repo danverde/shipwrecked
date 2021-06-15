@@ -19,7 +19,7 @@ namespace Shipwreck.Control
             game.Status = Game.GameStatus.Playing;
             Shipwreck.CurrentGame = game;
             
-            new ShowDayView().Display();
+            ViewHelpers.ShowNewDay();
             new GameMenuView().Display();
         }
 
@@ -66,7 +66,7 @@ namespace Shipwreck.Control
             game.Player = player;
             game.Status = Game.GameStatus.Playing;
             game.Fire = new Fire();
-            game.Day = new Day();
+            game.Day = 1;
             game.Map = map;
 
             StartGame(game);

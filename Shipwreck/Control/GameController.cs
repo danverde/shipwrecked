@@ -1,7 +1,5 @@
-﻿using Shipwreck.Model;
-using Shipwreck.View;
-using System;
-using Shipwreck.Model.Character;
+﻿using System;
+using Shipwreck.Helpers;
 using Shipwreck.Model.Game;
 
 namespace Shipwreck.Control
@@ -41,8 +39,8 @@ namespace Shipwreck.Control
             if (player.Hunger < 0) player.Hunger = 0;
             
             // let the player know the next day has started
-            Shipwreck.CurrentGame.Day.Number++;
-            new ShowDayView().Display();
+            Shipwreck.CurrentGame.Day++;
+            ViewHelpers.ShowNewDay();
 
             
             /***************************
@@ -65,15 +63,6 @@ namespace Shipwreck.Control
                                        "\n Good thing they're not picky about how they earn a living...";
                 WinGame(message);
             }
-            
-            
-            /***************************
-             * Other phenomenon
-             ***************************/
-            // Their fire burns
-            FireController.Burn(Shipwreck.CurrentGame.Fire);
-            exp = Shipwreck.CurrentGame.Fire.Status == FireStatus.Burning ? exp + Shipwreck.CurrentGame.GameSettings.Fire.FireExpBoost: exp;
-            
             
             /**********************************
              * Gain Exp for living another day
