@@ -24,7 +24,7 @@ namespace Shipwreck.Helpers
                               // $"\n Weather: {Shipwreck.CurrentGame.Day.Weather.Name}" +
                               $"\n Hunger: {Shipwreck.CurrentGame.Player.Hunger} / {Shipwreck.CurrentGame.Player.HungerLimit}" +
                               "\n---------------------");
-            Continue();
+            Console.ReadKey();
         }
 
         public static void ShowLevelUp()
@@ -37,7 +37,7 @@ namespace Shipwreck.Helpers
                               // + $"\n Base Attack {Shipwreck.CurrentGame.Player.BaseAttack}"
                               // + $"\n Base Defense {Shipwreck.CurrentGame.Player.BaseDefense}"
                               + "\n----------------------------------");
-            Continue();   
+            Console.ReadKey(); 
         }
 
         // public static Item GetInventoryItem(string message)
