@@ -7,6 +7,7 @@ using Shipwreck.Model;
 using Shipwreck.Model.Character;
 using Shipwreck.Model.Game;
 using Shipwreck.Model.Items;
+using Shipwreck.Model.Settings;
 using Shipwreck.View;
 
 namespace Shipwreck.Control
@@ -15,9 +16,10 @@ namespace Shipwreck.Control
     {
         public static void StartGame(Game game)
         {
+            game.Status = Game.GameStatus.Playing;
             Shipwreck.CurrentGame = game;
             
-            new ShowDayView().Display();
+            ViewHelpers.ShowNewDay();
             new GameMenuView().Display();
         }
 
@@ -26,7 +28,15 @@ namespace Shipwreck.Control
             // get character name
             var playerName = MainMenuView.GetPlayerName();
             
-            var game = new Game();
+            // get game settings
+            var easyGameSettingsPath = Path.Combine(Environment.CurrentDirectory, Shipwreck.Settings.EasyGameSettingsPath);
+            var gameSettings = FileHelper.LoadJson<GameSettings>(easyGameSettingsPath);
+            
+            // setup the game
+            var game = new Game
+            {
+                GameSettings = gameSettings
+            };
             
             // setup map
             var map = MapController.LoadMapFromJson(game.GameSettings.Map.MapPath);
@@ -41,6 +51,7 @@ namespace Shipwreck.Control
             {
                 Name = playerName,
                 Hunger = game.GameSettings.Player.InitialHunger,
+                HungerLimit = game.GameSettings.Player.MaxHunger,
                 Row = startingLocation.Row,
                 Col = startingLocation.Col,
                 Inventory = new Inventory
@@ -53,9 +64,9 @@ namespace Shipwreck.Control
             
             // setup game
             game.Player = player;
-            game.Status = GameStatus.Playing;
+            game.Status = Game.GameStatus.Playing;
             game.Fire = new Fire();
-            game.Day = new Day();
+            game.Day = 1;
             game.Map = map;
 
             StartGame(game);
@@ -68,22 +79,13 @@ namespace Shipwreck.Control
 
         public static bool TrySaveGame(string fileName)
         {
+            if (string.IsNullOrEmpty(fileName)) return false;
+            
             try
             {
-                if (string.IsNullOrEmpty(fileName)) return false;
-
-                // validate name & extension
+                // add extension
                 fileName = FileHelper.AddExtension(fileName, ".json");
-            
-                // check for existing file & ask to override
-                var fileExists = FileHelper.FileExists(Shipwreck.Settings.SavePath, fileName);
-                if (fileExists)
-                {
-                    var overwrite = ViewHelpers.OverwriteFileName(fileName);
-                    // TODO view reports an error when overwrite is false
-                    if (!overwrite) return false;
-                }
-
+                
                 // save filename to game
                 Shipwreck.CurrentGame.SaveFileName = fileName;
                 
@@ -97,7 +99,6 @@ namespace Shipwreck.Control
             {
                 return false;
             }
-            
         }
 
         public static bool TryLoadGame(string fileName, out Game game)

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Shipwreck.Helpers;
+using Shipwreck.Model.Character;
+using Shipwreck.Model.Game;
 using Shipwreck.Model.Map;
 
 namespace Shipwreck.Control
@@ -15,39 +17,37 @@ namespace Shipwreck.Control
             return  FileHelper.LoadJson<Map>(map1Path);
         }
 
-        public static Location GetPlayerLocation()
+        public static Location GetCharacterLocation(Character character)
         {
-            var player = Shipwreck.CurrentGame.Player;
-            return Shipwreck.CurrentGame.Map.Locations[player.Row, player.Col];
+            return Shipwreck.CurrentGame.Map.Locations[character.Row, character.Col];
         }
 
-        public static bool TryMove(Direction direction, out Location newLocation)
+        // TODO I can see a try method making sense where you're only doing one thing, but custom exceptions really seem like the right way to go on more complex functions like this
+        public static bool TryMove(Map map, Character character, Direction direction, out Location newLocation)
         {
-            // TODO maybe this ought to take a current location & a new direction?
-            var player = Shipwreck.CurrentGame.Player;
-            var map = Shipwreck.CurrentGame.Map;
             var adjacentLocation =
-                GetAdjacentCoordinates(GetPlayerLocation(), map)
+                GetAdjacentCoordinates(GetCharacterLocation(character), map)
                     .FirstOrDefault(location => location.Direction == direction) ?? new AdjacentCoordinate();
             
             // get the new location safely
-            if (!map.TryGetLocation(adjacentLocation.Row, adjacentLocation.Col, out newLocation)) return false;
+            if (!TryGetLocation(map, adjacentLocation.Row, adjacentLocation.Col, out newLocation)) return false;
 
             // explore the new location
-            newLocation.Visited = true;
+            newLocation.Explored = true;
             
-            // if the explored location isn't traversable, quit
-            if (!newLocation.IsTraversable) return false;
-
             // time passes
             GameController.AdvanceDays(newLocation.Scene.DaysToTraverse);
+            if (Shipwreck.CurrentGame.Status != Game.GameStatus.Playing) return false;
+
+            // if the explored location isn't traversable, quit
+            if (!newLocation.IsTraversable) return false;
             
             // move character
-            GetPlayerLocation().Characters.Remove(player);
-            newLocation.Characters.Add(player);
-            player.SetLocationCoordinates(newLocation);
+            GetCharacterLocation(character).Characters.Remove(character);
+            newLocation.Characters.Add(character);
+            CharacterController.SetCharacterLocation(character, newLocation);
             
-            // win if necessary
+            // win if applicable
             if (newLocation.Scene.Type == SceneType.Town)
             {
                 GameController.WinGame();
@@ -56,14 +56,24 @@ namespace Shipwreck.Control
             return true;
         }
 
-        public static List<Direction> GetValidMovableDirections(Map map)
+        public static List<Direction> GetValidMovableDirections(Map map, Character character)
         {
             var validDirections = new List<Direction>();
-            var adjacentLocations = GetAdjacentCoordinates(GetPlayerLocation(), map);
+            var adjacentLocations = GetAdjacentCoordinates(GetCharacterLocation(character), map);
 
             foreach (var adjacentLocation in adjacentLocations)
             {
-                if (map.TryGetLocation(adjacentLocation.Row, adjacentLocation.Col, out var location) && location.IsTraversable) validDirections.Add(adjacentLocation.Direction);
+                // TODO only check is traversable if it's been visited & FOW is enabled
+                // if (TryGetLocation(map, adjacentLocation.Row, adjacentLocation.Col, out var location) && location.IsTraversable) validDirections.Add(adjacentLocation.Direction);
+                if (!TryGetLocation(map, adjacentLocation.Row, adjacentLocation.Col, out var location))
+                {
+                    continue;
+                }
+
+                if (Shipwreck.CurrentGame.GameSettings.Map.EnableFow && !location.Explored || location.IsTraversable)
+                {
+                    validDirections.Add(adjacentLocation.Direction);
+                }
             }
             
             return validDirections;
@@ -79,7 +89,7 @@ namespace Shipwreck.Control
                 var adjacentCoordinates = GetAdjacentCoordinates(location, map);
                 foreach (var adjacentCoordinate in adjacentCoordinates)
                 {
-                    map.Locations[adjacentCoordinate.Row, adjacentCoordinate.Col].Visited = true;
+                    map.Locations[adjacentCoordinate.Row, adjacentCoordinate.Col].Explored = true;
                 }
             }
             catch (ArgumentOutOfRangeException ex)
@@ -115,6 +125,23 @@ namespace Shipwreck.Control
             }
 
             return coordinates;
+        }
+        
+        private static bool TryGetLocation(Map map, int row, int col, out Location location)
+        {
+            var validLocation = true;
+            location = new Location();
+            try
+            {
+                validLocation = map.Locations[row, col] != null;
+                if (validLocation) location = map.Locations[row, col];
+            }
+            catch (Exception ex)
+            {
+                validLocation = false;
+            }
+
+            return validLocation;
         }
     }
 }

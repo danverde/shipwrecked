@@ -2,7 +2,7 @@
 
 namespace Shipwreck.Model.Factories
 {
-    class ResourceFactory
+    public class ResourceFactory
     {
         public Resource GetResource(ResourceType resourceType)
         {

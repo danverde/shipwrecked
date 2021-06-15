@@ -2,7 +2,7 @@
 
 namespace Shipwreck.Model.Factories
 {
-    class FoodFactory
+    public class FoodFactory
     {
         public Food GetFood(FoodType foodType)
         {

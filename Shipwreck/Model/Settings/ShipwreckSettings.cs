@@ -7,7 +7,6 @@ namespace Shipwreck.Model.Settings
     {
         public string PartialSavePath { get; set; }
         public string EasyGameSettingsPath { get; set; }
-
         public string SavePath =>
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), PartialSavePath);
     }

@@ -220,6 +220,7 @@ namespace Shipwreck.View
             var promptItems = foodInInventory.Select(itemRecord => itemRecord.InventoryItem.Name).ToList();
             promptItems.Add("Exit");
             
+            // determine item to eat
             var itemToEatName = Prompt.Select("Which item would you like to eat?", promptItems);
             if (itemToEatName == "Exit") return;
 
@@ -229,21 +230,29 @@ namespace Shipwreck.View
             if (itemToEatRecord.InventoryItem.Droppable == false)
             {
                 Log.Warning($"You can't eat your {itemToEatName}");
+                return;
+            }
+            
+            // get quantity
+            var quantity =
+                Prompt.Input<int>(
+                    $"You have {itemToEatRecord.Quantity} {itemToEatName}(s). How many would you like to eat?", 0,
+                    new[] {CustomValidators.IsLessOrEqualTo(itemToEatRecord.Quantity)});
+            if (quantity == 0) return;
+
+            var previousHealth = player.Health;
+            var previousHunger = player.Hunger;
+
+            // remove item from inventory & update player if successful
+            if (InventoryController.TryRemoveItems(player.Inventory, itemToEatRecord.InventoryItem, quantity))
+            {
+                PlayerController.Eat(player, (Food) itemToEatRecord.InventoryItem, quantity);
+                Log.Success("Delicious!");
+                Log.Info($"Health +{player.Health - previousHealth} \nHunger +{player.Hunger - previousHunger}\n");
             }
             else
             {
-                var quantity = ViewHelpers.GetQuantity($"You have {itemToEatRecord.Quantity} {itemToEatName}(s). How many would you like to eat?",
-                    itemToEatRecord.Quantity);
-
-                if (quantity == 0) return;
-
-                var previousHealth = player.Health;
-                var previousHunger = player.Hunger;
-                
-                PlayerController.Eat((Food) itemToEatRecord.InventoryItem, quantity);
-
-                Log.Success("Delicious!");
-                Log.Info($"Health +{player.Health - previousHealth} \nHunger +{player.Hunger - previousHunger}\n");
+                Log.Warning($"Unable to Eat {itemToEatName}");
             }
         }
 

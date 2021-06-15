@@ -4,7 +4,6 @@ using System.Text;
 using Sharprompt;
 using Shipwreck.Control;
 using Shipwreck.Helpers;
-using Shipwreck.Model.Character;
 using Shipwreck.Model.Game;
 using Shipwreck.Model.Views;
 
@@ -75,7 +74,7 @@ namespace Shipwreck.View
             // Console.WriteLine($" level: {player.Level}");
             // Console.WriteLine($" Exp: {player.Exp} / 100");
             // Console.WriteLine($" Heath: {player.Health} / {player.MaxHealth}");
-            Console.WriteLine($" Hunger: {player.Hunger} / {Player.HungerLimit}");
+            Console.WriteLine($" Hunger: {player.Hunger} / {player.HungerLimit}");
             // Console.WriteLine($" Base Attack: {player.BaseAttack}");
             // Console.WriteLine($" Base Defense: {player.BaseDefense}");
             Console.WriteLine("-------------------------");
@@ -105,16 +104,18 @@ namespace Shipwreck.View
                     ShowMap();
                     Console.WriteLine();
                     Move();
+                    if (Shipwreck.CurrentGame.Status != Game.GameStatus.Playing) return true;
                     ViewHelpers.Continue();
                     break;
                 case MenuItemType.Explore:
                     ExploreArea();
-                    if (Shipwreck.CurrentGame.Status == GameStatus.Over) return true;
+                    if (Shipwreck.CurrentGame.Status != Game.GameStatus.Playing) return true;
                     ShowMap();
                     ViewHelpers.Continue();
                     break;
                 case MenuItemType.Wait:
                     Wait();
+                    if (Shipwreck.CurrentGame.Status != Game.GameStatus.Playing) return true;
                     ViewHelpers.Continue();
                     break;
                 // case 'F':
@@ -144,13 +145,13 @@ namespace Shipwreck.View
             for (var rowIndex = 0; rowIndex < map.NumRows; rowIndex++)
             {
                 var line = new StringBuilder("                             ");
-                var playerLocation = MapController.GetPlayerLocation();
+                var playerLocation = MapController.GetCharacterLocation(Shipwreck.CurrentGame.Player);
                 
                 for (var colIndex = 0; colIndex < map.NumCols; colIndex++)
                 {
                     var location = map.Locations[rowIndex, colIndex];
                     var displaySymbol = location.Scene.DisplaySymbol;
-                    if (Shipwreck.CurrentGame.GameSettings.Map.EnableFow && !location.Visited) displaySymbol = " ? ";
+                    if (Shipwreck.CurrentGame.GameSettings.Map.EnableFow && !location.Explored) displaySymbol = " ? ";
                     
                     if (playerLocation == location) displaySymbol = $"X{displaySymbol.Trim()} ";
                         
@@ -166,30 +167,26 @@ namespace Shipwreck.View
         
         private void Move()
         {
-            var validDirections = MapController.GetValidMovableDirections(Shipwreck.CurrentGame.Map);
+            var player = Shipwreck.CurrentGame.Player;
+            var validDirections = MapController.GetValidMovableDirections(Shipwreck.CurrentGame.Map, player);
             var direction = Prompt.Select("Which direction would you like to travel?", validDirections);
             
-            var newCoordinate = MapController.GetAdjacentCoordinates(MapController.GetPlayerLocation(), Shipwreck.CurrentGame.Map)
+            var newCoordinate = MapController.GetAdjacentCoordinates(MapController.GetCharacterLocation(player), Shipwreck.CurrentGame.Map)
                 .Find(coordinate => coordinate.Direction == direction);
             if (newCoordinate == null) return;
             
-            var newLocationVisited = Shipwreck.CurrentGame.Map.Locations[newCoordinate.Row, newCoordinate.Col].Visited;
+            var newLocationVisited = Shipwreck.CurrentGame.Map.Locations[newCoordinate.Row, newCoordinate.Col].Explored;
             
-            var success = MapController.TryMove(direction, out var location);
-            
+            var success = MapController.TryMove(Shipwreck.CurrentGame.Map, Shipwreck.CurrentGame.Player, direction, out var location);
             // check if the game ended (found town or ran out of hunger) 
-            if (Shipwreck.CurrentGame.Status != GameStatus.Playing)
-            {
-                return;
-            }
+            if (Shipwreck.CurrentGame.Status != Game.GameStatus.Playing) return;
             
             ShowMap();
             
             if (success)
             {
                 var successMsg = $"You successfully moved moved {direction.ToString()}";
-                // TODO I need a try explore method. just b/c FOW is on doesn't mean I just discovered it.
-                // It would also be good to give more details about the new location
+                // TODO give more details about the new location?
                 if (Shipwreck.CurrentGame.GameSettings.Map.EnableFow && !newLocationVisited) successMsg += $" and discovered {location.Scene.Description}";
                 
                 Log.Success(successMsg);
@@ -203,25 +200,42 @@ namespace Shipwreck.View
         private void ExploreArea()
         {
             var map = Shipwreck.CurrentGame.Map;
-            var currentLocation = MapController.GetPlayerLocation();
+            var currentLocation = MapController.GetCharacterLocation(Shipwreck.CurrentGame.Player);
             if (!MapController.TryExploreAdjacentLocations(map, currentLocation)) return;
             
-            Console.WriteLine("\nYou begin searching the nearby area as the sun starts to fade into the horizon");
+            Console.WriteLine("\nAs you search the nearby area the sun begins to fade into the horizon...");
             Console.ReadKey();
             
             GameController.AdvanceDays(1);
-            if (Shipwreck.CurrentGame.Status == GameStatus.Over) return;
+            if (Shipwreck.CurrentGame.Status != Game.GameStatus.Playing) return;
 
-            Log.Success("After a day of exploration, adjacent locations on the map are now visible!");
+            Log.Success("After a day of exploration, nearby locations are now visible on the map!");
         }
         
         private void SaveGame()
         {
+            // get filename
             var fileName = Prompt.Input<string>("File Name", Shipwreck.CurrentGame.SaveFileName);
-            if (string.IsNullOrEmpty(fileName)) return;
-            
-            var success = ShipwreckController.TrySaveGame(fileName);
 
+            // validate filename
+            if (string.IsNullOrEmpty(fileName)) return;
+            if (!FileHelper.ValidFileName(fileName))
+            {
+                Console.WriteLine("Invalid file name");
+                return;
+            }
+            
+            // check for duplicates & ask to override
+            var fileExists = FileHelper.FileExists(Shipwreck.Settings.SavePath, fileName);
+            if (fileExists)
+            {
+                var overwrite = fileName == Shipwreck.CurrentGame.SaveFileName ||
+                                Prompt.Confirm($"{fileName} already exists. Would you like to overwrite it?", true);
+                if (!overwrite) return;
+            }
+            
+            // save file
+            var success = ShipwreckController.TrySaveGame(fileName);
             if (success)
             {
                 Log.Success("Your game was successfully saved");
@@ -234,7 +248,7 @@ namespace Shipwreck.View
 
         private void Wait()
         {
-            var numDays = Prompt.Input<int>("How many days would you like to wait for?", 0);
+            var numDays = Prompt.Input<int>("How many days would you like to wait for?", 0, new[] {CustomValidators.IsGreaterOrEqualTo(0)});
             if (numDays == 0) return;
             
             GameController.AdvanceDays(numDays, true);

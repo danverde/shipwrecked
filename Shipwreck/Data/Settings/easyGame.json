@@ -10,7 +10,8 @@
     "InitialHunger": 15,
     "HealthGrowth": 1,
     "AttackGrowth": 1,
-    "DefenseGrowth": 1
+    "DefenseGrowth": 1,
+    "MaxHunger": 20
   },
   "Fire": {
     "woodBurnPerDay": 2,
