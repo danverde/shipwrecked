@@ -2,13 +2,13 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="JsonSubTypes" Version="1.8.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="Sharprompt" Version="2.1.2" />
+    <PackageReference Include="Sharprompt" Version="2.3.5" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,5 +1,5 @@
 using System;
-using Sharprompt.Validations;
+using System.ComponentModel.DataAnnotations;
 
 namespace Shipwreck.Helpers
 {

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Sharprompt;
-using Sharprompt.Validations;
 using Shipwreck.Control;
 using Shipwreck.Helpers;
 using Shipwreck.Model.Views;
